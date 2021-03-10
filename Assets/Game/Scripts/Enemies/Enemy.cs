@@ -74,13 +74,11 @@ public class Enemy : InGameObject
     public void StartListenToEvent()
     {
         EventManager.AddListener(GameEvent.DETERMINE_CHAR, DetermineCharacter);
-        EventManager.AddListener(GameEvent.DESPAWN_ENEMY, Despawn);
     }
 
     public void StopListenToEvent()
     {
         EventManager.RemoveListener(GameEvent.DETERMINE_CHAR, DetermineCharacter);
-        EventManager.RemoveListener(GameEvent.DESPAWN_ENEMY, Despawn);
     }
 
     void Update()
@@ -97,7 +95,7 @@ public class Enemy : InGameObject
         m_PatrolTimeMax = 2f;
 
         m_CatchTime = 0f;
-        m_CatchTimeMax = 1.5f;
+        m_CatchTimeMax = 1.2f;
 
         m_RangeCatch = 2f;
         m_RangeAngle = 90f;
@@ -155,11 +153,11 @@ public class Enemy : InGameObject
 
     public bool CanSeePlayer()
     {
-        if (Helper.InRange(tf_ViewPoint.position, m_Char.tf_Owner.position, m_RangeCatch + 1f))
+        if (Helper.InRange(tf_ViewPoint.position, m_Char.tf_Owner.position, m_RangeCatch + 1.5f))
         {
             Vector3 dirToPlayer = (m_Char.tf_Owner.position - tf_ViewPoint.position).normalized;
             float angleBetweenGuardAndPlayer = Vector3.Angle(tf_ViewPoint.forward, dirToPlayer);
-            if (angleBetweenGuardAndPlayer < m_RangeAngle / 2f)
+            if (angleBetweenGuardAndPlayer < m_RangeAngle / 2.3f)
             {
                 if (!Physics.Linecast(tf_ViewPoint.position, m_Char.tf_Owner.position, viewMask))
                 {
@@ -197,15 +195,25 @@ public class Enemy : InGameObject
         m_IdleTime = 0f;
         m_EnemyState = EnemyState.IDLE;
         anim_Owner.SetTrigger(ConfigKeys.e_Idle);
+        // SetDestination(tf_Owner.position);
+        Debug.Log("OnIdleEnter");
     }
 
     public void OnIdleExecute()
     {
+        if (m_Char.m_CharState == CharState.WIN || m_Char.m_CharState == CharState.DIE)
+        {
+            SetDestination(tf_Owner.position);
+            return;
+        }
+
         if (Helper.InRange(tf_Owner.position, m_Char.tf_Owner.position, m_RangeChase)) //CHASING
         {
             ChangeState(E_ChaseState.Instance);
             return;
         }
+
+        SetDestination(tf_Owner.position);
 
         m_IdleTime += Time.deltaTime;
 
@@ -236,6 +244,8 @@ public class Enemy : InGameObject
         // StartCoroutine(Patrol);
 
         // StartCoroutine(TurnToFace());
+
+        Debug.Log("OnPatrolEnter");
     }
 
     public void OnPatrolExecute()
@@ -251,7 +261,6 @@ public class Enemy : InGameObject
         if (m_PatrolTime > m_PatrolTimeMax)
         {
             // nav_Agent.isStopped = true;
-            SetDestination(tf_Owner.position);
             ChangeState(E_IdleState.Instance);
         }
     }
@@ -273,10 +282,18 @@ public class Enemy : InGameObject
         m_CatchTime = 0f;
 
         anim_Owner.SetTrigger(ConfigKeys.e_Run);
+
+        Debug.Log("OnChaseEnter");
     }
 
     public void OnChaseExecute()
     {
+        if (m_Char.m_CharState == CharState.WIN || m_Char.m_CharState == CharState.DIE)
+        {
+            SetDestination(tf_Owner.position);
+            return;
+        }
+
         if (!Helper.InRange(tf_Owner.position, m_Char.tf_Owner.position, m_RangeChase)) //CHASING
         {
             ChangeState(E_IdleState.Instance);

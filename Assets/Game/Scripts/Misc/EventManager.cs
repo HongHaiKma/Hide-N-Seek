@@ -82,5 +82,4 @@ public enum GameEvent
     CHAR_SPOTTED = 0,
     CHAR_WIN = 1,
     DETERMINE_CHAR = 2,
-    DESPAWN_ENEMY = 4
 }

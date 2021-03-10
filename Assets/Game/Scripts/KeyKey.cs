@@ -27,7 +27,6 @@ public class KeyKey : InGameObject
                 gameObject.SetActive(false);
                 m_KeyNo++;
                 InGameObjectsManager.Instance.m_Map.SpawnKey(m_KeyNo);
-                Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAA");
             }
         }
     }

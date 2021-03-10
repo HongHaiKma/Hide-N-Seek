@@ -94,8 +94,8 @@ public class Character : InGameObject
         {
             if (obj.m_ObjectType == ObjectType.DOOR)
             {
-                ChangeState(P_WinState.Instance);
                 Disable();
+                ChangeState(P_WinState.Instance);
                 EventManager.CallEvent(GameEvent.CHAR_WIN);
             }
         }
@@ -137,6 +137,8 @@ public class Character : InGameObject
 
         anim_Owner.SetTrigger(ConfigKeys.p_Idle);
         m_CharState = CharState.IDLE;
+
+        Debug.Log("OnIdleEnter");
     }
 
     public virtual void OnIdleExecute()
@@ -177,6 +179,8 @@ public class Character : InGameObject
 
         anim_Owner.SetTrigger(ConfigKeys.p_Run);
         m_CharState = CharState.RUN;
+
+        Debug.Log("OnRunEnter");
     }
 
     public float factor;

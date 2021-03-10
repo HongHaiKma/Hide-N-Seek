@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameUI : MonoBehaviour
 {
-
     public GameObject gameLoseUI;
     public GameObject gameWinUI;
     bool gameIsOver;
