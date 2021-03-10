@@ -33,7 +33,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
             Destroy(m_Char.gameObject);
         }
 
-        string name = "Maps/Level3";
+        string name = "Maps/Map3";
         GameObject go = Resources.Load<GameObject>(name);
         GameObject map = Instantiate(go, Vector3.zero, Quaternion.identity);
         MapController mapControl = map.GetComponent<MapController>();

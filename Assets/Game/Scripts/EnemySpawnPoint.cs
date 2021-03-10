@@ -10,6 +10,5 @@ public class EnemySpawnPoint : SpawnPoint
     {
         Enemy enemy = PrefabManager.Instance.SpawnEnemyPool(m_EnemyKeys.ToString(), tf_Owner.position).GetComponent<Enemy>();
         InGameObjectsManager.Instance.m_Enemies.Add(enemy);
-        Debug.Log("EnemySpawnPoint: " + gameObject.name);
     }
 }

@@ -92,7 +92,6 @@ public class PrefabManager : Singleton<PrefabManager>
 
     public GameObject SpawnEnemyPool(string name, Vector3 pos)
     {
-        Debug.Log("SpawnEnemyPool");
         if (SimplePool.IsHasPool(name))
         {
             GameObject go = SimplePool.Spawn(name, pos, Quaternion.identity);
