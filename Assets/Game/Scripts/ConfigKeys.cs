@@ -33,4 +33,7 @@ public enum EnemyKeys
     Enemy1 = 0,
     Enemy2,
     Enemy3,
+    Enemy4,
+    Enemy5,
+    Enemy6
 }

@@ -157,7 +157,7 @@ public class Enemy : InGameObject
         {
             Vector3 dirToPlayer = (m_Char.tf_Owner.position - tf_ViewPoint.position).normalized;
             float angleBetweenGuardAndPlayer = Vector3.Angle(tf_ViewPoint.forward, dirToPlayer);
-            if (angleBetweenGuardAndPlayer < m_RangeAngle / 2.3f)
+            if (angleBetweenGuardAndPlayer < m_RangeAngle / 2.4f)
             {
                 if (!Physics.Linecast(tf_ViewPoint.position, m_Char.tf_Owner.position, viewMask))
                 {
@@ -196,7 +196,6 @@ public class Enemy : InGameObject
         m_EnemyState = EnemyState.IDLE;
         anim_Owner.SetTrigger(ConfigKeys.e_Idle);
         // SetDestination(tf_Owner.position);
-        Debug.Log("OnIdleEnter");
     }
 
     public void OnIdleExecute()
@@ -300,7 +299,6 @@ public class Enemy : InGameObject
             return;
         }
 
-        // if (m_Player.rb_Owner.velocity.magnitude > 0f)
         if (m_Char.IsRunning())
         {
             SetDestination(m_Char.tf_Owner.position);

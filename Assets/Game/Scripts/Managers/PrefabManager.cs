@@ -44,6 +44,10 @@ public class PrefabManager : Singleton<PrefabManager>
         CreatePool(enemy2, GetEnemyPrefabByName(enemy2), 2);
         string enemy3 = EnemyKeys.Enemy3.ToString();
         CreatePool(enemy3, GetEnemyPrefabByName(enemy3), 2);
+        string enemy4 = EnemyKeys.Enemy4.ToString();
+        CreatePool(enemy4, GetEnemyPrefabByName(enemy4), 2);
+        string enemy5 = EnemyKeys.Enemy5.ToString();
+        CreatePool(enemy5, GetEnemyPrefabByName(enemy5), 2);
     }
 
     public void CreatePool(string name, GameObject prefab, int amount)
