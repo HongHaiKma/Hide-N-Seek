@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MapController : MonoBehaviour
 {
@@ -8,6 +9,13 @@ public class MapController : MonoBehaviour
     public Door m_Door;
 
     public List<SpawnPoint> m_SpawnPoints;
+
+    public NavMeshSurface nav_Surface;
+
+    private void Awake()
+    {
+        nav_Surface.BuildNavMesh();
+    }
 
     public void SetupMap()
     {
