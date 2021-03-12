@@ -3370,7 +3370,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   m_UseGeometry: 1
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
@@ -3398,6 +3398,7 @@ MonoBehaviour:
   m_Door: {fileID: 7750794127649978905}
   m_SpawnPoints:
   - {fileID: 5791940445329971718}
+  - {fileID: 2773026408741356654}
 --- !u!1 &5602541667846925732
 GameObject:
   m_ObjectHideFlags: 0
@@ -3468,7 +3469,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5602541668621697607}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.5, y: 0, z: 33.6}
+  m_LocalPosition: {x: -26.6, y: 0, z: 37.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1063389865976175311}
@@ -3487,7 +3488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tf_Owner: {fileID: 5602541668621697604}
-  m_EnemyKeys: 3
+  m_EnemyKeys: 4
 --- !u!1 &5602541669122261173
 GameObject:
   m_ObjectHideFlags: 0
@@ -6028,7 +6029,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 66.5, z: -2.4}
   m_Axis: {x: 0, y: 90, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -3.046, y: 0.95724136, z: 4.028}
+  m_ConnectedAnchor: {x: -5.6200004, y: 0.95724136, z: 2.036}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -6042,7 +6043,7 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: -90
-    max: 0
+    max: 106.66217
     bounciness: 0
     bounceMinVelocity: 0
     contactDistance: 0

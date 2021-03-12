@@ -43,6 +43,8 @@ public class Character : InGameObject
         m_StateMachine.Init(P_IdleState.Instance);
 
         StartListenToEvent();
+        // Rigidbody rb;
+        // rb.centerOfMass
     }
 
     private void OnDisable()
