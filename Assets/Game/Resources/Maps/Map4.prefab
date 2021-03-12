@@ -3346,7 +3346,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.13333334
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 754f2a3b50327e14789ae1841ae3d7e6, type: 2}
 --- !u!114 &5571549012594437754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3365,7 +3365,6 @@ MonoBehaviour:
   m_Door: {fileID: 7750794127649978905}
   m_SpawnPoints:
   - {fileID: 5791940445329971718}
-  - {fileID: 2773026408741356654}
   nav_Surface: {fileID: 5571549012594437755}
 --- !u!1 &5602541667846925732
 GameObject:
@@ -5985,10 +5984,10 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: -90
-    max: 106.66217
+    max: -0.044238374
     bounciness: 0
     bounceMinVelocity: 0
-    contactDistance: 0
+    contactDistance: 3.4028233e+38
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
@@ -6049,9 +6048,9 @@ Rigidbody:
   m_AngularDrag: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &3659187955455071479
 BoxCollider:
   m_ObjectHideFlags: 0
