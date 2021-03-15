@@ -17,11 +17,18 @@ public class MapController : MonoBehaviour
     //     nav_Surface.BuildNavMesh();
     // }
 
-    // private void OnEnable()
-    // {
-    //     nav_Surface.UpdateNavMesh(nav_Surface.navMeshData);
-    //     Debug.Log("NavMesh Build");
-    // }
+    private void OnEnable()
+    {
+        // if (nav_Surface.navMeshData == null)
+        // {
+        //     nav_Surface.BuildNavMesh();
+        // }
+        // else
+        // {
+        //     nav_Surface.UpdateNavMesh(nav_Surface.navMeshData);
+        // }
+        // Debug.Log("NavMesh Build");
+    }
 
     // private void Update()
     // {
