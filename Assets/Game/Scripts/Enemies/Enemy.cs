@@ -58,7 +58,8 @@ public class Enemy : InGameObject
 
         SetCatchLightAngle(m_RangeAngle);
         SetCatchLightRange(m_RangeCatch + 1f);
-        SetNavStopDist(m_RangeCatch - 1f);
+        // SetNavStopDist(m_RangeCatch - 1f);
+        SetNavStopDist(0.6f);
         SetNavSpd(m_MoveSpd);
         m_CatchColorRange = Color.white;
 
@@ -348,7 +349,6 @@ public class Enemy : InGameObject
     public void Despawn()
     {
         PrefabManager.Instance.DespawnPool(gameObject);
-        Debug.Log("DESPAWNNNNNNNNNNNNNNNNNNNNNNNNN");
     }
 }
 
