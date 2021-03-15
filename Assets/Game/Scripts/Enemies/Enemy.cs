@@ -157,7 +157,7 @@ public class Enemy : InGameObject
         {
             Vector3 dirToPlayer = (m_Char.tf_Owner.position - tf_ViewPoint.position).normalized;
             float angleBetweenGuardAndPlayer = Vector3.Angle(tf_ViewPoint.forward, dirToPlayer);
-            if (angleBetweenGuardAndPlayer < m_RangeAngle / 2.4f)
+            if (angleBetweenGuardAndPlayer < m_RangeAngle / 2f)
             {
                 if (!Physics.Linecast(tf_ViewPoint.position, m_Char.tf_Owner.position, viewMask))
                 {
@@ -239,12 +239,6 @@ public class Enemy : InGameObject
 
         Vector3 newPos = RandomNavSphere(tf_Owner.position, m_PatrolRadius, -1);
         SetDestination(newPos);
-
-        // StartCoroutine(Patrol);
-
-        // StartCoroutine(TurnToFace());
-
-        Debug.Log("OnPatrolEnter");
     }
 
     public void OnPatrolExecute()
@@ -290,6 +284,7 @@ public class Enemy : InGameObject
         if (m_Char.m_CharState == CharState.WIN || m_Char.m_CharState == CharState.DIE)
         {
             SetDestination(tf_Owner.position);
+            Debug.Log("Char win or die");
             return;
         }
 
@@ -299,10 +294,11 @@ public class Enemy : InGameObject
             return;
         }
 
-        if (m_Char.IsRunning())
-        {
-            SetDestination(m_Char.tf_Owner.position);
-        }
+        // if (m_Char.IsRunning())
+        // {
+        SetDestination(m_Char.tf_Owner.position);
+        //     Debug.Log("Char IsRunning");
+        // }
 
         if (CanSeePlayer())
         {
