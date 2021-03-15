@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Game\Scripts\MapController.cs" />
      <Compile Include="Assets\Game\Scripts\Misc\LitJson\JsonData.cs" />
+     <Compile Include="Assets\Game\Prefabs\Characters\TestCollision.cs" />
      <Compile Include="Assets\Game\Scripts\Misc\Singleton.cs" />
      <Compile Include="Assets\Game\Scripts\Characters\StateMachine\P_WinState.cs" />
      <Compile Include="Assets\Game\Scripts\Managers\InGameObjectsManager.cs" />
@@ -75,23 +76,25 @@
      <Compile Include="Assets\Game\Scripts\Misc\LitJson\JsonException.cs" />
      <Compile Include="Assets\Game\Scripts\SpawnPoint.cs" />
      <Compile Include="Assets\Game\Scripts\CamController.cs" />
-     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
      <Compile Include="Assets\Game\Scripts\Enemies\StateMachine\E_PatrolState.cs" />
      <Compile Include="Assets\Game\Scripts\Misc\Helper.cs" />
      <Compile Include="Assets\Game\Scripts\Characters\CheckGround.cs" />
      <Compile Include="Assets\Game\Scripts\Enemies\StateMachine\E_ChaseState.cs" />
      <Compile Include="Assets\Game\Scripts\StateMachine\StateMachine.cs" />
      <Compile Include="Assets\Game\Scripts\EnemySpawnPoint.cs" />
+     <Compile Include="Assets\Game\Resources\DoorInMap.cs" />
      <Compile Include="Assets\Game\Scripts\Characters\StateMachine\P_RunState.cs" />
      <Compile Include="Assets\Game\Scripts\Enemies\StateMachine\E_IdleState.cs" />
      <Compile Include="Assets\Game\Scripts\Managers\PrefabManager.cs" />
      <Compile Include="Assets\Game\Scripts\Managers\ProfileManager.cs" />
      <Compile Include="Assets\Game\Scripts\Enemies\Enemy.cs" />
+     <Compile Include="Assets\Game\Test\TestCube.cs" />
      <Compile Include="Assets\Game\Scripts\GameUI.cs" />
      <Compile Include="Assets\Game\Scripts\Misc\LitJson\JsonMapper.cs" />
      <Compile Include="Assets\Game\Scripts\Misc\SimpleJSON.cs" />
      <Compile Include="Assets\Game\Scripts\ConfigKeys.cs" />
      <Compile Include="Assets\Game\Scripts\Characters\StateMachine\P_DieState.cs" />
+     <Compile Include="Assets\Game\Scripts\Misc\FieldOfView.cs" />
      <None Include="Assets\Toon City\ToonShading\Shaders\URP_CustomToonOutlineRim.shader" />
      <None Include="Assets\Game\Arts\Models\Characters\Char1\anim.txt" />
      <None Include="Assets\Toon City\Documentation\URP_Instructions.txt" />
@@ -374,6 +377,15 @@
  </Reference>
  <Reference Include="UnityEditor.UnityConnectModule">
  <HintPath>D:/Installation/DEV/Unity Versions/2020.2.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
+ </Reference>
+ <Reference Include="DemiLib">
+ <HintPath>D:/Projects/ALo123/Hide-N-Seek/Assets/Plugins/Demigiant/DemiLib/Core/DemiLib.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>D:/Projects/ALo123/Hide-N-Seek/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenPro">
+ <HintPath>D:/Projects/ALo123/Hide-N-Seek/Assets/Plugins/Demigiant/DOTweenPro/DOTweenPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>D:/Installation/DEV/Unity Versions/2020.2.5f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
