@@ -36,6 +36,7 @@ public class Character : InGameObject
     [Header("Test")]
     public float m_AxisX;
     public float m_AxisZ;
+    public Transform tf_RayStartPoint;
 
     private void OnEnable()
     {

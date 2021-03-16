@@ -29,7 +29,7 @@ Transform:
   m_Children:
   - {fileID: 2094889315040404197}
   m_Father: {fileID: 201457052322191486}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &201457052322191362
 GameObject:
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 2348190832732798293}
   m_Layer: 0
   m_Name: Char2 - Boizzz
-  m_TagString: Player
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,6 +63,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8672008343801643329}
+  - {fileID: 8179661409771942016}
   - {fileID: 201457051825809590}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -90,6 +91,7 @@ MonoBehaviour:
   turnSpeed: 8
   m_AxisX: 0
   m_AxisZ: 0
+  tf_RayStartPoint: {fileID: 8179661409771942016}
   factor: 0
 --- !u!136 &201457052322191484
 CapsuleCollider:
@@ -293,6 +295,36 @@ Transform:
   - {fileID: 1639647236431339920}
   m_Father: {fileID: 8141865102884710726}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &896616248110920754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8179661409771942016}
+  m_Layer: 0
+  m_Name: Ray Point
+  m_TagString: Character
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8179661409771942016
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896616248110920754}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 201457052322191486}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &961605579230033285
 GameObject:
@@ -1829,7 +1861,7 @@ GameObject:
   - component: {fileID: 6168053316761358004}
   m_Layer: 0
   m_Name: Character Joint
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

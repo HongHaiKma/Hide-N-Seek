@@ -8,6 +8,7 @@ public class Enemy : InGameObject
     [Header("Components")]
     public NavMeshAgent nav_Agent;
     public StateMachine<Enemy> m_StateMachine;
+    public FieldOfView m_FOV;
 
 
     [Header("Lighting")]
@@ -46,6 +47,7 @@ public class Enemy : InGameObject
 
     [Header("Test")]
     public float m_PatrolRadius;
+    public Transform tf_RayStartPoint;
 
 
     private void OnEnable()
@@ -301,7 +303,8 @@ public class Enemy : InGameObject
         //     Debug.Log("Char IsRunning");
         // }
 
-        if (CanSeePlayer())
+        if (CanSeePlayer() && !IsThroughWall())
+        // if (CanSeePlayer())
         {
             m_CatchTime += Time.deltaTime;
         }
@@ -310,7 +313,8 @@ public class Enemy : InGameObject
             m_CatchTime -= Time.deltaTime;
         }
         m_CatchTime = Mathf.Clamp(m_CatchTime, 0, m_CatchTimeMax);
-        m_CatchLight.color = Color.Lerp(m_CatchColorRange, Color.red, m_CatchTime / m_CatchTimeMax);
+        m_FOV.SetNormalColor(Color.Lerp(m_CatchColorRange, Color.red, m_CatchTime / m_CatchTimeMax));
+        // m_CatchLight.color = Color.Lerp(m_CatchColorRange, Color.red, m_CatchTime / m_CatchTimeMax);
         m_PointLight.color = Color.Lerp(m_CatchColorRange, Color.red, m_CatchTime / m_CatchTimeMax);
 
         if (m_CatchTime >= m_CatchTimeMax)
@@ -319,6 +323,33 @@ public class Enemy : InGameObject
             return;
         }
     }
+
+    public bool IsThroughWall()
+    {
+        RaycastHit hit;
+        Vector3 dir = (m_Char.tf_RayStartPoint.position - tf_RayStartPoint.position).normalized;
+        Debug.DrawRay(tf_RayStartPoint.position, dir * 0.65f, Color.red);
+        if (Physics.Raycast(tf_RayStartPoint.position, dir * 0.65f, out hit, 0.65f))
+        {
+            // if (hit.collider.gameObject.CompareTag("Character"))
+            if (hit.collider.gameObject.CompareTag("Untagged"))
+            {
+                Debug.Log("Untagged");
+                return true;
+            }
+
+            if (hit.collider.gameObject.CompareTag("Character"))
+            {
+                Debug.Log("Character");
+                return false;
+            }
+        }
+
+        Debug.Log("333333333333333333333333333");
+
+        return false;
+    }
+
     public void OnChaseExit()
     {
 
