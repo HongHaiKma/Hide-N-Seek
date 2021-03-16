@@ -54,7 +54,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         GameObject map = Instantiate(go, Vector3.zero, Quaternion.identity);
         MapController mapControl = map.GetComponent<MapController>();
         mapControl.nav_Surface.BuildNavMesh();
-        mapControl.nav_Surface.UpdateNavMesh(mapControl.nav_Surface.navMeshData);
+        // mapControl.nav_Surface.UpdateNavMesh(mapControl.nav_Surface.navMeshData);
         m_Map = mapControl;
         m_Map.SetupMap();
 

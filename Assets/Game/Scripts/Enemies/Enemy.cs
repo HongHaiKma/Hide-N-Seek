@@ -87,6 +87,9 @@ public class Enemy : InGameObject
     void Update()
     {
         m_StateMachine.ExecuteStateUpdate();
+
+        Vector3 dir = (m_Char.tf_RayStartPoint.position - tf_RayStartPoint.position).normalized;
+        Debug.DrawRay(tf_RayStartPoint.position, dir * 5f, Color.red);
     }
 
     private void LoadDataConfig()
@@ -324,28 +327,75 @@ public class Enemy : InGameObject
         }
     }
 
+    // public bool IsThroughWall()
+    // {
+    //     RaycastHit hit;
+    //     Vector3 dir = (m_Char.tf_RayStartPoint.position - tf_RayStartPoint.position).normalized;
+    //     // Debug.DrawRay(tf_RayStartPoint.position, dir * 10f, Color.red);
+    //     if (Physics.Raycast(tf_RayStartPoint.position, dir * 0.65f, out hit, 0.65f))
+    //     {
+    //         // // if (hit.collider.gameObject.CompareTag("Character"))
+    //         if (hit.collider.gameObject.CompareTag("Untagged"))
+    //         {
+    //             Debug.Log("Untagged");
+    //             return true;
+    //         }
+
+    //         if (hit.collider.gameObject.CompareTag("Character"))
+    //         {
+    //             Debug.Log("Character");
+    //             return false;
+    //         }
+
+    //         // InGameObject go = hit.collider.gameObject.GetComponent<InGameObject>();
+
+    //         // if (go != null)
+    //         // {
+    //         //     if (go.m_ObjectType == ObjectType.CHAR)
+    //         //     {
+    //         //         return false;
+    //         //     }
+
+    //         //     return true;
+    //         // }
+    //     }
+
+    //     Debug.Log("333333333333333333333333333");
+
+    //     return false;
+    // }
+
     public bool IsThroughWall()
     {
-        RaycastHit hit;
         Vector3 dir = (m_Char.tf_RayStartPoint.position - tf_RayStartPoint.position).normalized;
-        Debug.DrawRay(tf_RayStartPoint.position, dir * 0.65f, Color.red);
-        if (Physics.Raycast(tf_RayStartPoint.position, dir * 0.65f, out hit, 0.65f))
-        {
-            // if (hit.collider.gameObject.CompareTag("Character"))
-            if (hit.collider.gameObject.CompareTag("Untagged"))
-            {
-                Debug.Log("Untagged");
-                return true;
-            }
+        RaycastHit[] hits = Physics.RaycastAll(tf_RayStartPoint.position, dir, 5f);
 
-            if (hit.collider.gameObject.CompareTag("Character"))
+        int hitCount = hits.Length;
+
+        if (hitCount <= 0)
+        {
+            return false;
+        }
+
+        float distance = Helper.CalDistance(tf_Owner.position, m_Char.tf_Owner.position);
+        List<GameObject> gOs = new List<GameObject>();
+        gOs.Clear();
+
+        for (int i = 0; i < hitCount; i++)
+        {
+            if (!hits[i].collider.gameObject.CompareTag("Character"))
             {
-                Debug.Log("Character");
-                return false;
+                if (Helper.InRange(tf_Owner.position, hits[i].point, distance))
+                {
+                    gOs.Add(hits[i].transform.gameObject);
+                }
             }
         }
 
-        Debug.Log("333333333333333333333333333");
+        if (gOs.Count > 0)
+        {
+            return true;
+        }
 
         return false;
     }

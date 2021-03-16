@@ -36,7 +36,7 @@ public class FieldOfView : MonoBehaviour
     public Color normalColor, DetectColor;
 
 
-    void Start()
+    void OnEnable()
     {
         viewMesh = new Mesh();
         viewMesh.name = "View Mesh";
