@@ -43,7 +43,6 @@ public class FieldOfView : MonoBehaviour
         viewMeshFilter.mesh = viewMesh;
 
         StartCoroutine("FindTargetsWithDelay", .2f);
-        StartCoroutine("FindFakeTargetsWithDelay", .38f);
         //SetMaterial(normalMat);
         SetNormalColor();
     }
@@ -55,15 +54,6 @@ public class FieldOfView : MonoBehaviour
         {
             yield return new WaitForSeconds(delay);
             FindVisibleTargets();
-
-        }
-    }
-    IEnumerator FindFakeTargetsWithDelay(float delay)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(delay);
-            FindFakeVisibleTargets();
 
         }
     }
@@ -94,30 +84,6 @@ public class FieldOfView : MonoBehaviour
         }
 
         lastVisibleCount = visibleTargets.Count;
-
-
-    }
-    void FindFakeVisibleTargets()
-    {
-        visibleFakeTargets.Clear();
-
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
-
-        for (int i = 0; i < targetsInViewRadius.Length; i++)
-        {
-            Transform target = targetsInViewRadius[i].transform;
-            Vector3 dirToTarget = (target.position - transform.position).normalized;
-            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
-            {
-                float dstToTarget = Vector3.Distance(transform.position, target.position);
-                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, noMask))
-                {
-                    visibleFakeTargets.Add(target);
-                }
-            }
-        }
-
-        lastVisibleFakeCount = visibleFakeTargets.Count;
 
 
     }
@@ -262,34 +228,6 @@ public class FieldOfView : MonoBehaviour
         }
     }
 
-
-    //EXTRA
-    public IEnumerator ChangeAngleViewOverTime(float newAngle)
-    {
-        int speed = 100;
-        bool increase = true;
-        if (newAngle < viewDrawingAngle)
-            increase = false;
-        if (increase)
-        {
-            while (newAngle > (viewDrawingAngle))
-            {
-                viewDrawingAngle += (Time.deltaTime * speed * 2);
-                yield return new WaitForEndOfFrame();
-            }
-        }
-        else
-        {
-            while (newAngle < (viewDrawingAngle))
-            {
-                viewDrawingAngle -= (Time.deltaTime * speed);
-                yield return new WaitForEndOfFrame();
-            }
-        }
-
-        viewDrawingAngle = newAngle;
-    }
-
     public void SetMaterial(Material mat)
     {
         fovRenderer.sharedMaterial = mat;
@@ -301,5 +239,10 @@ public class FieldOfView : MonoBehaviour
     public void SetNormalColor()
     {
         normalMat.DOColor(normalColor, 0.25f);
+    }
+
+    public void SetNormalColor(Color _value)
+    {
+        normalMat.DOColor(_value, 0.25f);
     }
 }
