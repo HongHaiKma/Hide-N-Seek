@@ -18,7 +18,7 @@ public class TestTween : MonoBehaviour
 
         // chay thu cai nay di
         tf_Keys.DOKill();
-        tf_Keys.DOMove(tf_Key.position, 0.5f).OnComplete
+        tf_Keys.DOMove(tf_Key.position, 3f).OnComplete
         (
             () => ABC()
         );
