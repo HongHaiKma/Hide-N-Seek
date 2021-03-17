@@ -1863,6 +1863,7 @@ GameObject:
   - component: {fileID: 6349265984110324271}
   - component: {fileID: 6349265984110324267}
   - component: {fileID: 6349265984110324269}
+  - component: {fileID: 6868569951041571892}
   - component: {fileID: 6349265984110324268}
   m_Layer: 0
   m_Name: Enemy4
@@ -1922,6 +1923,42 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6868569951041571892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6349265984110324270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4aef7ab73c54e4dbbef6a9852860c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ObjectType: 1
+  tf_Owner: {fileID: 6349265984110324271}
+  anim_Owner: {fileID: 23594080890571834}
+  nav_Agent: {fileID: 6349265984110324269}
+  m_FOV: {fileID: 2856930870534749791}
+  m_EnemyState: 0
+  m_MoveSpd: 0
+  m_TurnSpd: 0
+  m_CatchTime: 0
+  m_CatchTimeMax: 0
+  m_IdleTime: 0
+  m_IdleTimeMax: 0
+  m_PatrolTime: 0
+  m_PatrolTimeMax: 0
+  tf_ViewPoint: {fileID: 6349265983426914146}
+  m_RangeCatch: 0
+  viewMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_RangeAngle: 0
+  m_RangeChase: 0
+  m_Char: {fileID: 0}
+  m_PatrolRadius: 0
+  tf_RayStartPoint: {fileID: 8724202414830502294}
 --- !u!114 &6349265984110324268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1939,8 +1976,6 @@ MonoBehaviour:
   anim_Owner: {fileID: 23594080890571834}
   nav_Agent: {fileID: 6349265984110324269}
   m_FOV: {fileID: 2856930870534749791}
-  m_CatchLight: {fileID: 6349265983232448605}
-  m_PointLight: {fileID: 6349265984021036366}
   m_EnemyState: 0
   m_MoveSpd: 0
   m_TurnSpd: 0
@@ -2108,6 +2143,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8898253471851681335, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 22300d87bfed5ec4982f9e643b69ab67, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
 --- !u!4 &5739470109667337023 stripped

@@ -11,6 +11,7 @@ public static class ConfigKeys
 
     public static string e_Idle = "Idle";
     public static string e_Run = "Run";
+    public static string e_Catch = "Catch";
 
     #region CHARACTER_PREFAB
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 845044550038497328}
   - component: {fileID: 845044550038497356}
   - component: {fileID: 845044550038497358}
-  - component: {fileID: 845044550038497329}
+  - component: {fileID: 1371264835655116452}
   m_Layer: 0
   m_Name: Enemy3
   m_TagString: Enemy
@@ -70,7 +70,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
---- !u!114 &845044550038497329
+--- !u!114 &1371264835655116452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 845044550038497331}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b991246c0d6b9e4fba8147f765e9af7, type: 3}
+  m_Script: {fileID: 11500000, guid: edb56b7104b70bc4bb458f228f12ac03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_ObjectType: 1
@@ -87,13 +87,11 @@ MonoBehaviour:
   anim_Owner: {fileID: 4906601474495723842}
   nav_Agent: {fileID: 845044550038497358}
   m_FOV: {fileID: 2098060493951877773}
-  m_CatchLight: {fileID: 845044552061976696}
-  m_PointLight: {fileID: 845044552042207556}
   m_EnemyState: 0
   m_MoveSpd: 0
   m_TurnSpd: 0
   m_CatchTime: 0
-  m_CatchTimeMax: 1
+  m_CatchTimeMax: 0
   m_IdleTime: 0
   m_IdleTimeMax: 0
   m_PatrolTime: 0
@@ -1694,6 +1692,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8898253471851681335, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 22300d87bfed5ec4982f9e643b69ab67, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
 --- !u!4 &8439363336070225901 stripped

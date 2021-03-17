@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
 
 public class Enemy : InGameObject
 {
@@ -9,12 +10,6 @@ public class Enemy : InGameObject
     public NavMeshAgent nav_Agent;
     public StateMachine<Enemy> m_StateMachine;
     public FieldOfView m_FOV;
-
-
-    [Header("Lighting")]
-    public Light m_CatchLight;
-    public Light m_PointLight;
-
 
     [Header("Characteristics")]
     public EnemyState m_EnemyState;
@@ -58,12 +53,12 @@ public class Enemy : InGameObject
 
         m_Char = InGameObjectsManager.Instance.m_Char;
 
-        SetCatchLightAngle(m_RangeAngle);
-        SetCatchLightRange(m_RangeCatch + 1f);
         // SetNavStopDist(m_RangeCatch - 1f);
         SetNavStopDist(0.6f);
         SetNavSpd(m_MoveSpd);
+
         m_CatchColorRange = Color.white;
+        m_FOV.SetFieldOfView(m_RangeAngle + 10f);
 
         m_StateMachine = new StateMachine<Enemy>(this);
         m_StateMachine.Init(E_IdleState.Instance);
@@ -104,7 +99,7 @@ public class Enemy : InGameObject
         m_CatchTimeMax = 1.2f;
 
         m_RangeCatch = 2f;
-        m_RangeAngle = 90f;
+        m_RangeAngle = 70f;
         m_RangeChase = 6f;
 
         m_PatrolRadius = 8f;
@@ -132,16 +127,6 @@ public class Enemy : InGameObject
     public void SetNavSpd(float _value)
     {
         nav_Agent.speed = _value;
-    }
-
-    public void SetCatchLightAngle(float _value)
-    {
-        m_CatchLight.spotAngle = _value;
-    }
-
-    public void SetCatchLightRange(float _value)
-    {
-        m_CatchLight.range = _value;
     }
 
     public Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
@@ -196,7 +181,7 @@ public class Enemy : InGameObject
 
     #region Idle
 
-    public void OnIdleEnter()
+    public virtual void OnIdleEnter()
     {
         m_IdleTime = 0f;
         m_EnemyState = EnemyState.IDLE;
@@ -204,7 +189,7 @@ public class Enemy : InGameObject
         // SetDestination(tf_Owner.position);
     }
 
-    public void OnIdleExecute()
+    public virtual void OnIdleExecute()
     {
         if (m_Char.m_CharState == CharState.WIN || m_Char.m_CharState == CharState.DIE)
         {
@@ -228,7 +213,7 @@ public class Enemy : InGameObject
         }
     }
 
-    public void OnIdleExit()
+    public virtual void OnIdleExit()
     {
 
     }
@@ -237,7 +222,7 @@ public class Enemy : InGameObject
 
     #region Patrol
 
-    public void OnPatrolEnter()
+    public virtual void OnPatrolEnter()
     {
         m_PatrolTime = 0f;
         m_EnemyState = EnemyState.PATROL;
@@ -247,7 +232,7 @@ public class Enemy : InGameObject
         SetDestination(newPos);
     }
 
-    public void OnPatrolExecute()
+    public virtual void OnPatrolExecute()
     {
         if (Helper.InRange(tf_Owner.position, m_Char.tf_Owner.position, m_RangeChase)) //CHASING
         {
@@ -264,7 +249,7 @@ public class Enemy : InGameObject
         }
     }
 
-    public void OnPatrolExit()
+    public virtual void OnPatrolExit()
     {
 
     }
@@ -274,23 +259,20 @@ public class Enemy : InGameObject
 
     #region Chase
 
-    public void OnChaseEnter()
+    public virtual void OnChaseEnter()
     {
         SetDestination(m_Char.tf_Owner.position);
         m_EnemyState = EnemyState.CHASE;
         m_CatchTime = 0f;
 
         anim_Owner.SetTrigger(ConfigKeys.e_Run);
-
-        Debug.Log("OnChaseEnter");
     }
 
-    public void OnChaseExecute()
+    public virtual void OnChaseExecute()
     {
         if (m_Char.m_CharState == CharState.WIN || m_Char.m_CharState == CharState.DIE)
         {
             SetDestination(tf_Owner.position);
-            Debug.Log("Char win or die");
             return;
         }
 
@@ -307,9 +289,15 @@ public class Enemy : InGameObject
         // }
 
         if (CanSeePlayer() && !IsThroughWall())
-        // if (CanSeePlayer())
         {
-            m_CatchTime += Time.deltaTime;
+            if (Helper.InRange(tf_Owner.position, m_Char.tf_Owner.position, 1f))
+            {
+                ChangeState(E_CatchState.Instance);
+            }
+            else
+            {
+                m_CatchTime += Time.deltaTime;
+            }
         }
         else
         {
@@ -317,8 +305,6 @@ public class Enemy : InGameObject
         }
         m_CatchTime = Mathf.Clamp(m_CatchTime, 0, m_CatchTimeMax);
         m_FOV.SetNormalColor(Color.Lerp(m_CatchColorRange, Color.red, m_CatchTime / m_CatchTimeMax));
-        // m_CatchLight.color = Color.Lerp(m_CatchColorRange, Color.red, m_CatchTime / m_CatchTimeMax);
-        m_PointLight.color = Color.Lerp(m_CatchColorRange, Color.red, m_CatchTime / m_CatchTimeMax);
 
         if (m_CatchTime >= m_CatchTimeMax)
         {
@@ -400,7 +386,7 @@ public class Enemy : InGameObject
         return false;
     }
 
-    public void OnChaseExit()
+    public virtual void OnChaseExit()
     {
 
     }
@@ -409,16 +395,18 @@ public class Enemy : InGameObject
 
     #region Chase
 
-    public void OnCatchEnter()
+    public virtual void OnCatchEnter()
     {
+        m_EnemyState = EnemyState.CATCH;
+        tf_Owner.DOMove(m_Char.tf_Owner.position, 0.7f);
         EventManager.CallEvent(GameEvent.CHAR_SPOTTED);
     }
 
-    public void OnCatchExecute()
+    public virtual void OnCatchExecute()
     {
 
     }
-    public void OnCatchExit()
+    public virtual void OnCatchExit()
     {
 
     }

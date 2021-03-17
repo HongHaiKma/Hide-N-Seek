@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 2562829179719199467}
   - component: {fileID: 2562829179719199471}
   - component: {fileID: 2562829179719199465}
+  - component: {fileID: 7781186853198268563}
   - component: {fileID: 2562829179719199464}
   m_Layer: 0
   m_Name: Enemy5
@@ -317,6 +318,42 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7781186853198268563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2562829179719199466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c84c27dbc36160245a822cc053ddf433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ObjectType: 1
+  tf_Owner: {fileID: 2562829179719199467}
+  anim_Owner: {fileID: 8430514357707112474}
+  nav_Agent: {fileID: 2562829179719199465}
+  m_FOV: {fileID: 8392993258631327042}
+  m_EnemyState: 0
+  m_MoveSpd: 0
+  m_TurnSpd: 0
+  m_CatchTime: 0
+  m_CatchTimeMax: 0
+  m_IdleTime: 0
+  m_IdleTimeMax: 0
+  m_PatrolTime: 0
+  m_PatrolTimeMax: 0
+  tf_ViewPoint: {fileID: 2562829177968863142}
+  m_RangeCatch: 0
+  viewMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_RangeAngle: 0
+  m_RangeChase: 0
+  m_Char: {fileID: 0}
+  m_PatrolRadius: 0
+  tf_RayStartPoint: {fileID: 2366947410681554398}
 --- !u!114 &2562829179719199464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,8 +371,6 @@ MonoBehaviour:
   anim_Owner: {fileID: 8430514357707112474}
   nav_Agent: {fileID: 2562829179719199465}
   m_FOV: {fileID: 8392993258631327042}
-  m_CatchLight: {fileID: 2562829178315233433}
-  m_PointLight: {fileID: 2562829179640724874}
   m_EnemyState: 0
   m_MoveSpd: 0
   m_TurnSpd: 0
@@ -2702,6 +2737,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6464844633025956335, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: normalColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8898253471851681335, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 22300d87bfed5ec4982f9e643b69ab67, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
 --- !u!4 &2052106770575552546 stripped
