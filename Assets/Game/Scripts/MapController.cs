@@ -12,29 +12,6 @@ public class MapController : MonoBehaviour
 
     public NavMeshSurface nav_Surface;
 
-    // private void Awake()
-    // {
-    //     nav_Surface.BuildNavMesh();
-    // }
-
-    private void OnEnable()
-    {
-        // if (nav_Surface.navMeshData == null)
-        // {
-        //     nav_Surface.BuildNavMesh();
-        // }
-        // else
-        // {
-        //     nav_Surface.UpdateNavMesh(nav_Surface.navMeshData);
-        // }
-        // Debug.Log("NavMesh Build");
-    }
-
-    // private void Update()
-    // {
-    //     nav_Surface.UpdateNavMesh(nav_Surface.navMeshData);
-    // }
-
     public void SetupMap()
     {
         // Instantiate(PrefabManager.Instantiate.);
