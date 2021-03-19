@@ -11,6 +11,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
     [Header("Test")]
     public InputField inputLevel;
+    public InputField inputChar;
 
     private void OnEnable()
     {
