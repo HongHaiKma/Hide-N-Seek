@@ -27,12 +27,12 @@ public class CamController : Singleton<CamController>
 
     public void StartListenToEvent()
     {
-        EventManager.AddListener(GameEvent.DETERMINE_CHAR, DetermineCharacter);
+        EventManager.AddListener(GameEvent.GAME_START, DetermineCharacter);
     }
 
     public void StopListenToEvent()
     {
-        EventManager.RemoveListener(GameEvent.DETERMINE_CHAR, DetermineCharacter);
+        EventManager.RemoveListener(GameEvent.GAME_START, DetermineCharacter);
     }
 
     private void LateUpdate()

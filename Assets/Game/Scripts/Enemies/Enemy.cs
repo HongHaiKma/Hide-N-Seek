@@ -71,12 +71,12 @@ public class Enemy : InGameObject
 
     public void StartListenToEvent()
     {
-        EventManager.AddListener(GameEvent.DETERMINE_CHAR, DetermineCharacter);
+        EventManager.AddListener(GameEvent.GAME_START, DetermineCharacter);
     }
 
     public void StopListenToEvent()
     {
-        EventManager.RemoveListener(GameEvent.DETERMINE_CHAR, DetermineCharacter);
+        EventManager.RemoveListener(GameEvent.GAME_START, DetermineCharacter);
     }
 
     void Update()
@@ -84,7 +84,11 @@ public class Enemy : InGameObject
         m_StateMachine.ExecuteStateUpdate();
 
         Vector3 dir = (m_Char.tf_RayStartPoint.position - tf_RayStartPoint.position).normalized;
-        Debug.DrawRay(tf_RayStartPoint.position, dir * 5f, Color.red);
+
+        // if (Input.GetKeyDown(KeyCode.C))
+        // {
+        //     tf_Owner.LookAt(m_Char.tf_Owner.position);
+        // }
     }
 
     private void LoadDataConfig()
@@ -398,7 +402,9 @@ public class Enemy : InGameObject
     public virtual void OnCatchEnter()
     {
         m_EnemyState = EnemyState.CATCH;
+        tf_Owner.LookAt(m_Char.tf_Owner.position);
         tf_Owner.DOMove(m_Char.tf_Owner.position, 0.7f);
+        anim_Owner.SetTrigger(ConfigKeys.e_Catch);
         EventManager.CallEvent(GameEvent.CHAR_SPOTTED);
     }
 
@@ -406,6 +412,7 @@ public class Enemy : InGameObject
     {
 
     }
+
     public virtual void OnCatchExit()
     {
 

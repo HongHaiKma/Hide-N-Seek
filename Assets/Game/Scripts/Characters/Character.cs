@@ -7,7 +7,6 @@ public class Character : InGameObject
 {
     [Header("Components")]
     public CharacterController cc_Owner;
-    public Transform tf_Target;
 
     [Header("Characteristics")]
     public StateMachine<Character> m_StateMachine;

@@ -116,7 +116,7 @@ public class PrefabManager : Singleton<PrefabManager>
 
     public GameObject SpawnCharacter(Vector3 _pos)
     {
-        return Instantiate(m_CharPrefabs[1], _pos, Quaternion.identity);
+        return Instantiate(m_CharPrefabs[4], _pos, Quaternion.identity);
     }
 
     public void DespawnPool(GameObject go)

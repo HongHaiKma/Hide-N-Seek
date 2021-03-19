@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class KeyKey : InGameObject
 {
@@ -26,7 +27,8 @@ public class KeyKey : InGameObject
             {
                 gameObject.SetActive(false);
                 m_KeyNo++;
-                InGameObjectsManager.Instance.m_Map.SpawnKey(m_KeyNo);
+                EventManagerWithParam<int>.CallEvent(GameEvent.CHAR_CLAIM_KEYKEY, m_KeyNo);
+                // InGameObjectsManager.Instance.m_Map.SpawnKey(m_KeyNo);
             }
         }
     }

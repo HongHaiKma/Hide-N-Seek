@@ -12,6 +12,26 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     [Header("Test")]
     public InputField inputLevel;
 
+    private void OnEnable()
+    {
+        StartListenToEvent();
+    }
+
+    private void OnDisable()
+    {
+        StopListenToEvent();
+    }
+
+    public void StartListenToEvent()
+    {
+        EventManagerWithParam<int>.AddListener(GameEvent.CHAR_CLAIM_KEYKEY, SpawnKey);
+    }
+
+    public void StopListenToEvent()
+    {
+        EventManagerWithParam<int>.RemoveListener(GameEvent.CHAR_CLAIM_KEYKEY, SpawnKey);
+    }
+
     public void DestroyMap()
     {
         if (m_Map != null)
@@ -58,7 +78,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         m_Map = mapControl;
         m_Map.SetupMap();
 
-        EventManager.CallEvent(GameEvent.DETERMINE_CHAR);
+        EventManager.CallEvent(GameEvent.GAME_START);
     }
 
     public void SpawnChar()
@@ -74,6 +94,11 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         }
 
         m_Enemies.Clear();
+    }
+
+    public void SpawnKey(int _value)
+    {
+        m_Map.SpawnKey(_value);
     }
 
     public void TestRelease()
