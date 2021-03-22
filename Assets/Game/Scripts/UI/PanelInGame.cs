@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class PanelInGame : MonoBehaviour
 {
@@ -13,6 +14,17 @@ public class PanelInGame : MonoBehaviour
 
     public GameObject ui_Keys;
     public Text txt_Keys;
+
+    public Button btn_LoadMap;
+
+    [Header("Test")]
+    public InputField inputLevel;
+    public InputField inputChar;
+
+    private void Awake()
+    {
+        GUIManager.Instance.AddClickEvent(btn_LoadMap, ClickLoadMap);
+    }
 
     private void OnEnable()
     {
@@ -29,6 +41,7 @@ public class PanelInGame : MonoBehaviour
         EventManager.AddListener(GameEvent.CHAR_SPOTTED, ShowGameLoseUI);
         EventManager.AddListener(GameEvent.CHAR_WIN, ShowGameWinUI);
         EventManager.AddListener(GameEvent.GAME_START, ShowKeys);
+        EventManager.AddListener(GameEvent.GAME_START, CloseAllPopup);
         EventManagerWithParam<int>.AddListener(GameEvent.CHAR_CLAIM_KEYKEY, UpdateCurrentKey);
     }
 
@@ -37,6 +50,7 @@ public class PanelInGame : MonoBehaviour
         EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, ShowGameLoseUI);
         EventManager.RemoveListener(GameEvent.CHAR_WIN, ShowGameWinUI);
         EventManager.RemoveListener(GameEvent.GAME_START, ShowKeys);
+        EventManager.RemoveListener(GameEvent.GAME_START, CloseAllPopup);
         EventManagerWithParam<int>.RemoveListener(GameEvent.CHAR_CLAIM_KEYKEY, UpdateCurrentKey);
     }
 
@@ -81,6 +95,12 @@ public class PanelInGame : MonoBehaviour
         mySequence.Append(tween);
     }
 
+    public void ClickLoadMap()
+    {
+        Debug.Log("Click load map!!!");
+        InGameObjectsManager.Instance.TestLoadMap3();
+    }
+
     void ShowGameWinUI()
     {
         OnGameOver(gameWinUI);
@@ -89,6 +109,12 @@ public class PanelInGame : MonoBehaviour
     void ShowGameLoseUI()
     {
         OnGameOver(gameLoseUI);
+    }
+
+    public void CloseAllPopup()
+    {
+        gameLoseUI.SetActive(false);
+        gameWinUI.SetActive(false);
     }
 
     void OnGameOver(GameObject gameOverUI)

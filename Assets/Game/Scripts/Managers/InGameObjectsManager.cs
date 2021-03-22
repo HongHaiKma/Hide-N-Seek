@@ -9,10 +9,6 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     public List<Enemy> m_Enemies;
     public MapController m_Map;
 
-    [Header("Test")]
-    public InputField inputLevel;
-    public InputField inputChar;
-
     private void OnEnable()
     {
         StartListenToEvent();
@@ -42,15 +38,12 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         }
     }
 
-    public GameObject aaa;
-    public GameObject bbb;
-
     public void TestLoadMap3()
     {
         // EventManager.CallEvent(GameEvent.DESPAWN_ENEMY);
 
-        aaa.SetActive(false);
-        bbb.SetActive(false);
+        // aaa.SetActive(false);
+        // bbb.SetActive(false);
 
         RemoveEnemies();
 
@@ -68,15 +61,26 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
             // Destroy(m_Char.gameObject);
         }
 
-        string level = inputLevel.text;
+        // PanelInGame panelInGame = FindObjectOfType<PanelInGame>().GetComponent<PanelInGame>();
 
-        string name = "Maps/Map" + level;
+        // string level = panelInGame.inputLevel.text;
+        // string level = inputLevel.text;
+
+        // string name = "Maps/Map" + level;
+        // string name = "Maps/Map1" + level;
+        string name = "Maps/Map1";
         GameObject go = Resources.Load<GameObject>(name);
         GameObject map = Instantiate(go, Vector3.zero, Quaternion.identity);
         MapController mapControl = map.GetComponent<MapController>();
         mapControl.nav_Surface.BuildNavMesh();
         // mapControl.nav_Surface.UpdateNavMesh(mapControl.nav_Surface.navMeshData);
         m_Map = mapControl;
+
+        if (m_Map == null)
+        {
+            Debug.Log("m_Map is null!!!");
+        }
+
         m_Map.SetupMap();
 
         EventManager.CallEvent(GameEvent.GAME_START);
