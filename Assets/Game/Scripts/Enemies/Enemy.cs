@@ -60,7 +60,10 @@ public class Enemy : InGameObject
         m_CatchColorRange = Color.white;
         m_FOV.SetFieldOfView(m_RangeAngle + 10f);
 
-        m_StateMachine = new StateMachine<Enemy>(this);
+        if (m_StateMachine == null)
+        {
+            m_StateMachine = new StateMachine<Enemy>(this);
+        }
         m_StateMachine.Init(E_IdleState.Instance);
     }
 
