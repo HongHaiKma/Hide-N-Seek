@@ -38,7 +38,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         }
     }
 
-    public void TestLoadMap3()
+    public void LoadMap()
     {
         // EventManager.CallEvent(GameEvent.DESPAWN_ENEMY);
 

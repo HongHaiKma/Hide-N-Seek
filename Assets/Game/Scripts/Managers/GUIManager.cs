@@ -111,7 +111,6 @@ public class GUIManager : MonoBehaviour
 
     public void AddClickEvent(Button _bt, UnityAction _callback, bool _isFlip = false)
     {
-        Debug.Log("1111111111111111111111");
         int tx = 1;
         if (_isFlip) tx = -1;
         _bt.onClick.AddListener(() =>
@@ -120,11 +119,6 @@ public class GUIManager : MonoBehaviour
             if (_callback != null)
             {
                 _callback();
-                Debug.Log("Click!!!!");
-            }
-            else
-            {
-                Debug.Log("22222222222");
             }
         });
     }

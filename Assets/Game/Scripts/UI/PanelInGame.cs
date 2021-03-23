@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Events;
 
-public class PanelInGame : MonoBehaviour
+public class PanelInGame : UICanvas
 {
     public GameObject gameLoseUI;
     public GameObject gameWinUI;
@@ -23,6 +23,7 @@ public class PanelInGame : MonoBehaviour
 
     private void Awake()
     {
+        Init();
         GUIManager.Instance.AddClickEvent(btn_LoadMap, ClickLoadMap);
     }
 
@@ -98,7 +99,7 @@ public class PanelInGame : MonoBehaviour
     public void ClickLoadMap()
     {
         Debug.Log("Click load map!!!");
-        InGameObjectsManager.Instance.TestLoadMap3();
+        InGameObjectsManager.Instance.LoadMap();
     }
 
     void ShowGameWinUI()
