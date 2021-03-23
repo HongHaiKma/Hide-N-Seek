@@ -7,12 +7,15 @@ public class CharSpawnPoint : SpawnPoint
 {
     public override void Spawn()
     {
-        string charString = InGameObjectsManager.Instance.inputChar.text;
+        PanelInGame panelInGame = FindObjectOfType<PanelInGame>().GetComponent<PanelInGame>();
+
+        string charString = panelInGame.inputChar.text;
+        // string charString = InGameObjectsManager.Instance.inputChar.text;
         int charIndex = 0;
 
         if (charString != "")
         {
-            charIndex = int.Parse(InGameObjectsManager.Instance.inputChar.text);
+            charIndex = int.Parse(charString);
 
             if (charIndex > 5)
             {

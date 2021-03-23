@@ -1,22 +1,94 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
+    private bool IsChanging;
+    public string m_NextScene;
+
     private void Awake()
     {
-        int maxScreenHeight = 1080;
-        float ratio = (float)Screen.currentResolution.width / (float)Screen.currentResolution.height;
-        if (Screen.currentResolution.height > maxScreenHeight)
-        {
-            Screen.SetResolution(Mathf.RoundToInt(ratio * (float)maxScreenHeight), maxScreenHeight, true);
-        }
         Application.targetFrameRate = 60;
     }
 
     public void TestCreatMap()
     {
 
+    }
+
+    public void ChangeToStartMenu()
+    {
+        Debug.Log("PlayScene");
+        ChangeScene("PlayScene", () =>
+        {
+
+        });
+        //SpineTextureManager.Instance.LoadBackgroundMaterialByName(1);
+    }
+
+    public void ChangeScene(string name, UnityAction _changeSceneCallback = null)
+    {
+        if (IsChanging) return;
+        IsChanging = true;
+        m_NextScene = name;
+        // Time.timeScale = 1;
+        // m_ChangeSceneCallback = _changeSceneCallback;
+        // IngameEntityManager.Instance.ClearMap();
+        // GUIManager.Instance.ClearAllOpenedPanelList();
+        // GUIManager.Instance.ClearAllOpenedPopupList();
+        StartCoroutine(OnChangingScene());
+    }
+
+    IEnumerator OnChangingScene()
+    {
+        // Debug.Log("Start Change " + m_NextScene);
+        // SoundManager.Instance.PauseBGM();
+        // if (m_CurrentSceneName.Contains("MainMenu"))
+        // {
+        // }
+        // if (m_CurrentSceneName.Contains("Level"))
+        // {
+        // }
+        // EventManager.TriggerEvent("StopFire");
+        // Time.timeScale = 1;
+        // if (!m_NextScene.Contains("StartMenu"))
+        // {
+        //     PopupLoading pl = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_LOADING) as PopupLoading;
+        //     if (pl != null)
+        //     {
+        //         pl.Setup();
+        //         GUIManager.Instance.ShowUIPopup(pl);
+        //         yield return Yielders.Get(1);
+        //     }
+        // }
+        AsyncOperation async = SceneManager.LoadSceneAsync(m_NextScene, LoadSceneMode.Single);
+
+        async.allowSceneActivation = false;
+        yield return Yielders.EndOfFrame;
+        // if (m_CurrentSceneName.Contains("Level"))
+        // {
+        //     yield return Yielders.Get(0.5f);
+        // }
+        while (async.progress < 0.9f)
+        {
+            yield return Yielders.EndOfFrame;
+        }
+        SimplePool.Release();
+        Resources.UnloadUnusedAssets();
+        System.GC.Collect();
+        yield return Yielders.Get(0.1f);
+        async.allowSceneActivation = true;
+        IsChanging = false;
+        // if (m_NextScene.Contains("MainScene"))
+        // {
+        //     SoundManager.Instance.PlayBGM(BGMType.INGAME);
+        // }
+        // else
+        // {
+        //     SoundManager.Instance.PlayBGM(BGMType.MENU);
+        // }
     }
 }
