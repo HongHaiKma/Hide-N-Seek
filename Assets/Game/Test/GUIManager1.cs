@@ -5,7 +5,8 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GUIManager : MonoBehaviour
+[DefaultExecutionOrder(-100)]
+public class GUIManager1 : MonoBehaviour
 {
     internal class GUIMap : Dictionary<int, UICanvas>
     {
@@ -29,16 +30,16 @@ public class GUIManager : MonoBehaviour
     public bool IsLongDevice = false;
 
     private UICanvas m_PreviousPopup = null;
+    private UICanvas m_PreviousPanel = null;
     public GameObject m_MainCanvas;
 
     private bool IsHoldBackkey = false;
 
-    private List<UICanvas> m_CurrentOpenedPopup = new List<UICanvas>();
+    public List<UICanvas> m_CurrentOpenedPopup = new List<UICanvas>();
+    public List<UICanvas> m_CurrentOpenedPanel = new List<UICanvas>();
 
-    private List<UICanvas> m_CurrentOpenPanel = new List<UICanvas>();
-
-    private static GUIManager m_Instance;
-    public static GUIManager Instance
+    private static GUIManager1 m_Instance;
+    public static GUIManager1 Instance
     {
         get
         {
@@ -57,7 +58,6 @@ public class GUIManager : MonoBehaviour
             m_Instance = this;
             DontDestroyOnLoad(gameObject);
             this.m_GUIMap = new GUIMap();
-            // this.m_GUIMap = new GUIMap();
             // if (m_SubCanvas != null)
             // {
             //     DontDestroyOnLoad(m_SubCanvas);
@@ -89,19 +89,6 @@ public class GUIManager : MonoBehaviour
         LoadInitScene();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && !IsHoldBackkey)
-        {
-            // if (GameManager.Instance.GetTutorialMode()) return;
-            UICanvas _UICanvas = GUIManager.Instance.GetCurrentPopup();
-            if (_UICanvas != null && !_UICanvas.IsAvoidBackKey)
-            {
-                _UICanvas.OnBack();
-            }
-        }
-    }
-
     public void LoadInitScene()
     {
         StartCoroutine(LoadScreen());
@@ -111,7 +98,8 @@ public class GUIManager : MonoBehaviour
     {
         Debug.Log("Start Load");
         SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
-        async = SceneManager.LoadSceneAsync("InitScene", LoadSceneMode.Single);
+        // async = SceneManager.LoadSceneAsync("InitScene", LoadSceneMode.Single);
+        async = SceneManager.LoadSceneAsync("TestMap", LoadSceneMode.Single);
         async.allowSceneActivation = false;
         //float _loadProgress = 0;
         //while(_loadProgress <= 0.3f) {
@@ -125,6 +113,22 @@ public class GUIManager : MonoBehaviour
         }
 
         async.allowSceneActivation = true;
+
+        FindMainCanvas();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && !IsHoldBackkey)
+        {
+            // if (GameManager.Instance.GetTutorialMode()) return;
+            UICanvas _UICanvas = GUIManager1.Instance.GetCurrentPopup();
+            if (_UICanvas != null && !_UICanvas.IsAvoidBackKey)
+            {
+                Helper.DebugLog("Back keyyyyyyyyyyyyyyyyyyyyyyyy");
+                _UICanvas.OnBack();
+            }
+        }
     }
 
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
@@ -132,18 +136,20 @@ public class GUIManager : MonoBehaviour
         if (!isLoadInitScene)
         {
             isLoadInitScene = true;
-            GameManager.Instance.ChangeToStartMenu();
+            // GameManager.Instance.ChangeToStartMenu();
         }
     }
 
     public void AddClickEvent(Button _bt, UnityAction _callback)
     {
+        Helper.DebugLog("2222222222222222222222");
         _bt.onClick.AddListener(() =>
         {
             // SoundManager.Instance.PlayButtonClick(_bt.transform.position);
             if (_callback != null)
             {
                 _callback();
+                Helper.DebugLog("AddClickEvent");
             }
         });
     }
@@ -156,11 +162,13 @@ public class GUIManager : MonoBehaviour
         if (m_GUIMap.TryGetValue(id, out rUI))
         {
             m_GUIMap[id] = uicanvas;
+            Helper.DebugLog("RegisterUI1");
             //Debug.Log(m_GUIMap.m_ID + " Register overlap " + uicanvas.ID());
         }
         else
         {
             m_GUIMap.Add((int)uicanvas.ID(), uicanvas);
+            Helper.DebugLog("RegisterUI2");
             //Debug.Log(m_GUIMap.m_ID + " Register add " + uicanvas.ID());
         }
     }
@@ -177,10 +185,15 @@ public class GUIManager : MonoBehaviour
 
     public UICanvas GetUICanvasByID(int id)
     {
+        if (m_MainCanvas == null)
+        {
+            FindMainCanvas();
+        }
         UICanvas rUI = null;
         m_GUIMap.TryGetValue(id, out rUI);
         if (rUI == null)
         {
+            Helper.DebugLog("rUI is nulllllllllllllllllllllll");
             string name = GetUIName((UIID)id);
             GameObject go = FindObject(m_MainCanvas, name);
             if (go != null)
@@ -202,6 +215,7 @@ public class GUIManager : MonoBehaviour
         }
         else
         {
+            Helper.DebugLog("rUI is not null");
             return rUI;
         }
     }
@@ -234,12 +248,6 @@ public class GUIManager : MonoBehaviour
         //Debug.Log("AAAA" + popup.ID());
         ShowUIPopup(popup, GetCenterPosition(), isClosePrevious);
     }
-
-    public Vector3 GetCenterPosition()
-    {
-        return m_CenterPos;
-    }
-
     public void ShowUIPopup(UICanvas popup, Vector3 position, bool isClosePreviousPopup = true)
     {
         if (popup == null) return;
@@ -258,6 +266,48 @@ public class GUIManager : MonoBehaviour
             m_CurrentOpenedPopup.Add(popup);
             CleanOpenPopup();
         }
+    }
+    public Vector3 GetCenterPosition()
+    {
+        return m_CenterPos;
+    }
+
+    public void ShowUIPanel(UIID id)
+    {
+        //Debug.Log(id.ToString());
+        UICanvas panel = GetUICanvasByID((int)id);
+        ShowUIPanel(panel, m_MainCanvas.transform.position);
+    }
+    public void ShowUIPanel(UIID id, Vector3 position)
+    {
+        UICanvas panel = GetUICanvasByID((int)id);
+        ShowUIPanel(panel, position);
+    }
+    public void ShowUIPanel(UICanvas panel)
+    {
+        ShowUIPanel(panel, m_MainCanvas.transform.position);
+    }
+    public void ShowUIPanel(UICanvas panel, Vector3 position, bool isLocalPositon = false)
+    {
+        if (panel == null)
+        {
+            //Debug.Log(" NULL");
+            return;
+        }
+        if (m_CurrentOpenedPanel.Count > 0)
+        {
+            m_PreviousPanel = m_CurrentOpenedPanel[m_CurrentOpenedPanel.Count - 1];
+        }
+        panel.ShowPanel();
+
+        Vector3 v = Vector3.zero + new Vector3(0, m_OffsetTop);
+        v.z = 0;
+        panel.RectTransform.localPosition = v;
+        if (!m_CurrentOpenedPanel.Contains(panel))
+        {
+            m_CurrentOpenedPanel.Add(panel);
+        }
+        //Debug.Log(" Complete Show");
     }
 
     public void CleanOpenPopup()
@@ -285,6 +335,9 @@ public class GUIManager : MonoBehaviour
                 break;
             case UIID.POPUP_1:
                 prefabName = "Popup1";
+                break;
+            case UIID.POPUP_11:
+                prefabName = "Popup11";
                 break;
         }
         prefab = GetPopupPrefabByName(prefabName);
