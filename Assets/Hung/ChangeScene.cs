@@ -2,8 +2,8 @@
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-
-public class ChangeScene : Editor {
+public class ChangeScene : Editor
+{
 
     [MenuItem("Scene/Hung Scene")]
     public static void OpenLoading()
@@ -12,14 +12,29 @@ public class ChangeScene : Editor {
     }
 
     [MenuItem("Scene/Game #2")]
-    public static void OpenGame()
+    public static void OpenPlayerScene()
     {
-        OpenScene("Scene");
+        OpenScene("PlayScene");
     }
-    private static void OpenScene (string sceneName) {
-		if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo ()) {
-			EditorSceneManager.OpenScene ("Assets/Game/Scenes/" + sceneName + ".unity");
-		}
-	}
+
+    [MenuItem("Scene/First Scene")]
+    public static void OpenFirstScene()
+    {
+        OpenScene("FirstScene");
+    }
+
+    [MenuItem("Scene/Init Scene")]
+    public static void OpenInitScene()
+    {
+        OpenScene("InitScene");
+    }
+
+    private static void OpenScene(string sceneName)
+    {
+        if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+        {
+            EditorSceneManager.OpenScene("Assets/Game/Scenes/" + sceneName + ".unity");
+        }
+    }
 }
 #endif
