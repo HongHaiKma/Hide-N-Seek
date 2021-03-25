@@ -9,6 +9,8 @@ public enum UIID
     PANEL_INGAME = 0,
     POPUP_1 = 1,
     POPUP_11 = 2,
+    POPUP_WIN = 3,
+    POPUP_LOSE = 4,
 }
 
 public class UICanvas : MonoBehaviour
@@ -36,7 +38,11 @@ public class UICanvas : MonoBehaviour
 
     private void Start()
     {
-        GUIManager1.Instance.AddClickEvent(btn_Close, OnClose);
+        if (btn_Close != null)
+        {
+            GUIManager.Instance.AddClickEvent(btn_Close, OnClose);
+        }
+        // GUIManager.Instance.AddClickEvent(btn_Close, OnClose);
     }
 
     protected void Init(bool isActive = false)
@@ -48,13 +54,13 @@ public class UICanvas : MonoBehaviour
         {
             m_CanvasGroup = gameObject.AddComponent<CanvasGroup>();
         }
-        if (GUIManager1.Instance == null)
+        if (GUIManager.Instance == null)
         {
             StartCoroutine(OnWaitingRegister());
         }
         else
         {
-            GUIManager1.Instance.RegisterUI(this);
+            GUIManager.Instance.RegisterUI(this);
             gameObject.SetActive(isActive);
         }
     }
@@ -69,7 +75,7 @@ public class UICanvas : MonoBehaviour
     public virtual void OnClose()
     {
         if (IsClosing) return;
-        GUIManager1.Instance.HideUIPopup(this, IsAutoRemove, IsOpenPrevious);
+        GUIManager.Instance.HideUIPopup(this, IsAutoRemove, IsOpenPrevious);
         IsClosing = true;
     }
 
@@ -81,7 +87,7 @@ public class UICanvas : MonoBehaviour
     IEnumerator OnWaitingRegister()
     {
         yield return Yielders.EndOfFrame;
-        GUIManager1.Instance.RegisterUI(this);
+        GUIManager.Instance.RegisterUI(this);
         gameObject.SetActive(false);
     }
 

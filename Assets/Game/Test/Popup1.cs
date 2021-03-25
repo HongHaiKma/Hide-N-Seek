@@ -14,6 +14,8 @@ public class Popup1 : UICanvas
         m_ID = UIID.POPUP_1;
         Init();
 
+        Helper.DebugLog("Popup1 Awakeeeeeeeeeeeee");
+
         GUIManager1.Instance.AddClickEvent(btn_Popup11, OpenPopup11);
         GUIManager1.Instance.AddClickEvent(btn_Popup12, OpenPopup12);
     }

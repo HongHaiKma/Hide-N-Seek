@@ -14,7 +14,7 @@ public class ChangeScene : Editor
     [MenuItem("Scene/Game #2")]
     public static void OpenPlayerScene()
     {
-        OpenScene("PlayerScene");
+        OpenScene("PlayScene");
     }
 
     [MenuItem("Scene/First Scene")]

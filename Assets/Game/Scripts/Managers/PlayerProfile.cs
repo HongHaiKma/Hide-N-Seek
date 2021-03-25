@@ -29,7 +29,7 @@ public class PlayerProfile
     public void SaveDataToLocal()
     {
         string piJson = this.ObjectToJsonString();
-        TestLitJson.Instance.SaveDataText(piJson);
+        ProfileManager.Instance.SaveDataText(piJson);
     }
 
     public string ObjectToJsonString()
@@ -42,9 +42,15 @@ public class PlayerProfile
         return JsonMapper.ToObject(_data);
     }
 
+    #region GOLD
     public BigNumber GetGold()
     {
         return m_Gold;
+    }
+
+    public string GetGold(bool a = false)
+    {
+        return (m_Gold + 1).ToString();
     }
 
     public bool IsEnoughGold(BigNumber _value)
@@ -56,6 +62,25 @@ public class PlayerProfile
     {
         m_Gold += _value;
         ic_Gold = m_Gold.ToString();
+        // ProfileManager.Instance.SaveData();
+        SaveDataToLocal();
         // EventManager.TriggerEvent("UpdateGold");
     }
+
+    #endregion
+
+    #region LEVEL
+
+    public void PassLevel()
+    {
+        m_Level++;
+        SaveDataToLocal();
+    }
+
+    public int GetLevel()
+    {
+        return m_Level;
+    }
+
+    #endregion
 }

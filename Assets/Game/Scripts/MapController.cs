@@ -18,7 +18,7 @@ public class MapController : MonoBehaviour
 
         SetupKeysAndDoor();
 
-        SpawnEnemiesAndChar();
+        SpawnChar();
     }
 
     public void SpawnKey(int _value)
@@ -44,9 +44,14 @@ public class MapController : MonoBehaviour
         SpawnKey(KeyKey.m_KeyNo);
     }
 
-    public void SpawnEnemiesAndChar()
+    public void SpawnChar()
     {
-        for (int i = 0; i < m_SpawnPoints.Count; i++)
+        m_SpawnPoints[0].Spawn();
+    }
+
+    public void SpawnEnemies()
+    {
+        for (int i = 1; i < m_SpawnPoints.Count; i++)
         {
             m_SpawnPoints[i].Spawn();
         }
