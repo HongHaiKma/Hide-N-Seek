@@ -11,6 +11,8 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
     private void OnEnable()
     {
+        // LoadMap();
+
         StartListenToEvent();
     }
 
@@ -40,6 +42,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
     public void LoadMap()
     {
+        // Helper.DebugLog("Level game: " + ProfileManager.MyProfile.m_Level);
         // EventManager.CallEvent(GameEvent.DESPAWN_ENEMY);
 
         // aaa.SetActive(false);
@@ -68,8 +71,16 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
         // string name = "Maps/Map" + level;
         // string name = "Maps/Map1" + level;
-        string name = "Maps/Map1";
+        int level = ProfileManager.MyProfile.GetLevel();
+
+        Helper.DebugLog("Level = " + level);
+
+        string name = "Maps/Map" + level.ToString();
         GameObject go = Resources.Load<GameObject>(name);
+        if (go == null)
+        {
+            Helper.DebugLog("map = null");
+        }
         GameObject map = Instantiate(go, Vector3.zero, Quaternion.identity);
         MapController mapControl = map.GetComponent<MapController>();
         mapControl.nav_Surface.BuildNavMesh();
@@ -83,7 +94,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
         m_Map.SetupMap();
 
-        EventManager.CallEvent(GameEvent.GAME_START);
+        // EventManager.CallEvent(GameEvent.GAME_START);
     }
 
     public void SpawnChar()

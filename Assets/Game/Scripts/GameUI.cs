@@ -21,14 +21,14 @@ public class GameUI : MonoBehaviour
 
     public void StartListenToEvent()
     {
-        EventManager.AddListener(GameEvent.CHAR_SPOTTED, ShowGameLoseUI);
-        EventManager.AddListener(GameEvent.CHAR_WIN, ShowGameWinUI);
+        // EventManager.AddListener(GameEvent.CHAR_SPOTTED, ShowGameLoseUI);
+        // EventManager.AddListener(GameEvent.CHAR_WIN, ShowGameWinUI);
     }
 
     public void StopListenToEvent()
     {
-        EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, ShowGameLoseUI);
-        EventManager.RemoveListener(GameEvent.CHAR_WIN, ShowGameWinUI);
+        // EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, ShowGameLoseUI);
+        // EventManager.RemoveListener(GameEvent.CHAR_WIN, ShowGameWinUI);
     }
 
 

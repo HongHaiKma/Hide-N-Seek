@@ -21,10 +21,10 @@ public class GameManager : Singleton<GameManager>
 
     public void ChangeToStartMenu()
     {
-        Debug.Log("PlayScene");
+        // Debug.Log("PlayScene");
         ChangeScene("PlayScene", () =>
         {
-
+            // InGameObjectsManager.Instance.LoadMap();
         });
         //SpineTextureManager.Instance.LoadBackgroundMaterialByName(1);
     }
@@ -39,6 +39,7 @@ public class GameManager : Singleton<GameManager>
         // IngameEntityManager.Instance.ClearMap();
         // GUIManager.Instance.ClearAllOpenedPanelList();
         // GUIManager.Instance.ClearAllOpenedPopupList();
+        InGameObjectsManager.Instance.LoadMap();
         StartCoroutine(OnChangingScene());
     }
 
@@ -82,10 +83,19 @@ public class GameManager : Singleton<GameManager>
         yield return Yielders.Get(0.1f);
         async.allowSceneActivation = true;
         IsChanging = false;
-        // if (m_NextScene.Contains("MainScene"))
-        // {
-        //     SoundManager.Instance.PlayBGM(BGMType.INGAME);
-        // }
+
+
+        if (m_NextScene.Contains("PlayScene"))
+        {
+            // SoundManager.Instance.PlayBGM(BGMType.INGAME);
+            Helper.DebugLog("PlayerScene");
+            // InGameObjectsManager.Instance.LoadMap();
+        }
+
+        yield return Yielders.Get(0.1f);
+        yield return Yielders.EndOfFrame;
+
+        InGameObjectsManager.Instance.LoadMap();
         // else
         // {
         //     SoundManager.Instance.PlayBGM(BGMType.MENU);

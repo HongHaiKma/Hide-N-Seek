@@ -105,7 +105,7 @@ public class TestLitJson : MonoBehaviour
     public void TestDisplayGold()
     {
         // string a = 
-        Helper.DebugLog("Profile Gold: " + MyProfile.GetGold());
-        Helper.DebugLog("Profile Level: " + MyProfile.m_Level);
+        // Helper.DebugLog("Profile Gold: " + MyProfile.GetGold());
+        // Helper.DebugLog("Profile Level: " + MyProfile.m_Level);
     }
 }
