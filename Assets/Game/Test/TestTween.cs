@@ -36,8 +36,8 @@ public class TestTween : MonoBehaviour
         // // mySequence.Append(tf_Cube.DOMoveY(-5, 3).SetEase(Ease.InQuad));
         // mySequence.Append(tf_Cube.DOMoveY(tf_Cube2.position.y, 3f).SetEase(Ease.InOutQuart));
 
-        tf_Cube.DOBlendableMoveBy(new Vector3(3, 0, 0), 2);
-        tf_Cube.DOBlendableMoveBy(new Vector3(0, 3, 0), 1).SetLoops(2, LoopType.Yoyo);
+        // tf_Cube.DOBlendableMoveBy(new Vector3(3, 0, 0), 2);
+        // tf_Cube.DOBlendableMoveBy(new Vector3(0, 3, 0), 1).SetLoops(2, LoopType.Yoyo);
 
         // tf_Cube.DOMoveX(tf_Cube2.position.x, 2).SetEase(Ease.OutQuad);
         // tf_Cube.DOMoveY(tf_Cube2.position.y, 2).SetEase(Ease.InQuad);

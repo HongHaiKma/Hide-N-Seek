@@ -82,5 +82,11 @@ public class PlayerProfile
         return m_Level;
     }
 
+    public void SetLevel(int _level)
+    {
+        m_Level = _level;
+        SaveDataToLocal();
+    }
+
     #endregion
 }

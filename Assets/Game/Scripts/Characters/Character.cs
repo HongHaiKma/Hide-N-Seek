@@ -26,7 +26,7 @@ public class Character : InGameObject
     float smoothMoveVelocity;
     #endregion
 
-    bool disabled;
+    public bool m_DisableMove;
 
     [Header("Slope")]
     private float m_SlopeForce;
@@ -99,13 +99,14 @@ public class Character : InGameObject
                 Disable();
                 ChangeState(P_WinState.Instance);
                 EventManager.CallEvent(GameEvent.CHAR_WIN);
+                GameManager.Instance.m_LevelStart = false;
             }
         }
     }
 
     void Disable()
     {
-        disabled = true;
+        m_DisableMove = true;
         ChangeState(P_IdleState.Instance);
     }
 
@@ -120,7 +121,7 @@ public class Character : InGameObject
 
     public void CheckCanMove()
     {
-        if (disabled)
+        if (m_DisableMove)
         {
             ChangeState(P_DieState.Instance);
             return;
@@ -145,7 +146,10 @@ public class Character : InGameObject
     {
         CheckCanMove();
 
-        m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
+        if (GameManager.Instance.m_LevelStart)
+        {
+            m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
+        }
 
         if (IsRunning())
         {
@@ -171,7 +175,7 @@ public class Character : InGameObject
     {
         CheckCanMove();
 
-        if (!IsRunning() || disabled)
+        if (!IsRunning() || m_DisableMove)
         {
             ChangeState(P_IdleState.Instance);
             return;
@@ -187,7 +191,11 @@ public class Character : InGameObject
     {
         CheckCanMove();
 
-        m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), Physics.gravity.y, CF2Input.GetAxis("Mouse Y")).normalized;
+        if (GameManager.Instance.m_LevelStart)
+        {
+            m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
+        }
+
         m_AxisX = m_MoveInput.x;
         m_AxisZ = m_MoveInput.z;
 
@@ -204,7 +212,7 @@ public class Character : InGameObject
         // }
 
         // cc_Owner.Move(m_MoveInput * Time.fixedDeltaTime * 100f * m_MoveSpd);
-        cc_Owner.Move(m_MoveInput * Time.deltaTime * 50f * m_MoveSpd);
+        cc_Owner.Move(m_MoveInput * Time.deltaTime * 3f * m_MoveSpd);
         tf_Owner.rotation = Quaternion.Euler(Vector3.up * angle);
 
         // rb_Owner.MoveRotation(Quaternion.Euler(Vector3.up * angle));

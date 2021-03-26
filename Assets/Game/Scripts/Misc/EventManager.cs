@@ -80,7 +80,8 @@ public class EventManagerWithParam<T>
 public enum GameEvent
 {
     CHAR_SPOTTED = 0,
-    CHAR_WIN = 1,
-    GAME_START = 2,
-    CHAR_CLAIM_KEYKEY = 3,
+    CHAR_WIN,
+    LEVEL_START,
+    LEVEL_END,
+    CHAR_CLAIM_KEYKEY,
 }

@@ -42,12 +42,6 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
     public void LoadMap()
     {
-        // Helper.DebugLog("Level game: " + ProfileManager.MyProfile.m_Level);
-        // EventManager.CallEvent(GameEvent.DESPAWN_ENEMY);
-
-        // aaa.SetActive(false);
-        // bbb.SetActive(false);
-
         RemoveEnemies();
 
         // SimplePool.Release();
@@ -61,40 +55,45 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
             Destroy(m_Char.gameObject);
             m_Map.nav_Surface.gameObject.SetActive(false);
             Destroy(m_Map.gameObject);
-            // Destroy(m_Char.gameObject);
         }
-
-        // PanelInGame panelInGame = FindObjectOfType<PanelInGame>().GetComponent<PanelInGame>();
-
-        // string level = panelInGame.inputLevel.text;
-        // string level = inputLevel.text;
-
-        // string name = "Maps/Map" + level;
-        // string name = "Maps/Map1" + level;
-        int level = ProfileManager.MyProfile.GetLevel();
-
-        Helper.DebugLog("Level = " + level);
-
+        int level = ProfileManager.GetLevel();
         string name = "Maps/Map" + level.ToString();
         GameObject go = Resources.Load<GameObject>(name);
-        if (go == null)
-        {
-            Helper.DebugLog("map = null");
-        }
         GameObject map = Instantiate(go, Vector3.zero, Quaternion.identity);
         MapController mapControl = map.GetComponent<MapController>();
         mapControl.nav_Surface.BuildNavMesh();
         // mapControl.nav_Surface.UpdateNavMesh(mapControl.nav_Surface.navMeshData);
         m_Map = mapControl;
 
-        if (m_Map == null)
+        m_Map.SetupMap();
+    }
+
+    public void LoadMapCheat(int _level)
+    {
+        RemoveEnemies();
+
+        // SimplePool.Release();
+        // Resources.UnloadUnusedAssets();
+        // System.GC.Collect();
+
+        if (m_Map != null)
         {
-            Debug.Log("m_Map is null!!!");
+            // m_Map.nav_Surface.RemoveData();
+            // m_Map.nav_Surface.gameObject.SetActive(false);
+            Destroy(m_Char.gameObject);
+            m_Map.nav_Surface.gameObject.SetActive(false);
+            Destroy(m_Map.gameObject);
         }
+        ProfileManager.SetLevel(_level);
+        string name = "Maps/Map" + _level.ToString();
+        GameObject go = Resources.Load<GameObject>(name);
+        GameObject map = Instantiate(go, Vector3.zero, Quaternion.identity);
+        MapController mapControl = map.GetComponent<MapController>();
+        mapControl.nav_Surface.BuildNavMesh();
+        // mapControl.nav_Surface.UpdateNavMesh(mapControl.nav_Surface.navMeshData);
+        m_Map = mapControl;
 
         m_Map.SetupMap();
-
-        // EventManager.CallEvent(GameEvent.GAME_START);
     }
 
     public void SpawnChar()

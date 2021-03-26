@@ -18,11 +18,17 @@ public class PanelInGame : MonoBehaviour
     public Button btn_Play;
     public Text txt_TotalGold;
 
-    public GameObject g_Joystick;
-
     [Header("Test")]
     public InputField inputLevel;
     public InputField inputChar;
+
+    [Header("UI GameObjects")]
+    public GameObject g_Setting;
+    public GameObject g_Gold;
+    public GameObject g_Shop;
+    public GameObject g_NoAds;
+    public GameObject g_Play;
+    public GameObject g_Joystick;
 
     private void Awake()
     {
@@ -45,14 +51,13 @@ public class PanelInGame : MonoBehaviour
     public void StartListenToEvent()
     {
         EventManager.AddListener(GameEvent.CHAR_SPOTTED, ShowGameLoseUI);
-        EventManager.AddListener(GameEvent.CHAR_SPOTTED, DisableJoystick);
+        EventManager.AddListener(GameEvent.CHAR_SPOTTED, () => g_Joystick.SetActive(false));
 
         // EventManager.AddListener(GameEvent.CHAR_WIN, ShowGameWinUI);
-        EventManager.AddListener(GameEvent.CHAR_WIN, DisableJoystick);
+        EventManager.AddListener(GameEvent.CHAR_WIN, () => g_Joystick.SetActive(false));
 
-        EventManager.AddListener(GameEvent.GAME_START, ShowKeys);
-        EventManager.AddListener(GameEvent.GAME_START, CloseAllPopup);
-        EventManager.AddListener(GameEvent.GAME_START, EnableJoystick);
+        EventManager.AddListener(GameEvent.LEVEL_START, SetIngame);
+        EventManager.AddListener(GameEvent.LEVEL_END, SetOutGame);
 
         EventManagerWithParam<int>.AddListener(GameEvent.CHAR_CLAIM_KEYKEY, UpdateCurrentKey);
     }
@@ -60,14 +65,13 @@ public class PanelInGame : MonoBehaviour
     public void StopListenToEvent()
     {
         EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, ShowGameLoseUI);
-        EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, DisableJoystick);
+        EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, () => g_Joystick.SetActive(false));
 
         // EventManager.RemoveListener(GameEvent.CHAR_WIN, ShowGameWinUI);
-        EventManager.RemoveListener(GameEvent.CHAR_WIN, DisableJoystick);
+        EventManager.RemoveListener(GameEvent.CHAR_WIN, () => g_Joystick.SetActive(false));
 
-        EventManager.RemoveListener(GameEvent.GAME_START, ShowKeys);
-        EventManager.RemoveListener(GameEvent.GAME_START, CloseAllPopup);
-        EventManager.RemoveListener(GameEvent.GAME_START, EnableJoystick);
+        EventManager.RemoveListener(GameEvent.LEVEL_START, SetIngame);
+        EventManager.RemoveListener(GameEvent.LEVEL_END, SetOutGame);
 
         EventManagerWithParam<int>.RemoveListener(GameEvent.CHAR_CLAIM_KEYKEY, UpdateCurrentKey);
     }
@@ -85,13 +89,35 @@ public class PanelInGame : MonoBehaviour
 
     public void SetIngame()
     {
+        CloseAllPopup();
 
+        g_Setting.SetActive(false);
+        g_Gold.SetActive(false);
+        g_Shop.SetActive(false);
+        g_NoAds.SetActive(false);
+        g_Play.SetActive(false);
+        g_Play.SetActive(false);
+
+        g_Joystick.SetActive(true);
+        ui_Keys.SetActive(true);
+
+        int keys = InGameObjectsManager.Instance.m_Map.m_Keys.Count;
+        txt_Keys.text = 0.ToString() + "/" + keys.ToString();
     }
 
     public void SetOutGame()
     {
-        txt_TotalGold.text = ProfileManager.MyProfile.GetGold().ToString();
-        // InGameObjectsManager.Instance.LoadMap();
+        g_Setting.SetActive(true);
+        g_Gold.SetActive(true);
+        g_Shop.SetActive(true);
+        g_NoAds.SetActive(true);
+        g_Play.SetActive(true);
+        g_Play.SetActive(true);
+
+        g_Joystick.SetActive(false);
+        ui_Keys.SetActive(false);
+
+        txt_TotalGold.text = ProfileManager.GetGold();
     }
 
     public void Restart()
@@ -136,8 +162,10 @@ public class PanelInGame : MonoBehaviour
 
     public void OnPlay()
     {
-        Debug.Log("Click load map!!!");
-        InGameObjectsManager.Instance.LoadMap();
+        EventManager.CallEvent(GameEvent.LEVEL_START);
+        GameManager.Instance.m_LevelStart = true;
+        CamController.Instance.ZoomOutChar();
+        // InGameObjectsManager.Instance.m_Char.m_DisableMove = false;
     }
 
     void ShowGameWinUI()

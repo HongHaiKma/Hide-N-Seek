@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CamController : Singleton<CamController>
 {
     public Transform tf_Owner;
-    public Rigidbody rb_Owner;
     public Character m_Char;
     public float m_SmoothSpd;
     public Vector3 v3_Offset;
@@ -27,12 +27,12 @@ public class CamController : Singleton<CamController>
 
     public void StartListenToEvent()
     {
-        EventManager.AddListener(GameEvent.GAME_START, DetermineCharacter);
+        // EventManager.AddListener(GameEvent.GAME_START, DetermineCharacter);
     }
 
     public void StopListenToEvent()
     {
-        EventManager.RemoveListener(GameEvent.GAME_START, DetermineCharacter);
+        // EventManager.RemoveListener(GameEvent.GAME_START, DetermineCharacter);
     }
 
     private void LateUpdate()
@@ -46,5 +46,24 @@ public class CamController : Singleton<CamController>
     public void DetermineCharacter()
     {
         m_Char = InGameObjectsManager.Instance.m_Char;
+    }
+
+    public void ZoomInChar()
+    {
+        // tf_Owner.DOMove(ConfigManager.Instance.v3_CamZoomInChar, 2f);
+        v3_Offset = Vector3.Lerp(v3_Offset, ConfigManager.Instance.v3_CamZoomInChar, Time.deltaTime);
+    }
+
+    public void ZoomOutChar()
+    {
+        // tf_Owner.DOMove(ConfigManager.Instance.v3_CamZoomOutChar, 2f);
+        float a = 0f;
+        float b = 3f;
+        float c = 3f;
+        while (a < b)
+        {
+            a = Mathf.SmoothDamp(a, a += Time.deltaTime, ref c, 2);
+            v3_Offset = Vector3.Lerp(v3_Offset, ConfigManager.Instance.v3_CamZoomOutChar, a);
+        }
     }
 }

@@ -14,8 +14,6 @@ public class PopupWin : UICanvas
         m_ID = UIID.POPUP_WIN;
         Init();
 
-        Helper.DebugLog("PopupWin Awakeeeeeeeeeeeee");
-
         GUIManager.Instance.AddClickEvent(btn_Claim, OnClaim);
         GUIManager.Instance.AddClickEvent(btn_X3Reward, OnX3Reward);
     }
@@ -24,6 +22,8 @@ public class PopupWin : UICanvas
     {
         OnClose();
         InGameObjectsManager.Instance.LoadMap();
+        CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
+        EventManager.CallEvent(GameEvent.LEVEL_END);
     }
 
     public void OnX3Reward()

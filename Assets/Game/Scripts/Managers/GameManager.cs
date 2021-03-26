@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager>
 {
     private bool IsChanging;
     public string m_NextScene;
+    public bool m_LevelStart = false;
 
     private void Awake()
     {
@@ -39,7 +40,6 @@ public class GameManager : Singleton<GameManager>
         // IngameEntityManager.Instance.ClearMap();
         // GUIManager.Instance.ClearAllOpenedPanelList();
         // GUIManager.Instance.ClearAllOpenedPopupList();
-        InGameObjectsManager.Instance.LoadMap();
         StartCoroutine(OnChangingScene());
     }
 
@@ -96,6 +96,7 @@ public class GameManager : Singleton<GameManager>
         yield return Yielders.EndOfFrame;
 
         InGameObjectsManager.Instance.LoadMap();
+        CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         // else
         // {
         //     SoundManager.Instance.PlayBGM(BGMType.MENU);

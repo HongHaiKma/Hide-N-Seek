@@ -12,6 +12,26 @@ public class MapController : MonoBehaviour
 
     public NavMeshSurface nav_Surface;
 
+    private void OnEnable()
+    {
+        StartListenToEvent();
+    }
+
+    private void OnDisable()
+    {
+        StopListenToEvent();
+    }
+
+    public void StartListenToEvent()
+    {
+        EventManager.AddListener(GameEvent.LEVEL_START, SpawnEnemies);
+    }
+
+    public void StopListenToEvent()
+    {
+        EventManager.RemoveListener(GameEvent.LEVEL_START, SpawnEnemies);
+    }
+
     public void SetupMap()
     {
         // Instantiate(PrefabManager.Instantiate.);

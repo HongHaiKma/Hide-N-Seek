@@ -74,12 +74,12 @@ public class Enemy : InGameObject
 
     public void StartListenToEvent()
     {
-        EventManager.AddListener(GameEvent.GAME_START, DetermineCharacter);
+        EventManager.AddListener(GameEvent.LEVEL_START, DetermineCharacter);
     }
 
     public void StopListenToEvent()
     {
-        EventManager.RemoveListener(GameEvent.GAME_START, DetermineCharacter);
+        EventManager.RemoveListener(GameEvent.LEVEL_START, DetermineCharacter);
     }
 
     void Update()
@@ -409,6 +409,7 @@ public class Enemy : InGameObject
         tf_Owner.DOMove(m_Char.tf_Owner.position, 0.7f);
         anim_Owner.SetTrigger(ConfigKeys.e_Catch);
         EventManager.CallEvent(GameEvent.CHAR_SPOTTED);
+        GameManager.Instance.m_LevelStart = false;
     }
 
     public virtual void OnCatchExecute()

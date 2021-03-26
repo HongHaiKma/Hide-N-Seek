@@ -131,8 +131,26 @@ public class ProfileManager : MonoBehaviour
         // Helper.DebugLog("Profile Level: " + MyProfile.m_Level);
     }
 
+
+
+
     public static void PassLevel()
     {
         MyProfile.PassLevel();
+    }
+
+    public static string GetGold()
+    {
+        return MyProfile.GetGold().ToString();
+    }
+
+    public static int GetLevel()
+    {
+        return MyProfile.GetLevel();
+    }
+
+    public static void SetLevel(int _level)
+    {
+        MyProfile.SetLevel(_level);
     }
 }
