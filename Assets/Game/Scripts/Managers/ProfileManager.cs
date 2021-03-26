@@ -149,6 +149,11 @@ public class ProfileManager : MonoBehaviour
         return MyProfile.GetLevel();
     }
 
+    public static string GetLevel2()
+    {
+        return MyProfile.GetLevel().ToString();
+    }
+
     public static void SetLevel(int _level)
     {
         MyProfile.SetLevel(_level);
