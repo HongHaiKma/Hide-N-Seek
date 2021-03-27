@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 3295718967097565483}
   - component: {fileID: 3295718967097565480}
   - component: {fileID: 3295718967097565481}
+  - component: {fileID: 2771670253810531348}
   m_Layer: 5
   m_Name: PopupLose
   m_TagString: Untagged
@@ -312,6 +313,26 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &2771670253810531348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3295718967097565485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f09e56b38f9c734eaf88fb758f9918e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ID: 4
+  IsOpenPrevious: 1
+  IsAutoRemove: 0
+  IsAvoidBackKey: 1
+  btn_Close: {fileID: 0}
+  btn_Retry: {fileID: 7605336279028846755}
+  btn_Home: {fileID: 4610246973839149535}
+  txt_Level: {fileID: 0}
 --- !u!1 &3636483733272576962
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,7 +766,7 @@ GameObject:
   - component: {fileID: 6649805071514897107}
   - component: {fileID: 4610246973839149535}
   m_Layer: 5
-  m_Name: btn_X3Reward
+  m_Name: btn_Home
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

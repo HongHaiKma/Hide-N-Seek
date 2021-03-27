@@ -84,4 +84,5 @@ public enum GameEvent
     LEVEL_START,
     LEVEL_END,
     CHAR_CLAIM_KEYKEY,
+    LEVEL_PAUSE,
 }

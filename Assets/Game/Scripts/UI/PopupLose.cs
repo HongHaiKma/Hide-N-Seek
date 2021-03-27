@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class PopupLose : UICanvas
 {
     public Button btn_Retry;
-    public Button btn_X3Reward;
-    public Text txt_Level;
+    public Button btn_Home;
 
     private void Awake()
     {
@@ -15,12 +14,7 @@ public class PopupLose : UICanvas
         Init();
 
         GUIManager.Instance.AddClickEvent(btn_Retry, OnRetry);
-        // GUIManager.Instance.AddClickEvent(btn_X3Reward, OnX3Reward);
-    }
-
-    private void OnEnable()
-    {
-        txt_Level.text = "Level " + ProfileManager.GetLevel2();
+        GUIManager.Instance.AddClickEvent(btn_Home, OnHome);
     }
 
     public void OnRetry()
@@ -33,8 +27,11 @@ public class PopupLose : UICanvas
         GameManager.Instance.m_LevelStart = true;
     }
 
-    public void OnX3Reward()
+    public void OnHome()
     {
-
+        OnClose();
+        InGameObjectsManager.Instance.LoadMap();
+        CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
+        EventManager.CallEvent(GameEvent.LEVEL_END);
     }
 }

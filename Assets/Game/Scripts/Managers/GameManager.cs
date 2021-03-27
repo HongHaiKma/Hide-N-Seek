@@ -9,15 +9,45 @@ public class GameManager : Singleton<GameManager>
     private bool IsChanging;
     public string m_NextScene;
     public bool m_LevelStart = false;
+    public bool m_LevelPause = false;
 
     private void Awake()
     {
         Application.targetFrameRate = 60;
     }
 
-    public void TestCreatMap()
+    private void OnEnable()
     {
+        StartListenToEvent();
+    }
 
+    private void OnDisable()
+    {
+        StopListenToEvent();
+    }
+
+    public void StartListenToEvent()
+    {
+        EventManagerWithParam<bool>.AddListener(GameEvent.LEVEL_PAUSE, PauseLevel);
+    }
+
+    public void StopListenToEvent()
+    {
+        EventManagerWithParam<bool>.RemoveListener(GameEvent.LEVEL_PAUSE, PauseLevel);
+    }
+
+    public void PauseLevel(bool _pause)
+    {
+        if (_pause)
+        {
+            Time.timeScale = 0f;
+            m_LevelPause = true;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            m_LevelPause = false;
+        }
     }
 
     public void ChangeToStartMenu()
