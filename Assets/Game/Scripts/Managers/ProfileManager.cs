@@ -158,4 +158,13 @@ public class ProfileManager : MonoBehaviour
     {
         MyProfile.SetLevel(_level);
     }
+
+    #region CHARACTER
+
+    public static int GetSelectedCharacter()
+    {
+        return MyProfile.GetSelectedCharacter();
+    }
+
+    #endregion
 }

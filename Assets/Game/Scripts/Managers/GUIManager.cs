@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-[DefaultExecutionOrder(-100)]
+[DefaultExecutionOrder(-90)]
 public class GUIManager : MonoBehaviour
 {
     internal class GUIMap : Dictionary<int, UICanvas>

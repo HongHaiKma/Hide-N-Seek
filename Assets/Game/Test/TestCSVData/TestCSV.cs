@@ -13,12 +13,12 @@ public class TestCSV : MonoBehaviour
 
         // Resources.Load<TextAsset>().text
 
-        TextAsset txt = (TextAsset)Resources.Load("Datas/GeneralData", typeof(TextAsset));
-        string filecontent = txt.text;
+        // TextAsset txt = (TextAsset)Resources.Load("Datas/GeneralData", typeof(TextAsset));
+        // string filecontent = txt.text;
 
-        var obj = new GeneralData();
+        // var obj = new GeneralData();
 
-        CsvUtil.LoadObject(filecontent, ref obj);
+        // CsvUtil.LoadObject(filecontent, ref obj);
 
         // var obj = new GeneralData();
         // Sinbad.CsvUtil.LoadObject("GeneralData.csv", ref obj);
