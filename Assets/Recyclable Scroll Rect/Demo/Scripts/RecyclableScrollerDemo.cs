@@ -9,7 +9,7 @@ using PolyAndCode.UI;
 /// </summary>
 
 //Dummy Data model for demostraion
-public struct ContactInfo
+public class ContactInfo
 {
     public string Name;
     public string Gender;
