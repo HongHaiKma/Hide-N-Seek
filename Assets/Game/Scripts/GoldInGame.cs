@@ -11,6 +11,11 @@ public class GoldInGame : InGameObject
         transform.Rotate(Vector3.up * (450f * Time.deltaTime));
     }
 
+    public void Despawn()
+    {
+        PrefabManager.Instance.DespawnPool(gameObject);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         InGameObject obj = other.GetComponent<InGameObject>();
