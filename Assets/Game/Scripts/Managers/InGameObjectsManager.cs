@@ -7,6 +7,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 {
     public Character m_Char;
     public List<Enemy> m_Enemies;
+    public List<GoldInGame> m_GoldInGames;
     public MapController m_Map;
 
     private void OnEnable()
@@ -43,6 +44,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     public void LoadMap()
     {
         RemoveEnemies();
+        RemoveGoldInGames();
 
         // SimplePool.Release();
         // Resources.UnloadUnusedAssets();
@@ -71,6 +73,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     public void LoadMapCheat(int _level)
     {
         RemoveEnemies();
+        RemoveGoldInGames();
 
         // SimplePool.Release();
         // Resources.UnloadUnusedAssets();
@@ -111,17 +114,28 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         m_Enemies.Clear();
     }
 
+    public void RemoveGoldInGames()
+    {
+        for (int i = 0; i < m_GoldInGames.Count; i++)
+        {
+            m_GoldInGames[i].Despawn();
+        }
+
+        m_GoldInGames.Clear();
+    }
+
+
     public void SpawnKey(int _value)
     {
         m_Map.SpawnKey(_value);
     }
 
-    public void TestRelease()
-    {
-        // SimplePool.Release();
-        RemoveEnemies();
-        SimplePool.Release();
-        Resources.UnloadUnusedAssets();
-        System.GC.Collect();
-    }
+    // public void TestRelease()
+    // {
+    //     // SimplePool.Release();
+    //     RemoveEnemies();
+    //     SimplePool.Release();
+    //     Resources.UnloadUnusedAssets();
+    //     System.GC.Collect();
+    // }
 }
