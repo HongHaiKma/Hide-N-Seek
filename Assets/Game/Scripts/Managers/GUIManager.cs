@@ -341,6 +341,9 @@ public class GUIManager : MonoBehaviour
             case UIID.POPUP_PAUSE:
                 prefabName = "PopupPause";
                 break;
+            case UIID.POPUP_OUTFIT:
+                prefabName = "PopupOutfit";
+                break;
         }
         prefab = GetPopupPrefabByName(prefabName);
         return prefab;
@@ -356,7 +359,7 @@ public class GUIManager : MonoBehaviour
 
     public GameObject GetPopupPrefabByName(string name)
     {
-        GameObject go = Resources.Load<GameObject>("UI/" + name);
+        GameObject go = Resources.Load<GameObject>("UI/Popups/" + name);
         return go;
     }
 

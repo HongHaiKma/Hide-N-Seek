@@ -14,5 +14,6 @@ public enum ObjectType
     CHAR = 0,
     ENEMY = 1,
     KEY = 2,
-    DOOR = 3
+    DOOR = 3,
+    GOLD = 4,
 }

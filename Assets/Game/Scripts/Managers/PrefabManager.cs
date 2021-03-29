@@ -12,6 +12,9 @@ public class PrefabManager : Singleton<PrefabManager>
     private Dictionary<string, GameObject> m_EnemyPrefabDict = new Dictionary<string, GameObject>();
     public GameObject[] m_EnemyPrefabs;
 
+    private Dictionary<string, GameObject> m_GoldInGamePrefabDict = new Dictionary<string, GameObject>();
+    public GameObject[] m_GoldInGamePrefabs;
+
     private void Awake()
     {
         InitPrefab();
@@ -34,6 +37,20 @@ public class PrefabManager : Singleton<PrefabManager>
                 continue;
             }
         }
+        for (int i = 0; i < m_GoldInGamePrefabs.Length; i++)
+        {
+            GameObject iPrefab = m_GoldInGamePrefabs[i];
+            if (iPrefab == null) continue;
+            string iName = iPrefab.name;
+            try
+            {
+                m_GoldInGamePrefabDict.Add(iName, iPrefab);
+            }
+            catch (System.Exception)
+            {
+                continue;
+            }
+        }
     }
 
     public void InitIngamePrefab()
@@ -48,6 +65,13 @@ public class PrefabManager : Singleton<PrefabManager>
         CreatePool(enemy4, GetEnemyPrefabByName(enemy4), 2);
         string enemy5 = EnemyKeys.Enemy5.ToString();
         CreatePool(enemy5, GetEnemyPrefabByName(enemy5), 2);
+
+        string gold1 = GoldInGameKeys.GoldInGame1.ToString();
+        CreatePool(gold1, GetGoldInGamePrefabByName(gold1), 5);
+        string gold5 = GoldInGameKeys.GoldInGame5.ToString();
+        CreatePool(gold5, GetGoldInGamePrefabByName(gold5), 5);
+        string gold10 = GoldInGameKeys.GoldInGame10.ToString();
+        CreatePool(gold10, GetGoldInGamePrefabByName(gold10), 5);
     }
 
     public void CreatePool(string name, GameObject prefab, int amount)
@@ -85,6 +109,35 @@ public class PrefabManager : Singleton<PrefabManager>
         return null;
     }
 
+    public GameObject GetGoldInGamePrefabByName(string name)
+    {
+        if (m_GoldInGamePrefabDict.ContainsKey(name))
+        {
+            return m_GoldInGamePrefabDict[name];
+        }
+        return null;
+    }
+
+    public GameObject SpawnGoldInGamePool(string name, Vector3 pos)
+    {
+        if (SimplePool.IsHasPool(name))
+        {
+            GameObject go = SimplePool.Spawn(name, pos, Quaternion.identity);
+            return go;
+        }
+        else
+        {
+            GameObject prefab = GetGoldInGamePrefabByName(name);
+            if (prefab != null)
+            {
+                SimplePool.Preload(prefab, 1, name);
+                GameObject go = SpawnPool(name, pos);
+                return go;
+            }
+        }
+        return null;
+    }
+
     public GameObject GetEnemyPrefabByName(string name)
     {
         if (m_EnemyPrefabDict.ContainsKey(name))
@@ -112,11 +165,6 @@ public class PrefabManager : Singleton<PrefabManager>
             }
         }
         return null;
-    }
-
-    public GameObject SpawnCharacter(Vector3 _pos)
-    {
-        return Instantiate(m_CharPrefabs[4], _pos, Quaternion.identity);
     }
 
     public GameObject SpawnCharacter(Vector3 _pos, int _index)

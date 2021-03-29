@@ -12,6 +12,7 @@ public enum UIID
     POPUP_WIN = 3,
     POPUP_LOSE = 4,
     POPUP_PAUSE = 5,
+    POPUP_OUTFIT = 6,
 }
 
 public class UICanvas : MonoBehaviour

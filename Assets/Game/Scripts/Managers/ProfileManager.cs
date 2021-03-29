@@ -138,12 +138,6 @@ public class ProfileManager : MonoBehaviour
     {
         MyProfile.PassLevel();
     }
-
-    public static string GetGold()
-    {
-        return MyProfile.GetGold().ToString();
-    }
-
     public static int GetLevel()
     {
         return MyProfile.GetLevel();
@@ -158,6 +152,19 @@ public class ProfileManager : MonoBehaviour
     {
         MyProfile.SetLevel(_level);
     }
+
+    #region GOLD
+    public static string GetGold()
+    {
+        return MyProfile.GetGold().ToString();
+    }
+
+    public static void AddGold(BigNumber _gold)
+    {
+        MyProfile.AddGold(_gold);
+    }
+
+    #endregion
 
     #region CHARACTER
 

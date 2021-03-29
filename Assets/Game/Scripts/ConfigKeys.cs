@@ -38,3 +38,10 @@ public enum EnemyKeys
     Enemy5,
     Enemy6
 }
+
+public enum GoldInGameKeys
+{
+    GoldInGame1 = 0,
+    GoldInGame5 = 1,
+    GoldInGame10 = 2,
+}

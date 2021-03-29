@@ -8,8 +8,6 @@ using UnityEngine.Events;
 
 public class PanelInGame : MonoBehaviour
 {
-    public GameObject gameWinUI;
-    bool gameIsOver;
 
     [Header("UI Texts")]
     public Text txt_Keys;
@@ -18,6 +16,7 @@ public class PanelInGame : MonoBehaviour
     [Header("UI Buttons")]
     public Button btn_Play;
     public Button btn_Pause;
+    public Button btn_Outfit;
 
     [Header("UI GameObjects")]
     public GameObject g_Setting;
@@ -34,6 +33,7 @@ public class PanelInGame : MonoBehaviour
         // Init();
         GUIManager.Instance.AddClickEvent(btn_Play, OnPlay);
         GUIManager.Instance.AddClickEvent(btn_Pause, OnPause);
+        GUIManager.Instance.AddClickEvent(btn_Outfit, OnOpenOutfit);
     }
 
     private void OnEnable()
@@ -109,14 +109,6 @@ public class PanelInGame : MonoBehaviour
         txt_TotalGold.text = ProfileManager.GetGold();
     }
 
-    public void Restart()
-    {
-        if (gameIsOver)
-        {
-            SceneManager.LoadScene(0);
-        }
-    }
-
     public void EnableJoystick()
     {
         g_Joystick.SetActive(true);
@@ -164,14 +156,14 @@ public class PanelInGame : MonoBehaviour
         g_Joystick.SetActive(false);
     }
 
+    public void OnOpenOutfit()
+    {
+        Helper.DebugLog("PanelIngame OnOpenOutfit");
+        PopupCaller.OpenOutfitPopup();
+    }
+
     public void PauseLevel(bool _pause)
     {
         g_Joystick.SetActive(!_pause);
-    }
-
-    void OnGameOver(GameObject gameOverUI)
-    {
-        gameOverUI.SetActive(true);
-        gameIsOver = true;
     }
 }

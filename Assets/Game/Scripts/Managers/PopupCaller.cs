@@ -48,4 +48,12 @@ public class PopupCaller : Singleton<PopupCaller>
 
         GUIManager.Instance.ShowUIPopup(popup);
     }
+
+    public static void OpenOutfitPopup()
+    {
+        PopupOutfit popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_OUTFIT) as PopupOutfit;
+
+        GUIManager.Instance.ShowUIPopup(popup);
+        Helper.DebugLog("PopupCaller OnOpenOutfit");
+    }
 }
