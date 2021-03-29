@@ -18,6 +18,11 @@ public class PopupWin : UICanvas
         GUIManager.Instance.AddClickEvent(btn_X3Reward, OnX3Reward);
     }
 
+    private void OnEnable()
+    {
+        txt_Level.text = "Level " + ProfileManager.GetLevel2();
+    }
+
     public void OnClaim()
     {
         OnClose();

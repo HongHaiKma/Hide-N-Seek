@@ -11,6 +11,8 @@ public enum UIID
     POPUP_11 = 2,
     POPUP_WIN = 3,
     POPUP_LOSE = 4,
+    POPUP_PAUSE = 5,
+    POPUP_OUTFIT = 6,
 }
 
 public class UICanvas : MonoBehaviour
@@ -140,7 +142,7 @@ public class UICanvas : MonoBehaviour
         {
             m_CanvasGroup.alpha = 0;
             transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-            m_CanvasGroup.DOFade(1, 0.2f).SetEase(Ease.Flash).SetUpdate(UpdateType.Late, true); ;
+            m_CanvasGroup.DOFade(1, 0.2f).SetEase(Ease.Flash).SetUpdate(UpdateType.Late, true);
             transform.DOScale(1, 0.2f).SetEase(Ease.Flash).SetUpdate(UpdateType.Late, true); ;
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-[DefaultExecutionOrder(-100)]
+[DefaultExecutionOrder(-90)]
 public class GUIManager : MonoBehaviour
 {
     internal class GUIMap : Dictionary<int, UICanvas>
@@ -125,7 +125,6 @@ public class GUIManager : MonoBehaviour
             UICanvas _UICanvas = GUIManager.Instance.GetCurrentPopup();
             if (_UICanvas != null && !_UICanvas.IsAvoidBackKey)
             {
-                Helper.DebugLog("Back keyyyyyyyyyyyyyyyyyyyyyyyy");
                 _UICanvas.OnBack();
             }
         }
@@ -142,14 +141,12 @@ public class GUIManager : MonoBehaviour
 
     public void AddClickEvent(Button _bt, UnityAction _callback)
     {
-        Helper.DebugLog("2222222222222222222222");
         _bt.onClick.AddListener(() =>
         {
             // SoundManager.Instance.PlayButtonClick(_bt.transform.position);
             if (_callback != null)
             {
                 _callback();
-                Helper.DebugLog("AddClickEvent");
             }
         });
     }
@@ -162,13 +159,11 @@ public class GUIManager : MonoBehaviour
         if (m_GUIMap.TryGetValue(id, out rUI))
         {
             m_GUIMap[id] = uicanvas;
-            Helper.DebugLog("RegisterUI1");
             //Debug.Log(m_GUIMap.m_ID + " Register overlap " + uicanvas.ID());
         }
         else
         {
             m_GUIMap.Add((int)uicanvas.ID(), uicanvas);
-            Helper.DebugLog("RegisterUI2");
             //Debug.Log(m_GUIMap.m_ID + " Register add " + uicanvas.ID());
         }
     }
@@ -193,7 +188,6 @@ public class GUIManager : MonoBehaviour
         m_GUIMap.TryGetValue(id, out rUI);
         if (rUI == null)
         {
-            Helper.DebugLog("rUI is nulllllllllllllllllllllll");
             string name = GetUIName((UIID)id);
             GameObject go = FindObject(m_MainCanvas, name);
             if (go != null)
@@ -215,7 +209,6 @@ public class GUIManager : MonoBehaviour
         }
         else
         {
-            Helper.DebugLog("rUI is not null");
             return rUI;
         }
     }
@@ -345,6 +338,12 @@ public class GUIManager : MonoBehaviour
             case UIID.POPUP_LOSE:
                 prefabName = "PopupLose";
                 break;
+            case UIID.POPUP_PAUSE:
+                prefabName = "PopupPause";
+                break;
+            case UIID.POPUP_OUTFIT:
+                prefabName = "PopupOutfit";
+                break;
         }
         prefab = GetPopupPrefabByName(prefabName);
         return prefab;
@@ -360,7 +359,7 @@ public class GUIManager : MonoBehaviour
 
     public GameObject GetPopupPrefabByName(string name)
     {
-        GameObject go = Resources.Load<GameObject>("UI/" + name);
+        GameObject go = Resources.Load<GameObject>("UI/Popups/" + name);
         return go;
     }
 

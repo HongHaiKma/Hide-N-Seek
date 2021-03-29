@@ -5,16 +5,19 @@ using UnityEngine.AI;
 
 [CanEditMultipleObjects]
 [CustomEditor(typeof(NavMeshPrefabInstance))]
-class NavMeshPrefabInstanceEditor : Editor {
+class NavMeshPrefabInstanceEditor : Editor
+{
     SerializedProperty m_FollowTransformProp;
     SerializedProperty m_NavMeshDataProp;
 
-    public void OnEnable() {
+    public void OnEnable()
+    {
         m_FollowTransformProp = serializedObject.FindProperty("m_FollowTransform");
         m_NavMeshDataProp = serializedObject.FindProperty("m_NavMesh");
     }
 
-    public override void OnInspectorGUI() {
+    public override void OnInspectorGUI()
+    {
         var instance = (NavMeshPrefabInstance)target;
         var go = instance.gameObject;
 
@@ -32,12 +35,15 @@ class NavMeshPrefabInstanceEditor : Editor {
         serializedObject.ApplyModifiedProperties();
     }
 
-    void OnInspectorGUIPrefab(GameObject go) {
+    void OnInspectorGUIPrefab(GameObject go)
+    {
         var prefab = PrefabUtility.GetCorrespondingObjectFromSource(Selection.activeObject);
         var path = AssetDatabase.GetAssetPath(prefab);
 
-        if (prefab && string.IsNullOrEmpty(path)) {
-            if (GUILayout.Button("Select the Prefab asset to bake or clear the navmesh", EditorStyles.helpBox)) {
+        if (prefab && string.IsNullOrEmpty(path))
+        {
+            if (GUILayout.Button("Select the Prefab asset to bake or clear the navmesh", EditorStyles.helpBox))
+            {
                 Selection.activeObject = PrefabUtility.GetCorrespondingObjectFromSource(go);
                 EditorGUIUtility.PingObject(Selection.activeObject);
             }
@@ -47,7 +53,7 @@ class NavMeshPrefabInstanceEditor : Editor {
 
         if (GUILayout.Button("Bake"))
             OnBake();
-        
+
         //if (string.IsNullOrEmpty(path))
         //    return;
 
@@ -63,7 +69,8 @@ class NavMeshPrefabInstanceEditor : Editor {
         //GUILayout.EndHorizontal();
     }
 
-    NavMeshData Build(NavMeshPrefabInstance instance) {
+    NavMeshData Build(NavMeshPrefabInstance instance)
+    {
         var root = instance.transform;
         var sources = new List<NavMeshBuildSource>();
         var markups = new List<NavMeshBuildMarkup>();
@@ -71,20 +78,23 @@ class NavMeshPrefabInstanceEditor : Editor {
         UnityEditor.AI.NavMeshBuilder.CollectSourcesInStage(
             root, ~0, NavMeshCollectGeometry.RenderMeshes, 0, markups, instance.gameObject.scene, sources);
         var settings = NavMesh.GetSettingsByID(0);
-        var bounds = new Bounds(Vector3.zero, new Vector3(1000,1,1000));
+        var bounds = new Bounds(Vector3.zero, new Vector3(1000, 1, 1000));
         var navmesh = NavMeshBuilder.BuildNavMeshData(settings, sources, bounds, root.position, root.rotation);
         navmesh.name = "Navmesh";
         return navmesh;
     }
 
-    void OnClear() {
-        foreach (var tgt in targets) {
+    void OnClear()
+    {
+        foreach (var tgt in targets)
+        {
             var instance = (NavMeshPrefabInstance)tgt;
             var go = instance.gameObject;
             var prefab = PrefabUtility.GetCorrespondingObjectFromSource(Selection.activeObject);
             var path = AssetDatabase.GetAssetPath(prefab);
 
-            if (string.IsNullOrEmpty(path)) {
+            if (string.IsNullOrEmpty(path))
+            {
                 Debug.LogError("GameObject: " + go + " has no valid prefab path");
                 continue;
             }
@@ -94,14 +104,17 @@ class NavMeshPrefabInstanceEditor : Editor {
         }
     }
 
-    void OnBake() {
-        foreach (var tgt in targets) {
+    void OnBake()
+    {
+        foreach (var tgt in targets)
+        {
             var instance = (NavMeshPrefabInstance)tgt;
             var go = instance.gameObject;
             var prefab = PrefabUtility.GetCorrespondingObjectFromSource(Selection.activeObject);
             var path = AssetDatabase.GetAssetPath(prefab);
 
-            if (string.IsNullOrEmpty(path)) {
+            if (string.IsNullOrEmpty(path))
+            {
                 Debug.LogError("GameObject: " + go + " has no valid prefab path");
                 continue;
             }
@@ -119,10 +132,12 @@ class NavMeshPrefabInstanceEditor : Editor {
         }
     }
 
-void DestroyNavMeshData(string path) {
+    void DestroyNavMeshData(string path)
+    {
         // Destroy and remove all existing NavMeshData sub-assets
         var assets = AssetDatabase.LoadAllAssetsAtPath(path);
-        foreach (var o in assets) {
+        foreach (var o in assets)
+        {
             var data = o as NavMeshData;
             if (data != null)
                 DestroyImmediate(o, true);
@@ -130,7 +145,8 @@ void DestroyNavMeshData(string path) {
     }
 
     [DrawGizmo(GizmoType.Selected | GizmoType.Active | GizmoType.Pickable)]
-    static void RenderGizmo(NavMeshPrefabInstance instance, GizmoType gizmoType) {
+    static void RenderGizmo(NavMeshPrefabInstance instance, GizmoType gizmoType)
+    {
         if (!EditorApplication.isPlaying)
             instance.UpdateInstance();
     }

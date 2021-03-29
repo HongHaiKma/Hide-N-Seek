@@ -130,6 +130,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1468286623269725196, guid: 3de0e4a97ea4bf6428cbe0362c26e39f, type: 3}
+      propertyPath: m_GoldInGamePrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468286623269725196, guid: 3de0e4a97ea4bf6428cbe0362c26e39f, type: 3}
+      propertyPath: m_GoldInGamePrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 8280052553648869357, guid: f9575f696428e5a4ea45c3bda1af3dda, type: 3}
+    - target: {fileID: 1468286623269725196, guid: 3de0e4a97ea4bf6428cbe0362c26e39f, type: 3}
+      propertyPath: m_GoldInGamePrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1612388586875584450, guid: 19f62235c82bee74db820bdb9be16651, type: 3}
+    - target: {fileID: 1468286623269725196, guid: 3de0e4a97ea4bf6428cbe0362c26e39f, type: 3}
+      propertyPath: m_GoldInGamePrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 6086752865266056394, guid: 9435e91481f62674a8a9617fb9e76684, type: 3}
     - target: {fileID: 1468286624540973144, guid: 3de0e4a97ea4bf6428cbe0362c26e39f, type: 3}
       propertyPath: m_Name
       value: Managers
@@ -204,6 +220,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3de0e4a97ea4bf6428cbe0362c26e39f, type: 3}
+--- !u!1 &1234413278 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 879870797871146801, guid: 3de0e4a97ea4bf6428cbe0362c26e39f, type: 3}
+  m_PrefabInstance: {fileID: 1234413277}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1234413279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234413278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 371b24eb40fd3c0419f5f76b922c299f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DataText:
+  - {fileID: 4900000, guid: 81db6b198da292249b28c0e34be0a9d2, type: 3}
 --- !u!1 &1428454114
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,6 +250,7 @@ GameObject:
   - component: {fileID: 1428454117}
   - component: {fileID: 1428454116}
   - component: {fileID: 1428454115}
+  - component: {fileID: 1428454118}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -287,6 +323,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1428454118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428454114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &2147173641
 GameObject:
   m_ObjectHideFlags: 0

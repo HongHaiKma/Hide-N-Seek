@@ -31,7 +31,9 @@ public class CharSpawnPoint : SpawnPoint
         //     }
         // }
 
-        GameObject go = PrefabManager.Instance.SpawnCharacter(tf_Owner.position, 2);
+        int charId = ProfileManager.GetSelectedCharacter() - 1;
+
+        GameObject go = PrefabManager.Instance.SpawnCharacter(tf_Owner.position, charId);
         Character character = go.GetComponent<Character>();
         InGameObjectsManager.Instance.m_Char = character;
 

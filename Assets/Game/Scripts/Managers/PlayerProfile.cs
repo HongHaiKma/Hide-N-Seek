@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
+// using Newtonsoft.Json;
 
 public class PlayerProfile
 {
@@ -10,10 +11,20 @@ public class PlayerProfile
 
     public int m_Level;
 
+    public int m_SelectedCharacter = 0;
+    public List<CharacterProfileData> m_CharacterData = new List<CharacterProfileData>();
+
+
     public void LoadLocalProfile()
     {
         m_Gold = new BigNumber(ic_Gold);
 
+        LoadCharacterData();
+
+        if (GetCharacterProfile(CharacterType.BATMAN) != null)
+        {
+            Helper.DebugLog("Batman existed!!!");
+        }
         // int a = 2;
         // a = data1["m_Gold"].To;
     }
@@ -21,9 +32,11 @@ public class PlayerProfile
     public void CreateNewPlayer()
     {
         string ic = "0";
-        // m_Gold = new BigNumber(ic);
         m_Gold = new BigNumber(ic);
         m_Level = 1;
+        UnlockCharacter(CharacterType.BOIZZ);
+        SetSelectedCharacter(CharacterType.BOIZZ);
+        LoadCharacterData();
     }
 
     public void SaveDataToLocal()
@@ -86,6 +99,59 @@ public class PlayerProfile
     {
         m_Level = _level;
         SaveDataToLocal();
+    }
+
+    #endregion
+
+    #region CHARACTER
+
+    public int GetSelectedCharacter()
+    {
+        Helper.DebugLog("Selected character: " + m_SelectedCharacter);
+        return m_SelectedCharacter;
+    }
+
+    public void SetSelectedCharacter(int _id)
+    {
+        // public int GetSelectedCharacter()
+        //     {
+        //         return m_SelectedCharacter;
+        //     }
+    }
+
+    public void LoadCharacterData()
+    {
+        for (int i = 0; i < m_CharacterData.Count; i++)
+        {
+            CharacterProfileData cpd = m_CharacterData[i];
+            cpd.Load();
+        }
+    }
+
+    public void UnlockCharacter(CharacterType characterType)
+    {
+        CharacterProfileData newCharacter = new CharacterProfileData();
+        newCharacter.Init(characterType);
+        newCharacter.Load();
+        m_CharacterData.Add(newCharacter);
+    }
+
+    public void SetSelectedCharacter(CharacterType characterType)
+    {
+        m_SelectedCharacter = (int)characterType;
+    }
+
+    public CharacterProfileData GetCharacterProfile(CharacterType characterType)
+    {
+        for (int i = 0; i < m_CharacterData.Count; i++)
+        {
+            CharacterProfileData cpd = m_CharacterData[i];
+            if (cpd.m_Cid == characterType)
+            {
+                return cpd;
+            }
+        }
+        return null;
     }
 
     #endregion

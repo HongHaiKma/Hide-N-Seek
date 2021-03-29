@@ -146,7 +146,7 @@ public class Character : InGameObject
     {
         CheckCanMove();
 
-        if (GameManager.Instance.m_LevelStart)
+        if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
         {
             m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
         }
@@ -191,7 +191,7 @@ public class Character : InGameObject
     {
         CheckCanMove();
 
-        if (GameManager.Instance.m_LevelStart)
+        if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
         {
             m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
         }

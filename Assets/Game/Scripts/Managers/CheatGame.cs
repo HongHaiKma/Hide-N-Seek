@@ -23,6 +23,4 @@ public class CheatGame : MonoBehaviour
         GameManager.Instance.m_LevelStart = false;
         m_PanelInGame.SetOutGame();
     }
-
-
 }

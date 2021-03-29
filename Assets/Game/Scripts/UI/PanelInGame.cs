@@ -8,19 +8,15 @@ using UnityEngine.Events;
 
 public class PanelInGame : MonoBehaviour
 {
-    public GameObject gameLoseUI;
-    public GameObject gameWinUI;
-    bool gameIsOver;
 
-
-    public GameObject ui_Keys;
+    [Header("UI Texts")]
     public Text txt_Keys;
-    public Button btn_Play;
     public Text txt_TotalGold;
 
-    [Header("Test")]
-    public InputField inputLevel;
-    public InputField inputChar;
+    [Header("UI Buttons")]
+    public Button btn_Play;
+    public Button btn_Pause;
+    public Button btn_Outfit;
 
     [Header("UI GameObjects")]
     public GameObject g_Setting;
@@ -29,11 +25,15 @@ public class PanelInGame : MonoBehaviour
     public GameObject g_NoAds;
     public GameObject g_Play;
     public GameObject g_Joystick;
+    public GameObject g_Pause;
+    public GameObject ui_Keys;
 
     private void Awake()
     {
         // Init();
         GUIManager.Instance.AddClickEvent(btn_Play, OnPlay);
+        GUIManager.Instance.AddClickEvent(btn_Pause, OnPause);
+        GUIManager.Instance.AddClickEvent(btn_Outfit, OnOpenOutfit);
     }
 
     private void OnEnable()
@@ -50,7 +50,6 @@ public class PanelInGame : MonoBehaviour
 
     public void StartListenToEvent()
     {
-        EventManager.AddListener(GameEvent.CHAR_SPOTTED, ShowGameLoseUI);
         EventManager.AddListener(GameEvent.CHAR_SPOTTED, () => g_Joystick.SetActive(false));
 
         // EventManager.AddListener(GameEvent.CHAR_WIN, ShowGameWinUI);
@@ -60,11 +59,11 @@ public class PanelInGame : MonoBehaviour
         EventManager.AddListener(GameEvent.LEVEL_END, SetOutGame);
 
         EventManagerWithParam<int>.AddListener(GameEvent.CHAR_CLAIM_KEYKEY, UpdateCurrentKey);
+        EventManagerWithParam<bool>.AddListener(GameEvent.LEVEL_PAUSE, PauseLevel);
     }
 
     public void StopListenToEvent()
     {
-        EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, ShowGameLoseUI);
         EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, () => g_Joystick.SetActive(false));
 
         // EventManager.RemoveListener(GameEvent.CHAR_WIN, ShowGameWinUI);
@@ -74,29 +73,18 @@ public class PanelInGame : MonoBehaviour
         EventManager.RemoveListener(GameEvent.LEVEL_END, SetOutGame);
 
         EventManagerWithParam<int>.RemoveListener(GameEvent.CHAR_CLAIM_KEYKEY, UpdateCurrentKey);
+        EventManagerWithParam<bool>.RemoveListener(GameEvent.LEVEL_PAUSE, PauseLevel);
     }
-
-    // void Update()
-    // {
-    //     if (gameIsOver)
-    //     {
-    //         if (Input.GetKeyDown(KeyCode.Space))
-    //         {
-    //             SceneManager.LoadScene(0);
-    //         }
-    //     }
-    // }
 
     public void SetIngame()
     {
-        CloseAllPopup();
-
         g_Setting.SetActive(false);
         g_Gold.SetActive(false);
         g_Shop.SetActive(false);
         g_NoAds.SetActive(false);
         g_Play.SetActive(false);
         g_Play.SetActive(false);
+        g_Pause.SetActive(true);
 
         g_Joystick.SetActive(true);
         ui_Keys.SetActive(true);
@@ -113,19 +101,12 @@ public class PanelInGame : MonoBehaviour
         g_NoAds.SetActive(true);
         g_Play.SetActive(true);
         g_Play.SetActive(true);
+        g_Pause.SetActive(false);
 
         g_Joystick.SetActive(false);
         ui_Keys.SetActive(false);
 
         txt_TotalGold.text = ProfileManager.GetGold();
-    }
-
-    public void Restart()
-    {
-        if (gameIsOver)
-        {
-            SceneManager.LoadScene(0);
-        }
     }
 
     public void EnableJoystick()
@@ -168,25 +149,21 @@ public class PanelInGame : MonoBehaviour
         // InGameObjectsManager.Instance.m_Char.m_DisableMove = false;
     }
 
-    void ShowGameWinUI()
+    public void OnPause()
     {
-        OnGameOver(gameWinUI);
+        PopupCaller.OpenPausePopup();
+        Time.timeScale = 0f;
+        g_Joystick.SetActive(false);
     }
 
-    void ShowGameLoseUI()
+    public void OnOpenOutfit()
     {
-        OnGameOver(gameLoseUI);
+        Helper.DebugLog("PanelIngame OnOpenOutfit");
+        PopupCaller.OpenOutfitPopup();
     }
 
-    public void CloseAllPopup()
+    public void PauseLevel(bool _pause)
     {
-        gameLoseUI.SetActive(false);
-        gameWinUI.SetActive(false);
-    }
-
-    void OnGameOver(GameObject gameOverUI)
-    {
-        gameOverUI.SetActive(true);
-        gameIsOver = true;
+        g_Joystick.SetActive(!_pause);
     }
 }
