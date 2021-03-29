@@ -24,7 +24,7 @@ public class DemoCell : MonoBehaviour, ICell
     }
 
     //This is called from the SetCell method in DataSource
-    public void ConfigureCell(ContactInfo contactInfo,int cellIndex)
+    public void ConfigureCell(ContactInfo contactInfo, int cellIndex)
     {
         _cellIndex = cellIndex;
         _contactInfo = contactInfo;
@@ -34,9 +34,9 @@ public class DemoCell : MonoBehaviour, ICell
         idLabel.text = contactInfo.id;
     }
 
-    
+
     private void ButtonListener()
     {
-        Debug.Log("Index : " + _cellIndex +  ", Name : " + _contactInfo.Name  + ", Gender : " + _contactInfo.Gender);
+        Debug.Log("Index : " + _cellIndex + ", Name : " + _contactInfo.Name + ", Gender : " + _contactInfo.Gender);
     }
 }
