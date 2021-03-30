@@ -7,6 +7,7 @@ public class CharacterProfileData
     public CharacterType m_Cid;
     public string m_Name;
     public float m_RunSpeed;
+    public int m_AdsNumber;
 
     public void Init(CharacterType _id)
     {
@@ -18,6 +19,7 @@ public class CharacterProfileData
         CharacterDataConfig cdc = GameData.Instance.GetCharacterDataConfig(m_Cid);
         m_Name = cdc.m_Name;
         m_RunSpeed = cdc.m_RunSpeed;
+        m_AdsNumber = cdc.m_AdsNumber;
     }
 }
 

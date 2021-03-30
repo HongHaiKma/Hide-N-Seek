@@ -12,6 +12,12 @@ public class UICharacterCard : MonoBehaviour, ICell
     public Text m_Name;
     public Button btn_LoadChar;
     public Image img_Char;
+    public Text txt_Price;
+
+    public GameObject g_SelectedOutline;
+    public GameObject g_Owned;
+    public GameObject g_Price;
+    public GameObject g_AdsClaim;
 
     //Model
     private UICharacterCardInfo m_UICharacterCardInfo;
@@ -24,18 +30,64 @@ public class UICharacterCard : MonoBehaviour, ICell
     }
 
     //This is called from the SetCell method in DataSource
-    public void ConfigureCell(UICharacterCardInfo contactInfo, int cellIndex)
+    public void ConfigureCell(UICharacterCardInfo _info, int cellIndex)
     {
         _cellIndex = cellIndex;
-        m_UICharacterCardInfo = contactInfo;
+        m_UICharacterCardInfo = _info;
 
-        m_Name.text = contactInfo.m_Name;
-        img_Char.sprite = SpriteManager.Instance.m_CharCards[contactInfo.m_Id - 1];
+        m_Name.text = _info.m_Name;
+
+        txt_Price.text = _info.m_Price;
+
+        img_Char.sprite = SpriteManager.Instance.m_CharCards[_info.m_Id - 1];
+
+        int selectedChar = ProfileManager.GetSelectedChar();
+
+        g_SelectedOutline.SetActive(ProfileManager.CheckSelectedChar(_info.m_Id));
+
+        SetCellStatus();
     }
 
+    public void SetCellStatus()
+    {
+        CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_UICharacterCardInfo.m_Id);
+        CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_UICharacterCardInfo.m_Id);
+
+        if (data != null)
+        {
+            g_Owned.SetActive(true);
+            g_Price.SetActive(false);
+            g_AdsClaim.SetActive(false);
+        }
+        else
+        {
+            g_Owned.SetActive(false);
+
+            bool adsCheck;
+
+            if (config.m_AdsCheck == 1)
+            {
+                adsCheck = true;
+            }
+            else
+            {
+                adsCheck = false;
+            }
+
+            g_Price.SetActive(!adsCheck);
+            g_AdsClaim.SetActive(adsCheck);
+        }
+    }
 
     private void OnLoadCharacter()
     {
         Debug.Log("Name: " + m_UICharacterCardInfo.m_Name);
     }
+}
+
+public class UICharacterCardInfo
+{
+    public int m_Id;
+    public string m_Name;
+    public string m_Price;
 }

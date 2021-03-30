@@ -9,11 +9,6 @@ using PolyAndCode.UI;
 /// </summary>
 
 //Dummy Data model for demostraion
-public class UICharacterCardInfo
-{
-    public int m_Id;
-    public string m_Name;
-}
 
 public class UICharacterOutfit : MonoBehaviour, IRecyclableScrollRectDataSource
 {
@@ -49,6 +44,7 @@ public class UICharacterOutfit : MonoBehaviour, IRecyclableScrollRectDataSource
             UICharacterCardInfo obj = new UICharacterCardInfo();
             obj.m_Id = charConfig[i + 1].m_Id;
             obj.m_Name = charConfig[i + 1].m_Name;
+            obj.m_Price = charConfig[i + 1].m_Price.ToString();
             _contactList.Add(obj);
         }
     }

@@ -141,6 +141,11 @@ public class PlayerProfile
         m_SelectedCharacter = (int)characterType;
     }
 
+    public CharacterProfileData GetCharacterProfile(int characterType)
+    {
+        return GetCharacterProfile((CharacterType)characterType);
+    }
+
     public CharacterProfileData GetCharacterProfile(CharacterType characterType)
     {
         for (int i = 0; i < m_CharacterData.Count; i++)
@@ -152,6 +157,16 @@ public class PlayerProfile
             }
         }
         return null;
+    }
+
+    public bool CheckSelectedChar(int _id)
+    {
+        if (_id == m_SelectedCharacter)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     #endregion
