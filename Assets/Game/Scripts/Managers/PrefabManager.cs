@@ -5,6 +5,7 @@ using UnityEngine;
 public class PrefabManager : Singleton<PrefabManager>
 {
     public GameObject[] m_CharPrefabs;
+    public GameObject[] m_MiniCharPrefabs;
 
     private Dictionary<string, GameObject> m_IngameObjectPrefabDict = new Dictionary<string, GameObject>();
     public GameObject[] m_IngameObjectPrefabs;
@@ -170,6 +171,11 @@ public class PrefabManager : Singleton<PrefabManager>
     public GameObject SpawnCharacter(Vector3 _pos, int _index)
     {
         return Instantiate(m_CharPrefabs[_index], _pos, Quaternion.identity);
+    }
+
+    public GameObject SpawnMiniCharacterStudio(Vector3 _pos, int _index)
+    {
+        return Instantiate(m_MiniCharPrefabs[_index], _pos, Quaternion.identity);
     }
 
     public void DespawnPool(GameObject go)

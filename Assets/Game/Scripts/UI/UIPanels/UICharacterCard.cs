@@ -26,7 +26,7 @@ public class UICharacterCard : MonoBehaviour, ICell
     private void Start()
     {
         // img_Char.sprite = SpriteManager.Instance.m_CharCards[m_UIChar];
-        GUIManager.Instance.AddClickEvent(btn_LoadChar, OnLoadCharacter);
+        GUIManager.Instance.AddClickEvent(btn_LoadChar, OnLoadMiniCharacterStudio);
     }
 
     //This is called from the SetCell method in DataSource
@@ -79,9 +79,9 @@ public class UICharacterCard : MonoBehaviour, ICell
         }
     }
 
-    private void OnLoadCharacter()
+    private void OnLoadMiniCharacterStudio()
     {
-        Debug.Log("Name: " + m_UICharacterCardInfo.m_Name);
+        MiniCharacterStudio.Instance.SetChar(m_UICharacterCardInfo.m_Id);
     }
 }
 
