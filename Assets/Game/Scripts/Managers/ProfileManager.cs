@@ -101,7 +101,6 @@ public class ProfileManager : MonoBehaviour
     {
         m_LocalProfile = JsonMapper.ToObject<PlayerProfile>(data);
         m_LocalProfile.LoadLocalProfile();
-        Helper.DebugLog(data);
     }
 
     public void SaveData()

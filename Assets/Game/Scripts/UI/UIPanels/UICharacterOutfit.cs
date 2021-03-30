@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using PolyAndCode.UI;
 
@@ -9,8 +9,13 @@ using PolyAndCode.UI;
 /// </summary>
 
 //Dummy Data model for demostraion
+public class UICharacterCardInfo
+{
+    public int m_Id;
+    public string m_Name;
+}
 
-public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSource
+public class UICharacterOutfit : MonoBehaviour, IRecyclableScrollRectDataSource
 {
     [SerializeField]
     RecyclableScrollRect _recyclableScrollRect;
@@ -33,13 +38,17 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
     {
         if (_contactList != null) _contactList.Clear();
 
-        string[] genders = { "Male", "Female" };
-        for (int i = 0; i < _dataLength; i++)
+        Dictionary<int, CharacterDataConfig> characterDataConfig = GameData.Instance.GetCharacterDataConfig();
+        int len = characterDataConfig.Count;
+        _dataLength = len;
+
+        Dictionary<int, CharacterDataConfig> charConfig = GameData.Instance.GetCharacterDataConfig();
+
+        for (int i = 0; i < len; i++)
         {
             UICharacterCardInfo obj = new UICharacterCardInfo();
-            // obj.m_Name = i + "_Name";
-            // obj.Gender = genders[Random.Range(0, 2)];
-            // obj.id = "item : " + i;
+            obj.m_Id = charConfig[i + 1].m_Id;
+            obj.m_Name = charConfig[i + 1].m_Name;
             _contactList.Add(obj);
         }
     }
@@ -61,7 +70,7 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
     public void SetCell(ICell cell, int index)
     {
         //Casting to the implemented Cell
-        var item = cell as DemoCell;
+        var item = cell as UICharacterCard;
         item.ConfigureCell(_contactList[index], index);
     }
 

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using PolyAndCode.UI;
 
@@ -6,35 +6,36 @@ using PolyAndCode.UI;
 //The class is required to configure the cell(updating UI elements etc) according to the data during recycling of cells.
 //The configuration of a cell is done through the DataSource SetCellData method.
 //Check RecyclableScrollerDemo class
-public class DemoCell : MonoBehaviour, ICell
+public class UICharacterCard : MonoBehaviour, ICell
 {
     //UI
-    public Text nameLabel;
-    public Text genderLabel;
-    public Text idLabel;
+    public Text m_Name;
+    public Button btn_LoadChar;
+    public Image img_Char;
 
     //Model
-    private UICharacterCardInfo _contactInfo;
+    private UICharacterCardInfo m_UICharacterCardInfo;
     private int _cellIndex;
 
     private void Start()
     {
-        //Can also be done in the inspector
-        GetComponent<Button>().onClick.AddListener(ButtonListener);
+        // img_Char.sprite = SpriteManager.Instance.m_CharCards[m_UIChar];
+        GUIManager.Instance.AddClickEvent(btn_LoadChar, OnLoadCharacter);
     }
 
     //This is called from the SetCell method in DataSource
     public void ConfigureCell(UICharacterCardInfo contactInfo, int cellIndex)
     {
         _cellIndex = cellIndex;
-        _contactInfo = contactInfo;
+        m_UICharacterCardInfo = contactInfo;
 
-        nameLabel.text = contactInfo.m_Name;
+        m_Name.text = contactInfo.m_Name;
+        img_Char.sprite = SpriteManager.Instance.m_CharCards[contactInfo.m_Id - 1];
     }
 
 
-    private void ButtonListener()
+    private void OnLoadCharacter()
     {
-        // Debug.Log("Index : " + _cellIndex + ", Name : " + _contactInfo.m_Name + ", Gender : " + _contactInfo.Gender);
+        Debug.Log("Name: " + m_UICharacterCardInfo.m_Name);
     }
 }

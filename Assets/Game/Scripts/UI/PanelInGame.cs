@@ -158,7 +158,6 @@ public class PanelInGame : MonoBehaviour
 
     public void OnOpenOutfit()
     {
-        Helper.DebugLog("PanelIngame OnOpenOutfit");
         PopupCaller.OpenOutfitPopup();
     }
 

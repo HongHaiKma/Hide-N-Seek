@@ -23,9 +23,17 @@ public class CharacterProfileData
 
 public enum CharacterType
 {
-    BOIZZ = 1,
-    FIRE_FIGHTER = 2,
-    BATMAN = 3,
-    SIR = 4,
-    ASTRONAUS = 5,
+    BLUEBOY = 1,
+    STREETBOY = 2,
+    GREENBOY = 3,
+    BUSINESSMAN = 4,
+    FIREMAN = 5,
+    ASTRONAUS = 6,
+    CLOWN = 7,
+    WIZARD = 8,
+    SUPERBOY = 9,
+    BATBOY = 10,
+    VIKING = 11,
+    MOHAWKBOY = 12,
+    COWBOY = 13,
 }

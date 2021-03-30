@@ -14,11 +14,18 @@ public class GameData : Singleton<GameData>
     {
         LoadCharacterConfig();
 
-        CharacterDataConfig charrr = GetCharacterDataConfig(CharacterType.ASTRONAUS);
+        CharacterDataConfig charrr = GetCharacterDataConfig(CharacterType.FIREMAN);
 
-        Helper.DebugLog(charrr.m_Id);
-        Helper.DebugLog(charrr.m_Name);
-        Helper.DebugLog(charrr.m_RunSpeed);
+        // Helper.DebugLog("m_Id: " + charrr.m_Id);
+        // Helper.DebugLog("m_Name: " + charrr.m_Name);
+        // Helper.DebugLog("m_RunSpeed: " + charrr.m_RunSpeed);
+        // Helper.DebugLog("m_Price: " + charrr.m_Price);
+        // Helper.DebugLog("m_AdsCheck: " + charrr.m_AdsCheck);
+        // Helper.DebugLog("m_AdsNumber: " + charrr.m_AdsNumber);
+
+        // Dictionary<int, CharacterDataConfig> characterDataConfig = GameData.Instance.GetCharacterDataConfig();
+
+        // Helper.DebugLog("Name: " + characterDataConfig[0].m_Name);
     }
 
     public void LoadCharacterConfig()
@@ -47,8 +54,29 @@ public class GameData : Singleton<GameData>
                 runSpeed = float.Parse(iNode[colName]);
             }
 
+            BigNumber price = 0f;
+            colName = "Price";
+            if (iNode[colName].ToString().Length > 0)
+            {
+                price = float.Parse(iNode[colName]);
+            }
+
+            int adsCheck = 0;
+            colName = "AdsCheck";
+            if (iNode[colName].ToString().Length > 0)
+            {
+                adsCheck = int.Parse(iNode[colName]);
+            }
+
+            int adsNumber = 0;
+            colName = "AdsNumber";
+            if (iNode[colName].ToString().Length > 0)
+            {
+                adsNumber = int.Parse(iNode[colName]);
+            }
+
             CharacterDataConfig character = new CharacterDataConfig();
-            character.Init(id, name, runSpeed);
+            character.Init(id, name, runSpeed, price, adsCheck, adsNumber);
             m_CharacterDataConfigs.Add(id, character);
         }
     }
