@@ -103,6 +103,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     {
         if (m_Char != null)
         {
+            Helper.DebugLog("Char in map existed!!!!");
             Destroy(m_Char);
             m_Char = null;
         }
