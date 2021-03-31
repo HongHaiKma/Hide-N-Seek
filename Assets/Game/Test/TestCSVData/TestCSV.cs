@@ -5,7 +5,7 @@ using Sinbad;
 
 public class TestCSV : MonoBehaviour
 {
-    public TextAsset m_GeneralData;
+    public TextAsset m_GeneralData; 
 
     void Start()
     {

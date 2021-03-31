@@ -7,6 +7,7 @@ public class CharacterProfileData
     public CharacterType m_Cid;
     public string m_Name;
     public float m_RunSpeed;
+    public int m_AdsNumber;
 
     public void Init(CharacterType _id)
     {
@@ -18,14 +19,23 @@ public class CharacterProfileData
         CharacterDataConfig cdc = GameData.Instance.GetCharacterDataConfig(m_Cid);
         m_Name = cdc.m_Name;
         m_RunSpeed = cdc.m_RunSpeed;
+        m_AdsNumber = cdc.m_AdsNumber;
     }
 }
 
 public enum CharacterType
 {
-    BOIZZ = 1,
-    FIRE_FIGHTER = 2,
-    BATMAN = 3,
-    SIR = 4,
-    ASTRONAUS = 5,
+    BLUEBOY = 1,
+    STREETBOY = 2,
+    GREENBOY = 3,
+    BUSINESSMAN = 4,
+    FIREMAN = 5,
+    ASTRONAUS = 6,
+    CLOWN = 7,
+    WIZARD = 8,
+    SUPERBOY = 9,
+    BATBOY = 10,
+    VIKING = 11,
+    MOHAWKBOY = 12,
+    COWBOY = 13,
 }

@@ -9,12 +9,6 @@ using PolyAndCode.UI;
 /// </summary>
 
 //Dummy Data model for demostraion
-public struct ContactInfo
-{
-    public string Name;
-    public string Gender;
-    public string id;
-}
 
 public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSource
 {
@@ -25,7 +19,7 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
     private int _dataLength;
 
     //Dummy data List
-    private List<ContactInfo> _contactList = new List<ContactInfo>();
+    private List<UICharacterCardInfo> _contactList = new List<UICharacterCardInfo>();
 
     //Recyclable scroll rect's data source must be assigned in Awake.
     private void Awake()
@@ -42,10 +36,10 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
         string[] genders = { "Male", "Female" };
         for (int i = 0; i < _dataLength; i++)
         {
-            ContactInfo obj = new ContactInfo();
-            obj.Name = i + "_Name";
-            obj.Gender = genders[Random.Range(0, 2)];
-            obj.id = "item : " + i;
+            UICharacterCardInfo obj = new UICharacterCardInfo();
+            // obj.m_Name = i + "_Name";
+            // obj.Gender = genders[Random.Range(0, 2)];
+            // obj.id = "item : " + i;
             _contactList.Add(obj);
         }
     }

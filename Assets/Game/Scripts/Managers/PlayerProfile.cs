@@ -21,10 +21,10 @@ public class PlayerProfile
 
         LoadCharacterData();
 
-        if (GetCharacterProfile(CharacterType.BATMAN) != null)
-        {
-            Helper.DebugLog("Batman existed!!!");
-        }
+        // if (GetCharacterProfile(CharacterType.BATMAN) != null)
+        // {
+        //     Helper.DebugLog("Batman existed!!!");
+        // }
         // int a = 2;
         // a = data1["m_Gold"].To;
     }
@@ -34,8 +34,8 @@ public class PlayerProfile
         string ic = "0";
         m_Gold = new BigNumber(ic);
         m_Level = 1;
-        UnlockCharacter(CharacterType.BOIZZ);
-        SetSelectedCharacter(CharacterType.BOIZZ);
+        UnlockCharacter(CharacterType.BLUEBOY);
+        SetSelectedCharacter(CharacterType.BLUEBOY);
         LoadCharacterData();
     }
 
@@ -141,6 +141,11 @@ public class PlayerProfile
         m_SelectedCharacter = (int)characterType;
     }
 
+    public CharacterProfileData GetCharacterProfile(int characterType)
+    {
+        return GetCharacterProfile((CharacterType)characterType);
+    }
+
     public CharacterProfileData GetCharacterProfile(CharacterType characterType)
     {
         for (int i = 0; i < m_CharacterData.Count; i++)
@@ -152,6 +157,16 @@ public class PlayerProfile
             }
         }
         return null;
+    }
+
+    public bool CheckSelectedChar(int _id)
+    {
+        if (_id == m_SelectedCharacter)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     #endregion

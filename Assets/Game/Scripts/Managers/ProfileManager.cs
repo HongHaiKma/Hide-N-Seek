@@ -101,7 +101,6 @@ public class ProfileManager : MonoBehaviour
     {
         m_LocalProfile = JsonMapper.ToObject<PlayerProfile>(data);
         m_LocalProfile.LoadLocalProfile();
-        Helper.DebugLog(data);
     }
 
     public void SaveData()
@@ -173,5 +172,25 @@ public class ProfileManager : MonoBehaviour
         return MyProfile.GetSelectedCharacter();
     }
 
+    public static CharacterProfileData GetCharacterProfileData(int _id)
+    {
+        return MyProfile.GetCharacterProfile(_id);
+    }
+
+    public static CharacterProfileData GetCharacterProfileData(CharacterType _id)
+    {
+        return MyProfile.GetCharacterProfile(_id);
+    }
+
     #endregion
+
+    public static int GetSelectedChar()
+    {
+        return MyProfile.m_SelectedCharacter;
+    }
+
+    public static bool CheckSelectedChar(int _id)
+    {
+        return MyProfile.CheckSelectedChar(_id);
+    }
 }

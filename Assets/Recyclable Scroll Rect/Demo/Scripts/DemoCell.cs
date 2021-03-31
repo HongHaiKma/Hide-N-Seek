@@ -14,7 +14,7 @@ public class DemoCell : MonoBehaviour, ICell
     public Text idLabel;
 
     //Model
-    private ContactInfo _contactInfo;
+    private UICharacterCardInfo _contactInfo;
     private int _cellIndex;
 
     private void Start()
@@ -24,19 +24,17 @@ public class DemoCell : MonoBehaviour, ICell
     }
 
     //This is called from the SetCell method in DataSource
-    public void ConfigureCell(ContactInfo contactInfo,int cellIndex)
+    public void ConfigureCell(UICharacterCardInfo contactInfo, int cellIndex)
     {
         _cellIndex = cellIndex;
         _contactInfo = contactInfo;
 
-        nameLabel.text = contactInfo.Name;
-        genderLabel.text = contactInfo.Gender;
-        idLabel.text = contactInfo.id;
+        nameLabel.text = contactInfo.m_Name;
     }
 
-    
+
     private void ButtonListener()
     {
-        Debug.Log("Index : " + _cellIndex +  ", Name : " + _contactInfo.Name  + ", Gender : " + _contactInfo.Gender);
+        // Debug.Log("Index : " + _cellIndex + ", Name : " + _contactInfo.m_Name + ", Gender : " + _contactInfo.Gender);
     }
 }
