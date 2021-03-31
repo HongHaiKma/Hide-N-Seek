@@ -199,6 +199,11 @@ public class ProfileManager : MonoBehaviour
         return MyProfile.GetCharacterProfile(_id);
     }
 
+    public static bool IsOwned(int _id)
+    {
+        return MyProfile.IsOwned(_id);
+    }
+
     public void EquipChar(int _id)
     {
         MyProfile.SetSelectedCharacter(_id);
@@ -207,6 +212,11 @@ public class ProfileManager : MonoBehaviour
     public static void UnlockNewCharacter(int _id)
     {
         MyProfile.UnlockCharacter((CharacterType)_id);
+    }
+
+    public static void UnlockNewCharacter(CharacterType _id)
+    {
+        MyProfile.UnlockCharacter(_id);
     }
 
     #endregion

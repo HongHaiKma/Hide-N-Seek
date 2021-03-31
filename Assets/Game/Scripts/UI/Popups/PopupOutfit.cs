@@ -20,11 +20,12 @@ public class PopupOutfit : UICanvas
     {
         m_ID = UIID.POPUP_OUTFIT;
         Init();
-        SetChar(ProfileManager.GetSelectedCharacter());
 
         GUIManager.Instance.AddClickEvent(btn_Equip, OnEquip);
         GUIManager.Instance.AddClickEvent(btn_BuyByGold, OnBuyByGold);
         GUIManager.Instance.AddClickEvent(btn_BuyByAds, OnBuyByAds);
+
+        SetChar(ProfileManager.GetSelectedCharacter());
     }
 
     private void OnEnable()
@@ -52,7 +53,6 @@ public class PopupOutfit : UICanvas
     public void SetChar(int _id)
     {
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(_id);
-        CharacterProfileData data = ProfileManager.GetCharacterProfileData(_id);
 
         txt_CharName.text = config.m_Name;
         m_SelectedCharacter = _id;
@@ -87,6 +87,8 @@ public class PopupOutfit : UICanvas
             ProfileManager.UnlockNewCharacter(m_SelectedCharacter);
             ProfileManager.SetSelectedCharacter(m_SelectedCharacter);
             SetOwned(m_SelectedCharacter);
+            EventManagerWithParam<int>.CallEvent(GameEvent.CLAIM_CHAR, m_SelectedCharacter);
+            EventManagerWithParam<int>.CallEvent(GameEvent.EQUIP_CHAR, m_SelectedCharacter);
         }
         else
         {
@@ -101,9 +103,10 @@ public class PopupOutfit : UICanvas
 
         data.ClaimByAds(1);
 
-        if (data.m_AdsNumber >= config.m_AdsNumber)
+        // if (ProfileManager.IsOwned(m_SelectedCharacter))
+        if (data != null)
         {
-            ProfileManager.UnlockNewCharacter(m_SelectedCharacter);
+            // ProfileManager.UnlockNewCharacter(m_SelectedCharacter);
             ProfileManager.SetSelectedCharacter(m_SelectedCharacter);
         }
 
@@ -115,7 +118,8 @@ public class PopupOutfit : UICanvas
         CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_SelectedCharacter);
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_SelectedCharacter);
 
-        bool _checkowned = (ProfileManager.GetCharacterProfileData(_id) != null);
+        // bool _checkowned = ProfileManager.IsOwned(_id);
+        bool _checkowned = (data != null);
         bool _adsCheck = config.CheckAds();
 
         bool equipped = (_id == ProfileManager.GetSelectedCharacter());
@@ -147,7 +151,14 @@ public class PopupOutfit : UICanvas
                 btn_BuyByGold.gameObject.SetActive(!_adsCheck);
                 btn_Equip.gameObject.SetActive(!_adsCheck);
 
-                txt_AdsNumber.text = "2" + "/" + config.m_AdsNumber.ToString();
+                if (data != null)
+                {
+                    txt_AdsNumber.text = data.m_AdsNumber.ToString() + "/" + config.m_AdsNumber.ToString();
+                }
+                else
+                {
+                    txt_AdsNumber.text = "0" + "/" + config.m_AdsNumber.ToString();
+                }
             }
             else
             {

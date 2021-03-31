@@ -44,13 +44,14 @@ public class UICharacterCard : MonoBehaviour, ICell
     {
         EventManagerWithParam<int>.AddListener(GameEvent.EQUIP_CHAR, SetEquippedChar);
 
-        EventManagerWithParam<string>.AddListener(GameEvent.UPDATE_ADSNUMBER, OnUpdateAdsNumber);
+        EventManagerWithParam<int>.AddListener(GameEvent.CLAIM_CHAR, OnUpdateAdsNumber);
     }
 
     public void StopListenToEvent()
     {
         EventManagerWithParam<int>.RemoveListener(GameEvent.EQUIP_CHAR, SetEquippedChar);
-        EventManagerWithParam<string>.RemoveListener(GameEvent.UPDATE_ADSNUMBER, OnUpdateAdsNumber);
+
+        EventManagerWithParam<int>.RemoveListener(GameEvent.CLAIM_CHAR, OnUpdateAdsNumber);
     }
 
     //This is called from the SetCell method in DataSource
@@ -77,6 +78,7 @@ public class UICharacterCard : MonoBehaviour, ICell
         CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_UICharacterCardInfo.m_Id);
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_UICharacterCardInfo.m_Id);
 
+        // if (ProfileManager.IsOwned(m_UICharacterCardInfo.m_Id))
         if (data != null)
         {
             g_Owned.SetActive(true);
@@ -109,9 +111,22 @@ public class UICharacterCard : MonoBehaviour, ICell
         EventManagerWithParam<int>.CallEvent(GameEvent.LOAD_OUTFIT_CHARACTER, m_UICharacterCardInfo.m_Id);
     }
 
-    public void OnUpdateAdsNumber(string _aaa)
+    public void OnUpdateAdsNumber(int _id)
     {
-        txt_Price.text = _aaa;
+        if (_id == m_UICharacterCardInfo.m_Id)
+        {
+            SetCellStatus();
+
+            SetEquippedChar(_id);
+
+            CharacterProfileData data = ProfileManager.GetCharacterProfileData(_id);
+
+            txt_AdsClaim.text = data.m_AdsNumber.ToString();
+        }
+        else
+        {
+            g_SelectedOutline.SetActive(false);
+        }
     }
 
     public void SetEquippedChar(int _id)

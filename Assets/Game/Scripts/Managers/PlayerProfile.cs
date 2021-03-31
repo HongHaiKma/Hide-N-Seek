@@ -142,10 +142,13 @@ public class PlayerProfile
 
     public void UnlockCharacter(CharacterType characterType)
     {
+        // if (GetCharacterProfile(characterType) != null)
+        // {
         CharacterProfileData newCharacter = new CharacterProfileData();
         newCharacter.Init(characterType);
         newCharacter.Load();
         m_CharacterData.Add(newCharacter);
+        // }
     }
 
     public void SetSelectedCharacter(CharacterType characterType)
@@ -160,24 +163,42 @@ public class PlayerProfile
 
     public CharacterProfileData GetCharacterProfile(CharacterType characterType)
     {
-        CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_SelectedCharacter);
-
         for (int i = 0; i < m_CharacterData.Count; i++)
         {
             CharacterProfileData cpd = m_CharacterData[i];
             if (cpd.m_Cid == characterType)
             {
-                // if (config.CheckAds())
-                // {
-                //     if (cpd.m_AdsNumber >= config.m_AdsNumber)
-                //     {
-                //         return cpd;
-                //     }
-                // }
                 return cpd;
             }
         }
         return null;
+    }
+
+    public bool IsOwned(int _id)
+    {
+        CharacterProfileData data = GetCharacterProfile(_id);
+        CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(_id);
+
+        if (data != null)
+        {
+            if (config.CheckAds())
+            {
+                if (data.m_AdsNumber >= config.m_AdsNumber)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public bool CheckSelectedChar(int _id)

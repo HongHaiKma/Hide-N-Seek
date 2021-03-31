@@ -25,6 +25,7 @@ public class CharacterProfileData
     public void ClaimByAds(int _value)
     {
         m_AdsNumber += _value;
+        ProfileManager.UnlockNewCharacter(m_Cid);
     }
 }
 
