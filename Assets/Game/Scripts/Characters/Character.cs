@@ -193,7 +193,15 @@ public class Character : InGameObject
 
         if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
         {
-            m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
+            if (cc_Owner.isGrounded)
+            {
+                m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
+                Helper.DebugLog("Groundedddddddddddddddddddddddddddd");
+            }
+            else
+            {
+                m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), Physics.gravity.y / 10f, CF2Input.GetAxis("Mouse Y")).normalized;
+            }
         }
 
         m_AxisX = m_MoveInput.x;
@@ -206,18 +214,12 @@ public class Character : InGameObject
 
         angle = GetRotateAngle();
 
-        // if (cc_Owner.isGrounded)
-        // {
-
-        // }
-
-        // cc_Owner.Move(m_MoveInput * Time.fixedDeltaTime * 100f * m_MoveSpd);
         cc_Owner.Move(m_MoveInput * Time.deltaTime * 3f * m_MoveSpd);
         tf_Owner.rotation = Quaternion.Euler(Vector3.up * angle);
 
         // rb_Owner.MoveRotation(Quaternion.Euler(Vector3.up * angle));
         // rb_Owner.velocity = m_MoveInput * Time.fixedDeltaTime * 100f * m_MoveSpd;
-        // rb_Owner.velocity += Physics.gravity.normalized * factor;
+        // rb_Owner.velocity.y += Physics.gravity.y * factor;
 
         // if (m_MoveInput.x == 0f || m_MoveInput.z == 0f)
         if (!IsRunning())
