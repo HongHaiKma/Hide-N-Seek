@@ -13,6 +13,7 @@ public class UICharacterCard : MonoBehaviour, ICell
     public Button btn_LoadChar;
     public Image img_Char;
     public Text txt_Price;
+    public Text txt_AdsClaim;
 
     public GameObject g_SelectedOutline;
     public GameObject g_Owned;
@@ -42,11 +43,14 @@ public class UICharacterCard : MonoBehaviour, ICell
     public void StartListenToEvent()
     {
         EventManagerWithParam<int>.AddListener(GameEvent.EQUIP_CHAR, SetEquippedChar);
+
+        EventManagerWithParam<string>.AddListener(GameEvent.UPDATE_ADSNUMBER, OnUpdateAdsNumber);
     }
 
     public void StopListenToEvent()
     {
         EventManagerWithParam<int>.RemoveListener(GameEvent.EQUIP_CHAR, SetEquippedChar);
+        EventManagerWithParam<string>.RemoveListener(GameEvent.UPDATE_ADSNUMBER, OnUpdateAdsNumber);
     }
 
     //This is called from the SetCell method in DataSource
@@ -103,8 +107,11 @@ public class UICharacterCard : MonoBehaviour, ICell
     {
         // MiniCharacterStudio.Instance.SetChar(m_UICharacterCardInfo.m_Id);
         EventManagerWithParam<int>.CallEvent(GameEvent.LOAD_OUTFIT_CHARACTER, m_UICharacterCardInfo.m_Id);
-        Helper.DebugLog("ID: " + m_UICharacterCardInfo.m_Id);
-        Helper.DebugLog("Name: " + m_UICharacterCardInfo.m_Name);
+    }
+
+    public void OnUpdateAdsNumber(string _aaa)
+    {
+        txt_Price.text = _aaa;
     }
 
     public void SetEquippedChar(int _id)

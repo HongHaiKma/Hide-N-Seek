@@ -80,6 +80,16 @@ public class PlayerProfile
         // EventManager.TriggerEvent("UpdateGold");
     }
 
+    public void ConsumeGold(BigNumber _value)
+    {
+        m_Gold -= _value;
+        ic_Gold = m_Gold.ToString();
+        // ProfileManager.Instance.SaveData();
+        SaveDataToLocal();
+        // EventManager.TriggerEvent("UpdateGold");
+    }
+
+
     #endregion
 
     #region LEVEL
@@ -150,11 +160,20 @@ public class PlayerProfile
 
     public CharacterProfileData GetCharacterProfile(CharacterType characterType)
     {
+        CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_SelectedCharacter);
+
         for (int i = 0; i < m_CharacterData.Count; i++)
         {
             CharacterProfileData cpd = m_CharacterData[i];
             if (cpd.m_Cid == characterType)
             {
+                // if (config.CheckAds())
+                // {
+                //     if (cpd.m_AdsNumber >= config.m_AdsNumber)
+                //     {
+                //         return cpd;
+                //     }
+                // }
                 return cpd;
             }
         }

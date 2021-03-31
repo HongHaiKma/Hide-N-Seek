@@ -21,6 +21,11 @@ public class CharacterProfileData
         m_RunSpeed = cdc.m_RunSpeed;
         m_AdsNumber = cdc.m_AdsNumber;
     }
+
+    public void ClaimByAds(int _value)
+    {
+        m_AdsNumber += _value;
+    }
 }
 
 public enum CharacterType

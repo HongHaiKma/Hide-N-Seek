@@ -87,4 +87,5 @@ public enum GameEvent
     LEVEL_PAUSE,
     LOAD_OUTFIT_CHARACTER,
     EQUIP_CHAR,
+    UPDATE_ADSNUMBER,
 }

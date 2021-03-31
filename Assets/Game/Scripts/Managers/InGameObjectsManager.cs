@@ -103,13 +103,10 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     {
         if (m_Char != null)
         {
-            Helper.DebugLog("Char in map existed!!!!");
-            Destroy(m_Char);
+            Destroy(m_Char.gameObject);
             m_Char = null;
         }
-        // int id = ProfileManager.GetSelectedCharacter();
         m_Map.SpawnChar();
-        // m_Char = PrefabManager.Instance.SpawnCharacter(_id);
     }
 
     public void RemoveEnemies()

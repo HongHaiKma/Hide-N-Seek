@@ -165,6 +165,16 @@ public class ProfileManager : MonoBehaviour
         MyProfile.AddGold(_gold);
     }
 
+    public static void ConsumeGold(BigNumber _gold)
+    {
+        MyProfile.ConsumeGold(_gold);
+    }
+
+    public static bool IsEnoughGold(BigNumber _gold)
+    {
+        return MyProfile.IsEnoughGold(_gold);
+    }
+
     #endregion
 
     #region CHARACTER
@@ -172,6 +182,11 @@ public class ProfileManager : MonoBehaviour
     public static int GetSelectedCharacter()
     {
         return MyProfile.GetSelectedCharacter();
+    }
+
+    public static void SetSelectedCharacter(int _id)
+    {
+        MyProfile.SetSelectedCharacter(_id);
     }
 
     public static CharacterProfileData GetCharacterProfileData(int _id)
@@ -187,6 +202,11 @@ public class ProfileManager : MonoBehaviour
     public void EquipChar(int _id)
     {
         MyProfile.SetSelectedCharacter(_id);
+    }
+
+    public static void UnlockNewCharacter(int _id)
+    {
+        MyProfile.UnlockCharacter((CharacterType)_id);
     }
 
     #endregion

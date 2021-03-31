@@ -20,4 +20,14 @@ public class CharacterDataConfig : MonoBehaviour
         m_AdsCheck = _adsCheck;
         m_AdsNumber = _adsNumber;
     }
+
+    public bool CheckAds()
+    {
+        if (m_AdsCheck == 1)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

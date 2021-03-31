@@ -36,7 +36,6 @@ public class CharSpawnPoint : SpawnPoint
         GameObject go = PrefabManager.Instance.SpawnCharacter(tf_Owner.position, charId);
         Character character = go.GetComponent<Character>();
         InGameObjectsManager.Instance.m_Char = character;
-        Helper.DebugLog("0000000000000000000000000000000000000000");
-        // EventManager.CallEvent(GameEvent.SPAWN_ENEMY);
+        CamController.Instance.m_Char = character;
     }
 }
