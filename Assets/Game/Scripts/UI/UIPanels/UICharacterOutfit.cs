@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PolyAndCode.UI;
+using UnityEngine.UI;
 
 /// <summary>
 /// Demo controller class for Recyclable Scroll Rect. 
@@ -20,6 +21,8 @@ public class UICharacterOutfit : MonoBehaviour, IRecyclableScrollRectDataSource
 
     //Dummy data List
     private List<UICharacterCardInfo> _contactList = new List<UICharacterCardInfo>();
+
+    // public PopupOutfit
 
     //Recyclable scroll rect's data source must be assigned in Awake.
     private void Awake()
