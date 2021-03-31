@@ -175,7 +175,10 @@ public class PrefabManager : Singleton<PrefabManager>
 
     public GameObject SpawnMiniCharacterStudio(Vector3 _pos, int _index)
     {
-        return Instantiate(m_MiniCharPrefabs[_index], _pos, Quaternion.identity);
+        // CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(_index);
+        // Helper.DebugLog("ID: " + config.m_Id);
+        // Helper.DebugLog("Name: " + config.m_Name);
+        return Instantiate(m_MiniCharPrefabs[_index - 1], _pos, Quaternion.identity);
     }
 
     public void DespawnPool(GameObject go)

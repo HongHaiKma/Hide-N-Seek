@@ -25,11 +25,13 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     public void StartListenToEvent()
     {
         EventManagerWithParam<int>.AddListener(GameEvent.CHAR_CLAIM_KEYKEY, SpawnKey);
+        EventManagerWithParam<int>.AddListener(GameEvent.EQUIP_CHAR, SpawnChar);
     }
 
     public void StopListenToEvent()
     {
         EventManagerWithParam<int>.RemoveListener(GameEvent.CHAR_CLAIM_KEYKEY, SpawnKey);
+        EventManagerWithParam<int>.RemoveListener(GameEvent.EQUIP_CHAR, SpawnChar);
     }
 
     public void DestroyMap()
@@ -81,8 +83,6 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
         if (m_Map != null)
         {
-            // m_Map.nav_Surface.RemoveData();
-            // m_Map.nav_Surface.gameObject.SetActive(false);
             Destroy(m_Char.gameObject);
             m_Map.nav_Surface.gameObject.SetActive(false);
             Destroy(m_Map.gameObject);
@@ -99,9 +99,16 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         m_Map.SetupMap();
     }
 
-    public void SpawnChar()
+    public void SpawnChar(int _id)
     {
-        m_Char.gameObject.SetActive(true);
+        if (m_Char != null)
+        {
+            Destroy(m_Char);
+            m_Char = null;
+        }
+        // int id = ProfileManager.GetSelectedCharacter();
+        m_Map.SpawnChar();
+        // m_Char = PrefabManager.Instance.SpawnCharacter(_id);
     }
 
     public void RemoveEnemies()

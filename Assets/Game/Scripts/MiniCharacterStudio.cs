@@ -6,6 +6,26 @@ public class MiniCharacterStudio : Singleton<MiniCharacterStudio>
 {
     public GameObject g_Char;
 
+    private void OnEnable()
+    {
+        StartListenToEvent();
+    }
+
+    private void Disable()
+    {
+        StopListenToEvent();
+    }
+
+    public void StartListenToEvent()
+    {
+        EventManagerWithParam<int>.AddListener(GameEvent.LOAD_OUTFIT_CHARACTER, SetChar);
+    }
+
+    public void StopListenToEvent()
+    {
+        EventManagerWithParam<int>.RemoveListener(GameEvent.LOAD_OUTFIT_CHARACTER, SetChar);
+    }
+
     public void SetChar(int _id)
     {
         Vector3 a = new Vector3(0f, 0f, 0f);

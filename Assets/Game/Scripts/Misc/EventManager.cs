@@ -85,4 +85,6 @@ public enum GameEvent
     LEVEL_END,
     CHAR_CLAIM_KEYKEY,
     LEVEL_PAUSE,
+    LOAD_OUTFIT_CHARACTER,
+    EQUIP_CHAR,
 }

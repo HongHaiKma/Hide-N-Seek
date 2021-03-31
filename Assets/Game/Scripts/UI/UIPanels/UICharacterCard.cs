@@ -29,6 +29,26 @@ public class UICharacterCard : MonoBehaviour, ICell
         GUIManager.Instance.AddClickEvent(btn_LoadChar, OnLoadMiniCharacterStudio);
     }
 
+    private void OnEnable()
+    {
+        StartListenToEvent();
+    }
+
+    private void Disable()
+    {
+        StopListenToEvent();
+    }
+
+    public void StartListenToEvent()
+    {
+        EventManagerWithParam<int>.AddListener(GameEvent.EQUIP_CHAR, SetEquippedChar);
+    }
+
+    public void StopListenToEvent()
+    {
+        EventManagerWithParam<int>.RemoveListener(GameEvent.EQUIP_CHAR, SetEquippedChar);
+    }
+
     //This is called from the SetCell method in DataSource
     public void ConfigureCell(UICharacterCardInfo _info, int cellIndex)
     {
@@ -81,7 +101,15 @@ public class UICharacterCard : MonoBehaviour, ICell
 
     private void OnLoadMiniCharacterStudio()
     {
-        MiniCharacterStudio.Instance.SetChar(m_UICharacterCardInfo.m_Id);
+        // MiniCharacterStudio.Instance.SetChar(m_UICharacterCardInfo.m_Id);
+        EventManagerWithParam<int>.CallEvent(GameEvent.LOAD_OUTFIT_CHARACTER, m_UICharacterCardInfo.m_Id);
+        Helper.DebugLog("ID: " + m_UICharacterCardInfo.m_Id);
+        Helper.DebugLog("Name: " + m_UICharacterCardInfo.m_Name);
+    }
+
+    public void SetEquippedChar(int _id)
+    {
+        g_SelectedOutline.SetActive(_id == m_UICharacterCardInfo.m_Id);
     }
 }
 

@@ -55,11 +55,13 @@ public class ProfileManager : MonoBehaviour
     public void StartListenToEvent()
     {
         EventManager.AddListener(GameEvent.CHAR_WIN, PassLevel);
+        EventManagerWithParam<int>.AddListener(GameEvent.EQUIP_CHAR, EquipChar);
     }
 
     public void StopListenToEvent()
     {
         EventManager.RemoveListener(GameEvent.CHAR_WIN, PassLevel);
+        EventManagerWithParam<int>.RemoveListener(GameEvent.EQUIP_CHAR, EquipChar);
     }
 
     public void InitProfile()
@@ -180,6 +182,11 @@ public class ProfileManager : MonoBehaviour
     public static CharacterProfileData GetCharacterProfileData(CharacterType _id)
     {
         return MyProfile.GetCharacterProfile(_id);
+    }
+
+    public void EquipChar(int _id)
+    {
+        MyProfile.SetSelectedCharacter(_id);
     }
 
     #endregion
