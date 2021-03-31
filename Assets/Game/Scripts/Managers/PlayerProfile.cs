@@ -114,6 +114,11 @@ public class PlayerProfile
     public void SetSelectedCharacter(int _id)
     {
         m_SelectedCharacter = _id;
+        SaveDataToLocal();
+        // UnlockCharacter((CharacterType)_id);
+        // SetSelectedCharacter(CharacterType.BLUEBOY);
+        // LoadCharacterData();
+
     }
 
     public void LoadCharacterData()
