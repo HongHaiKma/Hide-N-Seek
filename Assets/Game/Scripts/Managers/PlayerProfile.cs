@@ -185,6 +185,8 @@ public class PlayerProfile
             {
                 if (data.m_AdsNumber >= config.m_AdsNumber)
                 {
+                    Helper.DebugLog("data.m_AdsNumber: " + data.m_AdsNumber);
+                    Helper.DebugLog("config.m_AdsNumber: " + config.m_AdsNumber);
                     return true;
                 }
                 else

@@ -12,6 +12,7 @@ public class CharacterProfileData
     public void Init(CharacterType _id)
     {
         m_Cid = _id;
+        m_AdsNumber = 0;
     }
 
     public void Load()
@@ -19,13 +20,12 @@ public class CharacterProfileData
         CharacterDataConfig cdc = GameData.Instance.GetCharacterDataConfig(m_Cid);
         m_Name = cdc.m_Name;
         m_RunSpeed = cdc.m_RunSpeed;
-        m_AdsNumber = cdc.m_AdsNumber;
     }
 
     public void ClaimByAds(int _value)
     {
         m_AdsNumber += _value;
-        ProfileManager.UnlockNewCharacter(m_Cid);
+        ProfileManager.Instance.SaveData();
     }
 }
 

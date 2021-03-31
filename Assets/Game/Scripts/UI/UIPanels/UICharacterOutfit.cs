@@ -49,6 +49,7 @@ public class UICharacterOutfit : MonoBehaviour, IRecyclableScrollRectDataSource
             obj.m_Id = charConfig[i + 1].m_Id;
             obj.m_Name = charConfig[i + 1].m_Name;
             obj.m_Price = charConfig[i + 1].m_Price.ToString();
+            obj.m_AdsNumber = charConfig[i + 1].m_AdsNumber;
             _contactList.Add(obj);
         }
     }

@@ -60,16 +60,23 @@ public class UICharacterCard : MonoBehaviour, ICell
         _cellIndex = cellIndex;
         m_UICharacterCardInfo = _info;
 
-        m_Name.text = _info.m_Name;
+        CharacterProfileData data = ProfileManager.GetCharacterProfileData(_info.m_Id);
 
+        if (data != null)
+        {
+            txt_AdsClaim.text = data.m_AdsNumber.ToString() + "/" + _info.m_AdsNumber.ToString();
+        }
+        else
+        {
+            txt_AdsClaim.text = "0" + "/" + _info.m_AdsNumber.ToString();
+        }
+
+        m_Name.text = _info.m_Name;
         txt_Price.text = _info.m_Price;
 
         img_Char.sprite = SpriteManager.Instance.m_CharCards[_info.m_Id - 1];
-
         int selectedChar = ProfileManager.GetSelectedChar();
-
         g_SelectedOutline.SetActive(ProfileManager.CheckSelectedChar(_info.m_Id));
-
         SetCellStatus();
     }
 
@@ -78,8 +85,8 @@ public class UICharacterCard : MonoBehaviour, ICell
         CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_UICharacterCardInfo.m_Id);
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_UICharacterCardInfo.m_Id);
 
-        // if (ProfileManager.IsOwned(m_UICharacterCardInfo.m_Id))
-        if (data != null)
+        if (ProfileManager.IsOwned(m_UICharacterCardInfo.m_Id))
+        // if (data != null)
         {
             g_Owned.SetActive(true);
             g_Price.SetActive(false);
@@ -120,8 +127,9 @@ public class UICharacterCard : MonoBehaviour, ICell
             SetEquippedChar(_id);
 
             CharacterProfileData data = ProfileManager.GetCharacterProfileData(_id);
+            CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(_id);
 
-            txt_AdsClaim.text = data.m_AdsNumber.ToString();
+            txt_AdsClaim.text = data.m_AdsNumber.ToString() + "/" + config.m_AdsNumber.ToString();
         }
         else
         {
@@ -140,4 +148,5 @@ public class UICharacterCardInfo
     public int m_Id;
     public string m_Name;
     public string m_Price;
+    public int m_AdsNumber;
 }

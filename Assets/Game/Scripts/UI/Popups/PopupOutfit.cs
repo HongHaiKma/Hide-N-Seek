@@ -101,16 +101,26 @@ public class PopupOutfit : UICanvas
         CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_SelectedCharacter);
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_SelectedCharacter);
 
-        data.ClaimByAds(1);
-
-        // if (ProfileManager.IsOwned(m_SelectedCharacter))
-        if (data != null)
+        if (data == null)
         {
-            // ProfileManager.UnlockNewCharacter(m_SelectedCharacter);
+            ProfileManager.UnlockNewCharacter(m_SelectedCharacter);
+            data = new CharacterProfileData();
+            data = ProfileManager.GetCharacterProfileData(m_SelectedCharacter);
+            data.ClaimByAds(1);
+        }
+        else
+        {
+            data.ClaimByAds(1);
+        }
+
+        if (ProfileManager.IsOwned(m_SelectedCharacter))
+        {
             ProfileManager.SetSelectedCharacter(m_SelectedCharacter);
+            EventManagerWithParam<int>.CallEvent(GameEvent.EQUIP_CHAR, m_SelectedCharacter);
         }
 
         SetOwned(m_SelectedCharacter);
+        EventManagerWithParam<int>.CallEvent(GameEvent.CLAIM_CHAR, m_SelectedCharacter);
     }
 
     public void SetOwned(int _id)
@@ -118,8 +128,7 @@ public class PopupOutfit : UICanvas
         CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_SelectedCharacter);
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_SelectedCharacter);
 
-        // bool _checkowned = ProfileManager.IsOwned(_id);
-        bool _checkowned = (data != null);
+        bool _checkowned = ProfileManager.IsOwned(_id);
         bool _adsCheck = config.CheckAds();
 
         bool equipped = (_id == ProfileManager.GetSelectedCharacter());
@@ -145,7 +154,6 @@ public class PopupOutfit : UICanvas
         {
             if (_adsCheck)
             {
-                Helper.DebugLog("Boy by Ads!!!!");
                 btn_Equipped.gameObject.SetActive(!_adsCheck);
                 btn_BuyByAds.gameObject.SetActive(_adsCheck);
                 btn_BuyByGold.gameObject.SetActive(!_adsCheck);
@@ -162,7 +170,6 @@ public class PopupOutfit : UICanvas
             }
             else
             {
-                Helper.DebugLog("Boy by Gold!!!!");
                 btn_Equipped.gameObject.SetActive(_adsCheck);
                 btn_BuyByAds.gameObject.SetActive(_adsCheck);
                 btn_BuyByGold.gameObject.SetActive(!_adsCheck);
