@@ -126,7 +126,17 @@ public class PanelInGame : MonoBehaviour
         txt_TotalGold.text = ProfileManager.GetGold();
 
         txt_Level.gameObject.SetActive(true);
-        txt_Level.text = "LEVEL" + ProfileManager.GetLevel2();
+
+        if (GameManager.Instance.m_MapType == MapType.KEY)
+        {
+            txt_Level.text = "LEVEL" + ProfileManager.GetLevel2();
+            Helper.DebugLog("Maptype: " + GameManager.Instance.m_MapType);
+        }
+        else if (GameManager.Instance.m_MapType == MapType.BONUS)
+        {
+            txt_Level.text = "BONUS";
+            Helper.DebugLog("Maptype: " + GameManager.Instance.m_MapType);
+        }
 
         g_GoldLevel.SetActive(false);
     }

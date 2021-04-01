@@ -122,6 +122,11 @@ public class PopupOutfit : UICanvas
         SetOwned(m_SelectedCharacter);
         EventManagerWithParam<int>.CallEvent(GameEvent.CLAIM_CHAR, m_SelectedCharacter);
     }
+    public override void OnClose()
+    {
+        base.OnClose();
+        MiniCharacterStudio.Instance.DestroyChar();
+    }
 
     public void SetOwned(int _id)
     {

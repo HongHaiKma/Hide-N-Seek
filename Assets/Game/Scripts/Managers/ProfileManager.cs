@@ -6,6 +6,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 
+[DefaultExecutionOrder(-94)]
 public class ProfileManager : MonoBehaviour
 {
     private static ProfileManager m_Instance;

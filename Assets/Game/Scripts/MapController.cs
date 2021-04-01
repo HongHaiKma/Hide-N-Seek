@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class MapController : MonoBehaviour
 {
+    public MapType m_MapType;
     public List<KeyKey> m_Keys;
     public Door m_Door;
 
@@ -76,4 +77,10 @@ public class MapController : MonoBehaviour
             m_SpawnPoints[i].Spawn();
         }
     }
+}
+
+public enum MapType
+{
+    KEY,
+    BONUS
 }

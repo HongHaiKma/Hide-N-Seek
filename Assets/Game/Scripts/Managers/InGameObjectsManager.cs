@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(-90)]
 public class InGameObjectsManager : Singleton<InGameObjectsManager>
 {
     public Character m_Char;
@@ -68,8 +69,9 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         mapControl.nav_Surface.BuildNavMesh();
         // mapControl.nav_Surface.UpdateNavMesh(mapControl.nav_Surface.navMeshData);
         m_Map = mapControl;
-
         m_Map.SetupMap();
+
+        GameManager.Instance.m_MapType = m_Map.m_MapType;
     }
 
     public void LoadMapCheat(int _level)

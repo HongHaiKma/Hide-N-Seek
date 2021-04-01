@@ -8,6 +8,7 @@ public class PopupWin : UICanvas
     public Button btn_Claim;
     public Button btn_X3Reward;
     public Text txt_Level;
+    public Text txt_GoldLevel;
 
     private void Awake()
     {
@@ -21,9 +22,9 @@ public class PopupWin : UICanvas
     private void OnEnable()
     {
         txt_Level.text = "Level " + ProfileManager.GetLevel2();
+        txt_GoldLevel.text = "+" + GameManager.Instance.m_GoldLevel.ToString();
 
-        MiniCharacter character = MiniCharacterStudio.Instance.SpawnMiniCharacter();
-        character.m_Anim.SetTrigger("Win");
+        MiniCharacterStudio.Instance.SpawnMiniCharacter("Win");
     }
 
     public void OnClaim()

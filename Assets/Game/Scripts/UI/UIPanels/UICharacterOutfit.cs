@@ -28,7 +28,7 @@ public class UICharacterOutfit : MonoBehaviour, IRecyclableScrollRectDataSource
     private void Awake()
     {
         InitData();
-        MiniCharacterStudio.Instance.SetChar(ProfileManager.GetSelectedCharacter());
+        MiniCharacterStudio.Instance.SpawnMiniCharacter(ProfileManager.GetSelectedCharacter());
         _recyclableScrollRect.DataSource = this;
     }
 

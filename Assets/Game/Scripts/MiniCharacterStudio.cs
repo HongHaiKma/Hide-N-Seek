@@ -51,7 +51,7 @@ public class MiniCharacterStudio : Singleton<MiniCharacterStudio>
         }
     }
 
-    public MiniCharacter SpawnMiniCharacter()
+    public void SpawnMiniCharacter(string _anim)
     {
         int _id = ProfileManager.GetSelectedCharacter();
 
@@ -71,6 +71,6 @@ public class MiniCharacterStudio : Singleton<MiniCharacterStudio>
             g_Char.transform.localPosition = a;
         }
 
-        return g_Char.GetComponent<MiniCharacter>();
+        g_Char.GetComponent<MiniCharacter>().m_Anim.SetTrigger(_anim);
     }
 }

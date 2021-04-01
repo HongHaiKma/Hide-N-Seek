@@ -5,8 +5,11 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
+[DefaultExecutionOrder(-85)]
 public class GameManager : Singleton<GameManager>
 {
+    public MapType m_MapType;
+
     private bool IsChanging;
     public string m_NextScene;
     public bool m_LevelStart = false;
