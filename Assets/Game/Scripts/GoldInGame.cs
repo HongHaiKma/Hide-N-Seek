@@ -25,7 +25,8 @@ public class GoldInGame : InGameObject
             if (obj.m_ObjectType == ObjectType.CHAR)
             {
                 PrefabManager.Instance.DespawnPool(gameObject);
-                ProfileManager.AddGold((BigNumber)m_Goldvalue);
+                EventManagerWithParam<BigNumber>.CallEvent(GameEvent.CLAIM_GOLD_IN_GAME, m_Goldvalue);
+                // ProfileManager.AddGold((BigNumber)m_Goldvalue);
                 // EventManagerWithParam<int>.CallEvent(GameEvent.CHAR_CLAIM_KEYKEY, m_KeyNo);
                 // InGameObjectsManager.Instance.m_Map.SpawnKey(m_KeyNo);
             }

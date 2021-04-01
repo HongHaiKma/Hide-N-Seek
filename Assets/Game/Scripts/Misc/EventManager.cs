@@ -88,4 +88,5 @@ public enum GameEvent
     LOAD_OUTFIT_CHARACTER,
     EQUIP_CHAR,
     CLAIM_CHAR,
+    CLAIM_GOLD_IN_GAME,
 }

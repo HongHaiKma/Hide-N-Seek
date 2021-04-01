@@ -21,6 +21,9 @@ public class PopupWin : UICanvas
     private void OnEnable()
     {
         txt_Level.text = "Level " + ProfileManager.GetLevel2();
+
+        MiniCharacter character = MiniCharacterStudio.Instance.SpawnMiniCharacter();
+        character.m_Anim.SetTrigger("Win");
     }
 
     public void OnClaim()
@@ -29,6 +32,12 @@ public class PopupWin : UICanvas
         InGameObjectsManager.Instance.LoadMap();
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         EventManager.CallEvent(GameEvent.LEVEL_END);
+    }
+
+    public override void OnClose()
+    {
+        base.OnClose();
+        MiniCharacterStudio.Instance.DestroyChar();
     }
 
     public void OnX3Reward()

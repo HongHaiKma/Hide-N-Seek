@@ -196,7 +196,6 @@ public class Character : InGameObject
             if (cc_Owner.isGrounded)
             {
                 m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
-                Helper.DebugLog("Groundedddddddddddddddddddddddddddd");
             }
             else
             {

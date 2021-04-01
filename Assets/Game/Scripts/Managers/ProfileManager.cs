@@ -154,7 +154,7 @@ public class ProfileManager : MonoBehaviour
         MyProfile.SetLevel(_level);
     }
 
-    #region GOLD
+    #region GENERAL
     public static string GetGold()
     {
         return MyProfile.GetGold().ToString();
@@ -229,5 +229,17 @@ public class ProfileManager : MonoBehaviour
     public static bool CheckSelectedChar(int _id)
     {
         return MyProfile.CheckSelectedChar(_id);
+    }
+
+    public void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            SaveData();
+        }
+    }
+    public void OnApplicationQuit()
+    {
+        SaveData();
     }
 }

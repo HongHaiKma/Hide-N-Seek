@@ -57,13 +57,13 @@ public class CamController : Singleton<CamController>
     public void ZoomOutChar()
     {
         // tf_Owner.DOMove(ConfigManager.Instance.v3_CamZoomOutChar, 2f);
-        float a = 0f;
-        float b = 3f;
-        float c = 3f;
-        while (a < b)
-        {
-            a = Mathf.SmoothDamp(a, a += Time.deltaTime, ref c, 2);
-            v3_Offset = Vector3.Lerp(v3_Offset, ConfigManager.Instance.v3_CamZoomOutChar, a);
-        }
+        // float a = 0f;
+        // float b = 3f;
+        // float c = 3f;
+        // while (a < b)
+        // {
+        //     a = Mathf.SmoothDamp(a, a += Time.deltaTime, ref c, 2);
+        //     v3_Offset = Vector3.Lerp(v3_Offset, ConfigManager.Instance.v3_CamZoomOutChar, a);
+        // }
     }
 }

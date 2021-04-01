@@ -18,15 +18,21 @@ public class MiniCharacterStudio : Singleton<MiniCharacterStudio>
 
     public void StartListenToEvent()
     {
-        EventManagerWithParam<int>.AddListener(GameEvent.LOAD_OUTFIT_CHARACTER, SetChar);
+        EventManagerWithParam<int>.AddListener(GameEvent.LOAD_OUTFIT_CHARACTER, SpawnMiniCharacter);
     }
 
     public void StopListenToEvent()
     {
-        EventManagerWithParam<int>.RemoveListener(GameEvent.LOAD_OUTFIT_CHARACTER, SetChar);
+        EventManagerWithParam<int>.RemoveListener(GameEvent.LOAD_OUTFIT_CHARACTER, SpawnMiniCharacter);
     }
 
-    public void SetChar(int _id)
+    public void DestroyChar()
+    {
+        Destroy(g_Char);
+        g_Char = null;
+    }
+
+    public void SpawnMiniCharacter(int _id)
     {
         Vector3 a = new Vector3(0f, 0f, 0f);
         if (g_Char == null)
@@ -43,5 +49,28 @@ public class MiniCharacterStudio : Singleton<MiniCharacterStudio>
             g_Char.transform.SetParent(gameObject.transform);
             g_Char.transform.localPosition = a;
         }
+    }
+
+    public MiniCharacter SpawnMiniCharacter()
+    {
+        int _id = ProfileManager.GetSelectedCharacter();
+
+        Vector3 a = new Vector3(0f, 0f, 0f);
+        if (g_Char == null)
+        {
+            g_Char = PrefabManager.Instance.SpawnMiniCharacterStudio(a, _id);
+            g_Char.transform.SetParent(gameObject.transform);
+            g_Char.transform.localPosition = a;
+        }
+        else
+        {
+            Destroy(g_Char);
+            g_Char = null;
+            g_Char = PrefabManager.Instance.SpawnMiniCharacterStudio(a, _id);
+            g_Char.transform.SetParent(gameObject.transform);
+            g_Char.transform.localPosition = a;
+        }
+
+        return g_Char.GetComponent<MiniCharacter>();
     }
 }

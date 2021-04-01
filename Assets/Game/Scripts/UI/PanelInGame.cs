@@ -12,6 +12,7 @@ public class PanelInGame : MonoBehaviour
     [Header("UI Texts")]
     public Text txt_Keys;
     public Text txt_TotalGold;
+    public Text txt_GoldLevel;
 
     [Header("UI Buttons")]
     public Button btn_Play;
@@ -27,6 +28,8 @@ public class PanelInGame : MonoBehaviour
     public GameObject g_Joystick;
     public GameObject g_Pause;
     public GameObject ui_Keys;
+    public GameObject g_GoldLevel;
+    public Text txt_Level;
 
     private void Awake()
     {
@@ -58,6 +61,8 @@ public class PanelInGame : MonoBehaviour
         EventManager.AddListener(GameEvent.LEVEL_START, SetIngame);
         EventManager.AddListener(GameEvent.LEVEL_END, SetOutGame);
 
+        // EventManagerWithParam<BigNumber>.AddListener(GameEvent.CLAIM_GOLD_IN_GAME, SetGoldInGame);
+
         EventManagerWithParam<int>.AddListener(GameEvent.CHAR_CLAIM_KEYKEY, UpdateCurrentKey);
         EventManagerWithParam<bool>.AddListener(GameEvent.LEVEL_PAUSE, PauseLevel);
     }
@@ -71,6 +76,8 @@ public class PanelInGame : MonoBehaviour
 
         EventManager.RemoveListener(GameEvent.LEVEL_START, SetIngame);
         EventManager.RemoveListener(GameEvent.LEVEL_END, SetOutGame);
+
+        // EventManagerWithParam<BigNumber>.RemoveListener(GameEvent.CLAIM_GOLD_IN_GAME, SetGoldInGame);
 
         EventManagerWithParam<int>.RemoveListener(GameEvent.CHAR_CLAIM_KEYKEY, UpdateCurrentKey);
         EventManagerWithParam<bool>.RemoveListener(GameEvent.LEVEL_PAUSE, PauseLevel);
@@ -91,6 +98,16 @@ public class PanelInGame : MonoBehaviour
 
         int keys = InGameObjectsManager.Instance.m_Map.m_Keys.Count;
         txt_Keys.text = 0.ToString() + "/" + keys.ToString();
+
+        txt_Level.gameObject.SetActive(false);
+
+        g_GoldLevel.SetActive(true);
+        txt_GoldLevel.text = "0";
+    }
+
+    public void SetGoldInGame(BigNumber _value)
+    {
+        txt_GoldLevel.text = GameManager.Instance.m_GoldLevel.ToString();
     }
 
     public void SetOutGame()
@@ -107,6 +124,11 @@ public class PanelInGame : MonoBehaviour
         ui_Keys.SetActive(false);
 
         txt_TotalGold.text = ProfileManager.GetGold();
+
+        txt_Level.gameObject.SetActive(true);
+        txt_Level.text = "LEVEL" + ProfileManager.GetLevel2();
+
+        g_GoldLevel.SetActive(false);
     }
 
     public void EnableJoystick()

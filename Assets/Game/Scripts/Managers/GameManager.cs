@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -10,6 +11,10 @@ public class GameManager : Singleton<GameManager>
     public string m_NextScene;
     public bool m_LevelStart = false;
     public bool m_LevelPause = false;
+
+    public BigNumber m_GoldLevel;
+
+    private PanelInGame m_PanelInGame;
 
     private void Awake()
     {
@@ -29,11 +34,17 @@ public class GameManager : Singleton<GameManager>
     public void StartListenToEvent()
     {
         EventManagerWithParam<bool>.AddListener(GameEvent.LEVEL_PAUSE, PauseLevel);
+        EventManager.AddListener(GameEvent.LEVEL_START, ResetGoldLevel);
+        EventManager.AddListener(GameEvent.CHAR_WIN, SaveGoldLevel);
+        EventManagerWithParam<BigNumber>.AddListener(GameEvent.CLAIM_GOLD_IN_GAME, SetGoldLevel);
     }
 
     public void StopListenToEvent()
     {
         EventManagerWithParam<bool>.RemoveListener(GameEvent.LEVEL_PAUSE, PauseLevel);
+        EventManager.RemoveListener(GameEvent.LEVEL_START, ResetGoldLevel);
+        EventManager.RemoveListener(GameEvent.CHAR_WIN, SaveGoldLevel);
+        EventManagerWithParam<BigNumber>.RemoveListener(GameEvent.CLAIM_GOLD_IN_GAME, SetGoldLevel);
     }
 
     public void PauseLevel(bool _pause)
@@ -50,11 +61,44 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void ResetGoldLevel()
+    {
+        m_GoldLevel = 0;
+    }
+
+    public void SaveGoldLevel()
+    {
+        Helper.DebugLog("Claim gold level: " + m_GoldLevel);
+        ProfileManager.AddGold(m_GoldLevel);
+    }
+
+    public void SetGoldLevel(BigNumber _value)
+    {
+        m_GoldLevel += _value;
+        // m_PanelInGame.txt_GoldLevel.text = m_GoldLevel.ToString();
+
+        RectTransform rect = m_PanelInGame.txt_GoldLevel.GetComponent<RectTransform>();
+
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(rect.DOScale(new Vector3(2f, 2f, 2f), 0.25f));
+        Tween tween = rect.DOScale(new Vector3(1f, 1f, 1f), 0.25f).OnPlay
+        (
+            () => m_PanelInGame.txt_GoldLevel.text = m_GoldLevel.ToString()
+        );
+        mySequence.Append(tween);
+    }
+
+    public void FindPanelInGame()
+    {
+        m_PanelInGame = FindObjectOfType<PanelInGame>().GetComponent<PanelInGame>();
+    }
+
     public void ChangeToStartMenu()
     {
         // Debug.Log("PlayScene");
         ChangeScene("PlayScene", () =>
         {
+
             // InGameObjectsManager.Instance.LoadMap();
         });
         //SpineTextureManager.Instance.LoadBackgroundMaterialByName(1);
@@ -127,6 +171,7 @@ public class GameManager : Singleton<GameManager>
 
         InGameObjectsManager.Instance.LoadMap();
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
+        FindPanelInGame();
         // else
         // {
         //     SoundManager.Instance.PlayBGM(BGMType.MENU);
