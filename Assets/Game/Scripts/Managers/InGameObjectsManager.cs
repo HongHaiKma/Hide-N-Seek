@@ -9,6 +9,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     public Character m_Char;
     public List<Enemy> m_Enemies;
     public List<GoldInGame> m_GoldInGames;
+    public List<IEffectFlyer> m_IEffectFlyer = new List<IEffectFlyer>();
     public MapController m_Map;
     public PanelInGame m_PanelInGame;
 
@@ -147,6 +148,16 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         }
 
         m_Enemies.Clear();
+    }
+
+    public void RemoveEffectFlyer()
+    {
+        for (int i = 0; i < m_IEffectFlyer.Count; i++)
+        {
+            m_IEffectFlyer[i].Despawn();
+        }
+
+        m_IEffectFlyer.Clear();
     }
 
     public void RemoveGoldInGames()

@@ -5,7 +5,7 @@ using System;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class Flyer : MonoBehaviour
+public class Flyer : MonoBehaviour, IEffectFlyer
 {
     public Image m_Image;
     public delegate void FlyerCallback();
@@ -180,4 +180,15 @@ public class Flyer : MonoBehaviour
         }
         yield return Yielders.EndOfFrame;
     }
+
+    public void Despawn()
+    {
+        PrefabManager.Instance.DespawnPool(gameObject);
+
+    }
+}
+
+public interface IEffectFlyer
+{
+    void Despawn();
 }

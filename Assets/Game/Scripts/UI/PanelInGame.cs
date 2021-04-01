@@ -14,12 +14,20 @@ public class PanelInGame : MonoBehaviour
     public Text txt_TotalGold;
     public Text txt_GoldLevel;
 
+    [Header("UI GameObjects")]
+    public Image img_Sound;
+    public Image img_Music;
+
     [Header("UI Buttons")]
     public Button btn_Play;
     public Button btn_Pause;
     public Button btn_Outfit;
+    public Button btn_Setting;
+    public Button btn_Sound;
+    public Button btn_Music;
 
     [Header("UI GameObjects")]
+    public GameObject g_SettingOption;
     public GameObject g_Setting;
     public GameObject g_Gold;
     public GameObject g_Shop;
@@ -37,6 +45,9 @@ public class PanelInGame : MonoBehaviour
         GUIManager.Instance.AddClickEvent(btn_Play, OnPlay);
         GUIManager.Instance.AddClickEvent(btn_Pause, OnPause);
         GUIManager.Instance.AddClickEvent(btn_Outfit, OnOpenOutfit);
+        GUIManager.Instance.AddClickEvent(btn_Setting, OnOpenSetting);
+        GUIManager.Instance.AddClickEvent(btn_Sound, OnSetSound);
+        GUIManager.Instance.AddClickEvent(btn_Music, OnSetMusic);
     }
 
     private void OnEnable()
@@ -56,7 +67,7 @@ public class PanelInGame : MonoBehaviour
         EventManager.AddListener(GameEvent.CHAR_SPOTTED, () => g_Joystick.SetActive(false));
 
         // EventManager.AddListener(GameEvent.CHAR_WIN, ShowGameWinUI);
-        EventManager.AddListener(GameEvent.CHAR_WIN, () => g_Joystick.SetActive(false));
+        EventManager.AddListener(GameEvent.CHAR_WIN, SetUIWhenCharWin);
 
         EventManager.AddListener(GameEvent.LEVEL_START, SetIngame);
         EventManager.AddListener(GameEvent.LEVEL_END, SetOutGame);
@@ -72,7 +83,7 @@ public class PanelInGame : MonoBehaviour
         EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, () => g_Joystick.SetActive(false));
 
         // EventManager.RemoveListener(GameEvent.CHAR_WIN, ShowGameWinUI);
-        EventManager.RemoveListener(GameEvent.CHAR_WIN, () => g_Joystick.SetActive(false));
+        EventManager.RemoveListener(GameEvent.CHAR_WIN, SetUIWhenCharWin);
 
         EventManager.RemoveListener(GameEvent.LEVEL_START, SetIngame);
         EventManager.RemoveListener(GameEvent.LEVEL_END, SetOutGame);
@@ -103,11 +114,21 @@ public class PanelInGame : MonoBehaviour
 
         g_GoldLevel.SetActive(true);
         txt_GoldLevel.text = "0";
+
+        g_SettingOption.SetActive(false);
     }
 
     public void SetGoldInGame(BigNumber _value)
     {
         txt_GoldLevel.text = GameManager.Instance.m_GoldLevel.ToString();
+    }
+
+    public void SetUIWhenCharWin()
+    {
+        g_Pause.SetActive(false);
+        ui_Keys.SetActive(false);
+        g_GoldLevel.SetActive(false);
+        g_Joystick.SetActive(false);
     }
 
     public void SetOutGame()
@@ -206,7 +227,71 @@ public class PanelInGame : MonoBehaviour
 
     public void OnOpenOutfit()
     {
+        g_SettingOption.SetActive(false);
         PopupCaller.OpenOutfitPopup();
+    }
+
+    public void OnOpenSetting()
+    {
+        g_SettingOption.SetActive(!g_SettingOption.activeInHierarchy);
+        SetSoundImage();
+        SetMusicImage();
+    }
+
+    public void OnSetSound()
+    {
+        int soundOn = GameManager.Instance.GetSoundState();
+        if (soundOn == 1)
+        {
+            img_Sound.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.SOUND_OFF];
+            GameManager.Instance.SetSoundState(0);
+        }
+        else
+        {
+            img_Sound.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.SOUND_ON];
+            GameManager.Instance.SetSoundState(1);
+        }
+    }
+
+    public void SetSoundImage()
+    {
+        int soundOn = GameManager.Instance.GetSoundState();
+        if (soundOn == 1)
+        {
+            img_Sound.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.SOUND_ON];
+        }
+        else
+        {
+            img_Sound.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.SOUND_OFF];
+        }
+    }
+
+    public void OnSetMusic()
+    {
+        int musicOn = GameManager.Instance.GetMusicState();
+        if (musicOn == 1)
+        {
+            img_Music.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.MUSIC_OFF];
+            GameManager.Instance.SetMusicState(0);
+        }
+        else
+        {
+            img_Music.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.MUSIC_ON];
+            GameManager.Instance.SetMusicState(1);
+        }
+    }
+
+    public void SetMusicImage()
+    {
+        int musicOn = GameManager.Instance.GetMusicState();
+        if (musicOn == 1)
+        {
+            img_Music.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.MUSIC_ON];
+        }
+        else
+        {
+            img_Music.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.MUSIC_OFF];
+        }
     }
 
     public void PauseLevel(bool _pause)

@@ -72,7 +72,9 @@ public class GameManager : Singleton<GameManager>
     public void SaveGoldLevel()
     {
         Helper.DebugLog("Claim gold level: " + m_GoldLevel);
-        ProfileManager.AddGold(m_GoldLevel);
+
+        BigNumber bonusLevelGold = InGameObjectsManager.Instance.m_Map.m_LevelGold;
+        ProfileManager.AddGold(m_GoldLevel + bonusLevelGold);
     }
 
     public void SetGoldLevel(BigNumber _value)
@@ -185,5 +187,26 @@ public class GameManager : Singleton<GameManager>
         // {
         //     SoundManager.Instance.PlayBGM(BGMType.MENU);
         // }
+    }
+
+    public void SetSoundState(int value)
+    {
+        PlayerPrefs.SetInt("Sound", value);
+        // EventManager.CallEvent("MusicChange");
+        EventManager.CallEvent(GameEvent.SOUND_CHANGE);
+    }
+    public void SetMusicState(int value)
+    {
+        PlayerPrefs.SetInt("Music", value);
+        // EventManager.CallEvent("MusicChange");
+        EventManager.CallEvent(GameEvent.MUSIC_CHANGE);
+    }
+    public int GetSoundState()
+    {
+        return PlayerPrefs.GetInt("Sound", 1);
+    }
+    public int GetMusicState()
+    {
+        return PlayerPrefs.GetInt("Music", 1);
     }
 }

@@ -143,7 +143,7 @@ public class GUIManager : MonoBehaviour
     {
         _bt.onClick.AddListener(() =>
         {
-            // SoundManager.Instance.PlayButtonClick(_bt.transform.position);
+            SoundManager.Instance.PlayButtonClick(_bt.transform.position);
             if (_callback != null)
             {
                 _callback();

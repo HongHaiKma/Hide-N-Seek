@@ -16,6 +16,9 @@ public class PrefabManager : Singleton<PrefabManager>
     private Dictionary<string, GameObject> m_GoldInGamePrefabDict = new Dictionary<string, GameObject>();
     public GameObject[] m_GoldInGamePrefabs;
 
+    private Dictionary<string, GameObject> m_EffectPrefabDict = new Dictionary<string, GameObject>();
+    public GameObject[] m_EffectPrefabs;
+
     private void Awake()
     {
         InitPrefab();
@@ -52,6 +55,21 @@ public class PrefabManager : Singleton<PrefabManager>
                 continue;
             }
         }
+        for (int i = 0; i < m_EffectPrefabs.Length; i++)
+        {
+            GameObject iPrefab = m_EffectPrefabs[i];
+            if (iPrefab == null) continue;
+            string iName = iPrefab.name;
+            try
+            {
+                m_EffectPrefabDict.Add(iName, iPrefab);
+            }
+            catch (System.Exception)
+            {
+                // Helper.DebugLog("fafaadvadvadvadvadvadvadv");
+                continue;
+            }
+        }
     }
 
     public void InitIngamePrefab()
@@ -73,6 +91,9 @@ public class PrefabManager : Singleton<PrefabManager>
         CreatePool(gold5, GetGoldInGamePrefabByName(gold5), 5);
         string gold10 = GoldInGameKeys.GoldInGame10.ToString();
         CreatePool(gold10, GetGoldInGamePrefabByName(gold10), 5);
+
+        string goldEffect1 = EffectKeys.GoldEffect1.ToString();
+        CreatePool(goldEffect1, GetEffectPrefabByName(goldEffect1), 20);
     }
 
     public void CreatePool(string name, GameObject prefab, int amount)
@@ -139,6 +160,35 @@ public class PrefabManager : Singleton<PrefabManager>
         return null;
     }
 
+    public GameObject GetEffectPrefabByName(string name)
+    {
+        if (m_EffectPrefabDict.ContainsKey(name))
+        {
+            return m_EffectPrefabDict[name];
+        }
+        return null;
+    }
+
+    public GameObject SpawnEffectPrefabPool(string name, Vector3 pos)
+    {
+        if (SimplePool.IsHasPool(name))
+        {
+            GameObject go = SimplePool.Spawn(name, pos, Quaternion.identity);
+            return go;
+        }
+        else
+        {
+            GameObject prefab = GetEffectPrefabByName(name);
+            if (prefab != null)
+            {
+                SimplePool.Preload(prefab, 1, name);
+                GameObject go = SpawnPool(name, pos);
+                return go;
+            }
+        }
+        return null;
+    }
+
     public GameObject GetEnemyPrefabByName(string name)
     {
         if (m_EnemyPrefabDict.ContainsKey(name))
@@ -175,9 +225,6 @@ public class PrefabManager : Singleton<PrefabManager>
 
     public GameObject SpawnMiniCharacterStudio(Vector3 _pos, int _index)
     {
-        // CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(_index);
-        // Helper.DebugLog("ID: " + config.m_Id);
-        // Helper.DebugLog("Name: " + config.m_Name);
         return Instantiate(m_MiniCharPrefabs[_index - 1], _pos, Quaternion.identity);
     }
 

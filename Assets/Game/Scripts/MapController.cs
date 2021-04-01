@@ -8,6 +8,7 @@ public class MapController : MonoBehaviour
     public MapType m_MapType;
     public List<KeyKey> m_Keys;
     public Door m_Door;
+    public BigNumber m_LevelGold;
 
     public List<SpawnPoint> m_SpawnPoints;
 

@@ -520,6 +520,8 @@ MonoBehaviour:
   btn_X3Reward: {fileID: 4610246973839149535}
   txt_Level: {fileID: 6761874015879653073}
   txt_GoldLevel: {fileID: 122182217119503150}
+  m_GoldEffectTarget: {fileID: 8693392306940423757}
+  m_GoldEffectStart: {fileID: 7406883296438343988}
 --- !u!1 &3636483733272576962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,6 +1054,41 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!1 &6659680363821361861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8693392306940423757}
+  m_Layer: 5
+  m_Name: GoldEffectTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8693392306940423757
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6659680363821361861}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6372282951829302131}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 450, y: 880}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6846086326282833403
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,6 +1243,7 @@ RectTransform:
   - {fileID: 384685924954725034}
   - {fileID: 9171310002559119661}
   - {fileID: 8567513613721322792}
+  - {fileID: 8693392306940423757}
   m_Father: {fileID: 3295718967097565482}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

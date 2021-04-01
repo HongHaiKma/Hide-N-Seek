@@ -27,6 +27,10 @@ public static class ConfigKeys
     public static string Enemy3 = "Enemy3 - Robot";
 
     #endregion
+
+    #region EFFECT_PREFAB
+
+    #endregion
 }
 
 public enum EnemyKeys
@@ -44,4 +48,9 @@ public enum GoldInGameKeys
     GoldInGame1 = 0,
     GoldInGame5 = 1,
     GoldInGame10 = 2,
+}
+
+public enum EffectKeys
+{
+    GoldEffect1 = 0,
 }

@@ -89,4 +89,6 @@ public enum GameEvent
     EQUIP_CHAR,
     CLAIM_CHAR,
     CLAIM_GOLD_IN_GAME,
+    SOUND_CHANGE,
+    MUSIC_CHANGE,
 }
