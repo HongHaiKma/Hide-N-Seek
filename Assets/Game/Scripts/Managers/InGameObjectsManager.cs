@@ -10,6 +10,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     public List<Enemy> m_Enemies;
     public List<GoldInGame> m_GoldInGames;
     public MapController m_Map;
+    public PanelInGame m_PanelInGame;
 
     private void OnEnable()
     {
@@ -44,6 +45,11 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         }
     }
 
+    public void FindPanelInGame()
+    {
+        m_PanelInGame = FindObjectOfType<PanelInGame>().GetComponent<PanelInGame>();
+    }
+
     public void LoadMap()
     {
         RemoveEnemies();
@@ -71,7 +77,19 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         m_Map = mapControl;
         m_Map.SetupMap();
 
-        GameManager.Instance.m_MapType = m_Map.m_MapType;
+        if (m_PanelInGame == null)
+        {
+            FindPanelInGame();
+        }
+
+        if (m_Map.m_MapType == MapType.KEY)
+        {
+            m_PanelInGame.txt_Level.text = "LEVEL" + level;
+        }
+        else if (m_Map.m_MapType == MapType.BONUS)
+        {
+            m_PanelInGame.txt_Level.text = "BONUS";
+        }
     }
 
     public void LoadMapCheat(int _level)
@@ -97,8 +115,18 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         mapControl.nav_Surface.BuildNavMesh();
         // mapControl.nav_Surface.UpdateNavMesh(mapControl.nav_Surface.navMeshData);
         m_Map = mapControl;
-
         m_Map.SetupMap();
+
+        // if (m_Map.m_MapType == MapType.KEY)
+        // {
+        //     GameManager.Instance.GetPanelInGame().txt_Level.text = "LEVEL" + ProfileManager.GetLevel2();
+        //     // Helper.DebugLog("Maptype: " + GameManager.Instance.m_MapType);
+        // }
+        // else if (m_Map.m_MapType == MapType.BONUS)
+        // {
+        //     GameManager.Instance.GetPanelInGame().txt_Level.text = "BONUS";
+        //     // Helper.DebugLog("Maptype: " + GameManager.Instance.m_MapType);
+        // }
     }
 
     public void SpawnChar(int _id)

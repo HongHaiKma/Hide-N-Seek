@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-[DefaultExecutionOrder(-85)]
+[DefaultExecutionOrder(-94)]
 public class GameManager : Singleton<GameManager>
 {
     public MapType m_MapType;
@@ -96,6 +96,11 @@ public class GameManager : Singleton<GameManager>
         m_PanelInGame = FindObjectOfType<PanelInGame>().GetComponent<PanelInGame>();
     }
 
+    public PanelInGame GetPanelInGame()
+    {
+        return m_PanelInGame;
+    }
+
     public void ChangeToStartMenu()
     {
         // Debug.Log("PlayScene");
@@ -175,6 +180,7 @@ public class GameManager : Singleton<GameManager>
         InGameObjectsManager.Instance.LoadMap();
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         FindPanelInGame();
+        // m_MapType = InGameObjectsManager.Instance.m_Map.m_MapType;
         // else
         // {
         //     SoundManager.Instance.PlayBGM(BGMType.MENU);
