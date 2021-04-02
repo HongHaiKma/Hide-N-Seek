@@ -50,8 +50,7 @@ public class PopupWin : UICanvas
 
         txt_Level.text = "Level " + (ProfileManager.GetLevel() - 1).ToString();
 
-        BigNumber levelGold = InGameObjectsManager.Instance.m_Map.m_LevelGold;
-        txt_GoldLevel.text = "+" + (GameManager.Instance.m_GoldLevel + levelGold).ToString();
+        txt_GoldLevel.text = "+" + GameManager.Instance.m_GoldLevel.ToString();
 
         MiniCharacterStudio.Instance.SpawnMiniCharacter("Win");
 

@@ -7,14 +7,18 @@ public class PopupOutfit : UICanvas
 {
     public int m_SelectedCharacter;
 
+    public Text txt_TotalGold;
     public Text txt_CharName;
     public Button btn_Equip;
     public Button btn_Equipped;
     public Button btn_BuyByGold;
     public Button btn_BuyByAds;
+    public Button btn_AdsGold;
 
     public Text txt_BuyByGold;
     public Text txt_AdsNumber;
+
+    public GameObject g_Warning;
 
     private void Awake()
     {
@@ -24,13 +28,19 @@ public class PopupOutfit : UICanvas
         GUIManager.Instance.AddClickEvent(btn_Equip, OnEquip);
         GUIManager.Instance.AddClickEvent(btn_BuyByGold, OnBuyByGold);
         GUIManager.Instance.AddClickEvent(btn_BuyByAds, OnBuyByAds);
+        GUIManager.Instance.AddClickEvent(btn_AdsGold, OnAdsGold);
 
         SetChar(ProfileManager.GetSelectedCharacter());
     }
 
     private void OnEnable()
     {
+        g_Warning.SetActive(false);
         m_SelectedCharacter = ProfileManager.GetSelectedCharacter();
+        txt_TotalGold.text = ProfileManager.GetGold();
+
+        SetChar(m_SelectedCharacter);
+        MiniCharacterStudio.Instance.SpawnMiniCharacter(m_SelectedCharacter);
 
         StartListenToEvent();
     }
@@ -52,6 +62,8 @@ public class PopupOutfit : UICanvas
 
     public void SetChar(int _id)
     {
+        g_Warning.SetActive(false);
+
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(_id);
 
         txt_CharName.text = config.m_Name;
@@ -93,8 +105,15 @@ public class PopupOutfit : UICanvas
         }
         else
         {
-
+            StartCoroutine(IEWarning());
         }
+    }
+
+    IEnumerator IEWarning()
+    {
+        g_Warning.SetActive(true);
+        yield return Yielders.Get(2f);
+        g_Warning.SetActive(false);
     }
 
     public void OnBuyByAds() //Remember to Update UICharacterCard when buy succeed
@@ -123,10 +142,45 @@ public class PopupOutfit : UICanvas
         SetOwned(m_SelectedCharacter);
         EventManagerWithParam<int>.CallEvent(GameEvent.CLAIM_CHAR, m_SelectedCharacter);
     }
+
+    public void OnAdsGold()
+    {
+        ProfileManager.AddGold(100);
+        SpawnGoldEffect();
+        txt_TotalGold.text = ProfileManager.GetGold();
+    }
+
+    public void SpawnGoldEffect()
+    {
+        for (int i = 0; i < 15; i++)
+        {
+            GameObject g_EffectGold = PrefabManager.Instance.SpawnEffectPrefabPool(EffectKeys.GoldEffect1.ToString(), btn_AdsGold.transform.position);
+            g_EffectGold.transform.SetParent(this.transform);
+            g_EffectGold.transform.localScale = new Vector3(1, 1, 1);
+            g_EffectGold.transform.position = btn_AdsGold.transform.position;
+
+            Flyer flyer = g_EffectGold.GetComponent<Flyer>();
+            IEffectFlyer iEF = g_EffectGold.GetComponent<IEffectFlyer>();
+
+            InGameObjectsManager.Instance.m_IEffectFlyer.Add(iEF);
+
+            if (flyer == null)
+            {
+                Helper.DebugLog("Gold effect is nullllllllllllllllllllllllllllll");
+            }
+
+            flyer.FlyToTargetOneSide(txt_TotalGold.transform.position, () =>
+            {
+
+            }, true, -1, 0.3f);
+        }
+    }
+
     public override void OnClose()
     {
         base.OnClose();
         MiniCharacterStudio.Instance.DestroyChar();
+        InGameObjectsManager.Instance.RemoveEffectFlyer();
     }
 
     public void SetOwned(int _id)
