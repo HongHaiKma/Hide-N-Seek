@@ -72,6 +72,8 @@ public class PanelInGame : MonoBehaviour
         EventManager.AddListener(GameEvent.LEVEL_START, SetIngame);
         EventManager.AddListener(GameEvent.LEVEL_END, SetOutGame);
 
+        EventManager.AddListener(GameEvent.UPDATE_GOLD_TEXT, OnUpdateGold);
+
         // EventManagerWithParam<BigNumber>.AddListener(GameEvent.CLAIM_GOLD_IN_GAME, SetGoldInGame);
 
         EventManagerWithParam<int>.AddListener(GameEvent.CHAR_CLAIM_KEYKEY, UpdateCurrentKey);
@@ -88,10 +90,17 @@ public class PanelInGame : MonoBehaviour
         EventManager.RemoveListener(GameEvent.LEVEL_START, SetIngame);
         EventManager.RemoveListener(GameEvent.LEVEL_END, SetOutGame);
 
+        EventManager.RemoveListener(GameEvent.UPDATE_GOLD_TEXT, OnUpdateGold);
+
         // EventManagerWithParam<BigNumber>.RemoveListener(GameEvent.CLAIM_GOLD_IN_GAME, SetGoldInGame);
 
         EventManagerWithParam<int>.RemoveListener(GameEvent.CHAR_CLAIM_KEYKEY, UpdateCurrentKey);
         EventManagerWithParam<bool>.RemoveListener(GameEvent.LEVEL_PAUSE, PauseLevel);
+    }
+
+    public void OnUpdateGold()
+    {
+        txt_TotalGold.text = ProfileManager.GetGold();
     }
 
     public void SetIngame()

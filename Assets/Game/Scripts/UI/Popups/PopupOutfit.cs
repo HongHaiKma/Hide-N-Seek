@@ -148,6 +148,7 @@ public class PopupOutfit : UICanvas
         ProfileManager.AddGold(100);
         SpawnGoldEffect();
         txt_TotalGold.text = ProfileManager.GetGold();
+        EventManager.CallEvent(GameEvent.UPDATE_GOLD_TEXT);
     }
 
     public void SpawnGoldEffect()

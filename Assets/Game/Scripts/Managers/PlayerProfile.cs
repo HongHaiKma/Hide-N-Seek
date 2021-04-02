@@ -96,7 +96,11 @@ public class PlayerProfile
 
     public void PassLevel()
     {
-        m_Level++;
+        if (m_Level < 42)
+        {
+            m_Level++;
+        }
+
         SaveDataToLocal();
     }
 

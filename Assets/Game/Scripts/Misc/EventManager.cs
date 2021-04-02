@@ -91,4 +91,5 @@ public enum GameEvent
     CLAIM_GOLD_IN_GAME,
     SOUND_CHANGE,
     MUSIC_CHANGE,
+    UPDATE_GOLD_TEXT,
 }
