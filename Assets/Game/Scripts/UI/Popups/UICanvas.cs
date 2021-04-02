@@ -4,17 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public enum UIID
-{
-    PANEL_INGAME = 0,
-    POPUP_1 = 1,
-    POPUP_11 = 2,
-    POPUP_WIN = 3,
-    POPUP_LOSE = 4,
-    POPUP_PAUSE = 5,
-    POPUP_OUTFIT = 6,
-}
-
 public class UICanvas : MonoBehaviour
 {
     public UIID m_ID;
@@ -65,6 +54,11 @@ public class UICanvas : MonoBehaviour
             GUIManager.Instance.RegisterUI(this);
             gameObject.SetActive(isActive);
         }
+    }
+
+    public virtual void Setup()
+    {
+
     }
 
     public virtual void OnStartOpen()

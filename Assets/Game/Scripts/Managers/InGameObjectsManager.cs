@@ -86,10 +86,12 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         if (m_Map.m_MapType == MapType.KEY)
         {
             m_PanelInGame.txt_Level.text = "LEVEL" + level;
+            GameManager.Instance.m_MapType = MapType.KEY;
         }
         else if (m_Map.m_MapType == MapType.BONUS)
         {
             m_PanelInGame.txt_Level.text = "BONUS";
+            GameManager.Instance.m_MapType = MapType.BONUS;
         }
     }
 

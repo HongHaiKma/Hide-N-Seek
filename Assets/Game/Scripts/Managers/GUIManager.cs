@@ -344,6 +344,9 @@ public class GUIManager : MonoBehaviour
             case UIID.POPUP_OUTFIT:
                 prefabName = "PopupOutfit";
                 break;
+            case UIID.POPUP_LEVELREWARD:
+                prefabName = "PopupLevelReward";
+                break;
         }
         prefab = GetPopupPrefabByName(prefabName);
         return prefab;
@@ -385,4 +388,16 @@ public class GUIManager : MonoBehaviour
         }
         return null;
     }
+}
+
+public enum UIID
+{
+    PANEL_INGAME = 0,
+    POPUP_1 = 1,
+    POPUP_11 = 2,
+    POPUP_WIN = 3,
+    POPUP_LOSE = 4,
+    POPUP_PAUSE = 5,
+    POPUP_OUTFIT = 6,
+    POPUP_LEVELREWARD = 7,
 }

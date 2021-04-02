@@ -31,7 +31,7 @@ public class PopupCaller : Singleton<PopupCaller>
     public static void OpenWinPopup()
     {
         PopupWin popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_WIN) as PopupWin;
-
+        popup.Setup();
         GUIManager.Instance.ShowUIPopup(popup);
     }
 
@@ -52,6 +52,13 @@ public class PopupCaller : Singleton<PopupCaller>
     public static void OpenOutfitPopup()
     {
         PopupOutfit popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_OUTFIT) as PopupOutfit;
+
+        GUIManager.Instance.ShowUIPopup(popup);
+    }
+
+    public static void OpenLevelRewardPopup()
+    {
+        PopupLevelReward popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_LEVELREWARD) as PopupLevelReward;
 
         GUIManager.Instance.ShowUIPopup(popup);
     }

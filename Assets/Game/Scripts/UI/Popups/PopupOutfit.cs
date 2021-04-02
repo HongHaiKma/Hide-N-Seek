@@ -75,6 +75,7 @@ public class PopupOutfit : UICanvas
     public void OnEquip()
     {
         EventManagerWithParam<int>.CallEvent(GameEvent.EQUIP_CHAR, m_SelectedCharacter);
+        SetOwned(m_SelectedCharacter);
     }
 
     public void OnBuyByGold() //Remember to Update UICharacterCard when buy succeed
