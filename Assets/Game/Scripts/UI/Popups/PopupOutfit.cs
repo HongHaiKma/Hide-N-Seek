@@ -53,11 +53,17 @@ public class PopupOutfit : UICanvas
     public void StartListenToEvent()
     {
         EventManagerWithParam<int>.AddListener(GameEvent.LOAD_OUTFIT_CHARACTER, SetChar);
+        EventManager.AddListener(GameEvent.ADS_CHARACTER_LOGIC, OnByBuyAdsLogic);
+        EventManager.AddListener(GameEvent.ADS_GOLD_1_LOGIC, OnAdsGoldLogic);
+        EventManager.AddListener(GameEvent.ADS_GOLD_1_ANIM, OnAdsGoldAnim);
     }
 
     public void StopListenToEvent()
     {
         EventManagerWithParam<int>.RemoveListener(GameEvent.LOAD_OUTFIT_CHARACTER, SetChar);
+        EventManager.RemoveListener(GameEvent.ADS_CHARACTER_LOGIC, OnByBuyAdsLogic);
+        EventManager.RemoveListener(GameEvent.ADS_GOLD_1_LOGIC, OnAdsGoldLogic);
+        EventManager.RemoveListener(GameEvent.ADS_GOLD_1_ANIM, OnAdsGoldAnim);
     }
 
     public void SetChar(int _id)
@@ -118,6 +124,11 @@ public class PopupOutfit : UICanvas
 
     public void OnBuyByAds() //Remember to Update UICharacterCard when buy succeed
     {
+        AdsManager.Instance.WatchRewardVideoAds(RewardType.CHARACTER);
+    }
+
+    public void OnByBuyAdsLogic()
+    {
         CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_SelectedCharacter);
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_SelectedCharacter);
 
@@ -145,10 +156,19 @@ public class PopupOutfit : UICanvas
 
     public void OnAdsGold()
     {
+        AdsManager.Instance.WatchRewardVideoAds(RewardType.GOLD_1);
+    }
+
+    public void OnAdsGoldLogic()
+    {
         ProfileManager.AddGold(100);
+    }
+
+    public void OnAdsGoldAnim()
+    {
+        EventManager.CallEvent(GameEvent.UPDATE_GOLD_TEXT);
         SpawnGoldEffect();
         txt_TotalGold.text = ProfileManager.GetGold();
-        EventManager.CallEvent(GameEvent.UPDATE_GOLD_TEXT);
     }
 
     public void SpawnGoldEffect()

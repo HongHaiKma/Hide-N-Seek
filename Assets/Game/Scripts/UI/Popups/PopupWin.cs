@@ -62,6 +62,25 @@ public class PopupWin : UICanvas
             SpawnGoldEffect();
             RewardFill();
         }
+
+        StartListenToEvent();
+    }
+
+    private void OnDisable()
+    {
+        StopListenToEvent();
+    }
+
+    public void StartListenToEvent()
+    {
+        EventManager.AddListener(GameEvent.ADS_GOLD_2_LOGIC, OnX3RewardLogic);
+        EventManager.AddListener(GameEvent.ADS_GOLD_2_ANIM, OnX3RewardAnim);
+    }
+
+    public void StopListenToEvent()
+    {
+        EventManager.RemoveListener(GameEvent.ADS_GOLD_2_LOGIC, OnX3RewardLogic);
+        EventManager.RemoveListener(GameEvent.ADS_GOLD_2_ANIM, OnX3RewardAnim);
     }
 
     public void RewardFill()
@@ -142,8 +161,17 @@ public class PopupWin : UICanvas
 
     public void OnX3Reward()
     {
-        btn_X3Reward.gameObject.SetActive(false);
-        SpawnGoldEffect();
+        AdsManager.Instance.WatchRewardVideoAds(RewardType.GOLD_2);
+    }
+
+    public void OnX3RewardLogic()
+    {
         ProfileManager.AddGold(GameManager.Instance.m_GoldLevel * 2f);
+        btn_X3Reward.gameObject.SetActive(false);
+    }
+
+    public void OnX3RewardAnim()
+    {
+        SpawnGoldEffect();
     }
 }
