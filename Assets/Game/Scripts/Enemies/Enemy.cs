@@ -297,14 +297,14 @@ public class Enemy : InGameObject
 
         if (CanSeePlayer() && !IsThroughWall())
         {
-            if (Helper.InRange(tf_Owner.position, m_Char.tf_Owner.position, 1f))
-            {
-                ChangeState(E_CatchState.Instance);
-            }
-            else
-            {
-                m_CatchTime += Time.deltaTime;
-            }
+            // if (Helper.InRange(tf_Owner.position, m_Char.tf_Owner.position, 1f))
+            // {
+            //     ChangeState(E_CatchState.Instance);
+            // }
+            // else
+            // {
+            m_CatchTime += Time.deltaTime;
+            // }
         }
         else
         {
