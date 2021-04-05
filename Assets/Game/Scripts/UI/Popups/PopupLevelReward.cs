@@ -86,6 +86,9 @@ public class PopupLevelReward : UICanvas
     public void OnWatchVideoRewardLogic()
     {
         ProfileManager.UnlockNewCharacter(m_CharId);
+        ProfileManager.SetSelectedCharacter(m_CharId);
+        EventManagerWithParam<int>.CallEvent(GameEvent.CLAIM_CHAR, m_CharId);
+        EventManagerWithParam<int>.CallEvent(GameEvent.EQUIP_CHAR, m_CharId);
 
         // CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_CharId);
         // CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_CharId);
