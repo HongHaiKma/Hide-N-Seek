@@ -40,7 +40,7 @@ public class PopupOutfit : UICanvas
         txt_TotalGold.text = ProfileManager.GetGold();
 
         SetChar(m_SelectedCharacter);
-        MiniCharacterStudio.Instance.SpawnMiniCharacter(m_SelectedCharacter);
+        MiniCharacterStudio.Instance.SpawnMiniCharacterIdle(m_SelectedCharacter);
 
         StartListenToEvent();
     }

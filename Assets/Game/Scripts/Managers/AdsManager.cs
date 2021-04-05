@@ -45,12 +45,12 @@ public class AdsManager : Singleton<AdsManager>
 
     private void OnEnable()
     {
-        EventManager.AddListener(GameEvent.CHAR_WIN, WatchInterstitial);
+        // EventManager.AddListener(GameEvent.CHAR_WIN, WatchInterstitial);
     }
 
     private void OnDisable()
     {
-        EventManager.RemoveListener(GameEvent.CHAR_WIN, WatchInterstitial);
+        // EventManager.RemoveListener(GameEvent.CHAR_WIN, WatchInterstitial);
     }
 
     void RewardedVideoAdOpenedEvent()

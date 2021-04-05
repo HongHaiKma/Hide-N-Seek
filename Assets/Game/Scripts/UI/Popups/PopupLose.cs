@@ -17,6 +17,11 @@ public class PopupLose : UICanvas
         GUIManager.Instance.AddClickEvent(btn_Home, OnHome);
     }
 
+    private void OnEnable()
+    {
+        MiniCharacterStudio.Instance.SpawnMiniCharacter("Lose");
+    }
+
     public void OnRetry()
     {
         OnClose();

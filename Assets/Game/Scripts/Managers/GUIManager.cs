@@ -74,17 +74,23 @@ public class GUIManager : MonoBehaviour
             // }
             // m_CenterPos = Vector3.zero + new Vector3(0, m_OffsetTop);
         }
-    }
 
-    void Start()
-    {
         int maxScreenHeight = 1080;
-
         float ratio = (float)Screen.currentResolution.width / (float)Screen.currentResolution.height;
         if (Screen.currentResolution.height > maxScreenHeight)
         {
             Screen.SetResolution(Mathf.RoundToInt(ratio * (float)maxScreenHeight), maxScreenHeight, true);
         }
+    }
+
+    void Start()
+    {
+        // int maxScreenHeight = 1080;
+        // float ratio = (float)Screen.currentResolution.width / (float)Screen.currentResolution.height;
+        // if (Screen.currentResolution.height > maxScreenHeight)
+        // {
+        //     Screen.SetResolution(Mathf.RoundToInt(ratio * (float)maxScreenHeight), maxScreenHeight, true);
+        // }
 
         LoadInitScene();
     }

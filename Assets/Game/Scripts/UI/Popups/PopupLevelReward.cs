@@ -48,7 +48,7 @@ public class PopupLevelReward : UICanvas
 
         // Helper.DebugLog("Reward char: " + (CharacterType)m_CharId);
 
-        MiniCharacterStudio.Instance.SpawnMiniCharacter(m_CharId);
+        MiniCharacterStudio.Instance.SpawnMiniCharacterIdle(m_CharId);
 
         StartCoroutine(DisplayNoThanks());
     }
