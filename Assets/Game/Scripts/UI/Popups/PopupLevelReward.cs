@@ -80,7 +80,9 @@ public class PopupLevelReward : UICanvas
 
     public void OnWatchVideoReward()
     {
-        AdsManager.Instance.WatchRewardVideoAds(RewardType.CHARACTER_2);
+        // AdsManager.Instance.WatchRewardVideoAds(RewardType.CHARACTER_2);
+        OnWatchVideoRewardLogic();
+        OnWatchVideoRewardAnim();
     }
 
     public void OnWatchVideoRewardLogic()
