@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class GoldInGame : InGameObject
 {
     public int m_Goldvalue;
+    public Collider col_Owner;
+
+    private void OnEnable()
+    {
+        col_Owner.enabled = true;
+    }
 
     void Update()
     {
@@ -24,11 +31,15 @@ public class GoldInGame : InGameObject
         {
             if (obj.m_ObjectType == ObjectType.CHAR)
             {
-                PrefabManager.Instance.DespawnPool(gameObject);
+                col_Owner.enabled = false;
+
+                Vector3 aaa = new Vector3(tf_Owner.position.x, tf_Owner.position.y + 2f, tf_Owner.position.z);
                 EventManagerWithParam<BigNumber>.CallEvent(GameEvent.CLAIM_GOLD_IN_GAME, m_Goldvalue);
-                // ProfileManager.AddGold((BigNumber)m_Goldvalue);
-                // EventManagerWithParam<int>.CallEvent(GameEvent.CHAR_CLAIM_KEYKEY, m_KeyNo);
-                // InGameObjectsManager.Instance.m_Map.SpawnKey(m_KeyNo);
+
+                tf_Owner.DOMove(aaa, 0.5f).OnComplete(() =>
+                {
+                    PrefabManager.Instance.DespawnPool(gameObject);
+                });
             }
         }
     }

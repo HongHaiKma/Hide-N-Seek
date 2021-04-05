@@ -107,7 +107,7 @@ public class Enemy : InGameObject
 
         m_RangeCatch = 2f;
         m_RangeAngle = 70f;
-        m_RangeChase = 6f;
+        m_RangeChase = 3.5f;
 
         m_PatrolRadius = 8f;
 
@@ -395,7 +395,7 @@ public class Enemy : InGameObject
 
     public virtual void OnChaseExit()
     {
-
+        m_FOV.SetNormalColor(m_CatchColorRange);
     }
 
     #endregion
