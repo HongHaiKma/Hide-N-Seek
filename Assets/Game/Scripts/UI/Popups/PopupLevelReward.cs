@@ -51,6 +51,25 @@ public class PopupLevelReward : UICanvas
         MiniCharacterStudio.Instance.SpawnMiniCharacterIdle(m_CharId);
 
         StartCoroutine(DisplayNoThanks());
+
+        StartListenToEvent();
+    }
+
+    private void OnDisable()
+    {
+        StopListenToEvent();
+    }
+
+    public void StartListenToEvent()
+    {
+        EventManager.AddListener(GameEvent.ADS_CHARACTER_2_LOGIC, OnWatchVideoRewardLogic);
+        EventManager.AddListener(GameEvent.ADS_CHARACTER_2_ANIM, OnWatchVideoRewardAnim);
+    }
+
+    public void StopListenToEvent()
+    {
+        EventManager.RemoveListener(GameEvent.ADS_CHARACTER_2_LOGIC, OnWatchVideoRewardLogic);
+        EventManager.RemoveListener(GameEvent.ADS_CHARACTER_2_ANIM, OnWatchVideoRewardAnim);
     }
 
     IEnumerator DisplayNoThanks()
@@ -61,13 +80,34 @@ public class PopupLevelReward : UICanvas
 
     public void OnWatchVideoReward()
     {
+        AdsManager.Instance.WatchRewardVideoAds(RewardType.CHARACTER_2);
+    }
+
+    public void OnWatchVideoRewardLogic()
+    {
         ProfileManager.UnlockNewCharacter(m_CharId);
+
+        // CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_CharId);
+        // CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_CharId);
+
+        // if (data == null)
+        // {
+        //     ProfileManager.UnlockNewCharacter(m_CharId);
+        //     data = new CharacterProfileData();
+        //     data = ProfileManager.GetCharacterProfileData(m_CharId);
+        // }
+
+        // data.ClaimByAds(1);
+    }
+
+    public void OnWatchVideoRewardAnim()
+    {
         OnClose();
     }
 
     public override void OnClose()
     {
         base.OnClose();
-        MiniCharacterStudio.Instance.DestroyChar();
+        // MiniCharacterStudio.Instance.DestroyChar();
     }
 }

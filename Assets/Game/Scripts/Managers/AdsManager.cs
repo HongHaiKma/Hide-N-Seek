@@ -66,8 +66,14 @@ public class AdsManager : Singleton<AdsManager>
         {
             switch (m_RewardType)
             {
+                case RewardType.GOLD_1:
+                    EventManager.CallEvent(GameEvent.ADS_GOLD_1_ANIM);
+                    break;
                 case RewardType.GOLD_2:
                     EventManager.CallEvent(GameEvent.ADS_GOLD_2_ANIM);
+                    break;
+                case RewardType.CHARACTER_2:
+                    EventManager.CallEvent(GameEvent.ADS_CHARACTER_2_ANIM);
                     break;
             }
         }
@@ -94,6 +100,9 @@ public class AdsManager : Singleton<AdsManager>
                 case RewardType.CHARACTER:
                     EventManager.CallEvent(GameEvent.ADS_CHARACTER_LOGIC);
                     break;
+                case RewardType.CHARACTER_2:
+                    EventManager.CallEvent(GameEvent.ADS_CHARACTER_2_LOGIC);
+                    break;
                 case RewardType.GOLD_1:
                     EventManager.CallEvent(GameEvent.ADS_GOLD_1_LOGIC);
                     break;
@@ -114,6 +123,9 @@ public class AdsManager : Singleton<AdsManager>
             {
                 case RewardType.CHARACTER:
                     EventManager.CallEvent(GameEvent.ADS_CHARACTER_LOGIC);
+                    break;
+                case RewardType.CHARACTER_2:
+                    EventManager.CallEvent(GameEvent.ADS_CHARACTER_2_LOGIC);
                     break;
                 case RewardType.GOLD_1:
                     EventManager.CallEvent(GameEvent.ADS_GOLD_1_LOGIC);
@@ -197,6 +209,7 @@ public class AdsManager : Singleton<AdsManager>
 public enum RewardType
 {
     CHARACTER,
+    CHARACTER_2,
     GOLD_1,
     GOLD_2,
 }
