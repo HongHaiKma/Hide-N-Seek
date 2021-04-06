@@ -120,9 +120,15 @@ public class Enemy : InGameObject
         m_Char = InGameObjectsManager.Instance.m_Char;
     }
 
+    public virtual void SetFOV()
+    {
+
+    }
+
+    #region NAVMESH
+
     public void SetDestination(Vector3 _des)
     {
-        // nav_Agent.isStopped = false;
         nav_Agent.SetDestination(_des);
     }
 
@@ -148,6 +154,8 @@ public class Enemy : InGameObject
 
         return navHit.position;
     }
+
+    #endregion
 
     public bool CanSeePlayer()
     {
@@ -320,44 +328,6 @@ public class Enemy : InGameObject
         }
     }
 
-    // public bool IsThroughWall()
-    // {
-    //     RaycastHit hit;
-    //     Vector3 dir = (m_Char.tf_RayStartPoint.position - tf_RayStartPoint.position).normalized;
-    //     // Debug.DrawRay(tf_RayStartPoint.position, dir * 10f, Color.red);
-    //     if (Physics.Raycast(tf_RayStartPoint.position, dir * 0.65f, out hit, 0.65f))
-    //     {
-    //         // // if (hit.collider.gameObject.CompareTag("Character"))
-    //         if (hit.collider.gameObject.CompareTag("Untagged"))
-    //         {
-    //             Debug.Log("Untagged");
-    //             return true;
-    //         }
-
-    //         if (hit.collider.gameObject.CompareTag("Character"))
-    //         {
-    //             Debug.Log("Character");
-    //             return false;
-    //         }
-
-    //         // InGameObject go = hit.collider.gameObject.GetComponent<InGameObject>();
-
-    //         // if (go != null)
-    //         // {
-    //         //     if (go.m_ObjectType == ObjectType.CHAR)
-    //         //     {
-    //         //         return false;
-    //         //     }
-
-    //         //     return true;
-    //         // }
-    //     }
-
-    //     Debug.Log("333333333333333333333333333");
-
-    //     return false;
-    // }
-
     public bool IsThroughWall()
     {
         Vector3 dir = (m_Char.tf_RayStartPoint.position - tf_RayStartPoint.position).normalized;
@@ -408,8 +378,12 @@ public class Enemy : InGameObject
         tf_Owner.LookAt(m_Char.tf_Owner.position);
         tf_Owner.DOMove(m_Char.tf_Owner.position, 0.7f);
         anim_Owner.SetTrigger(ConfigKeys.e_Catch);
-        EventManager.CallEvent(GameEvent.CHAR_SPOTTED);
-        GameManager.Instance.m_LevelStart = false;
+
+        if (GameManager.Instance.m_LevelStart)
+        {
+            EventManager.CallEvent(GameEvent.CHAR_SPOTTED);
+            GameManager.Instance.m_LevelStart = false;
+        }
     }
 
     public virtual void OnCatchExecute()

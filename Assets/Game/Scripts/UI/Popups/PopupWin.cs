@@ -91,12 +91,30 @@ public class PopupWin : UICanvas
     public IEnumerator IERewardFill()
     {
         img_RewardBar.fillAmount = 0f;
-        float result = (float)(((ProfileManager.GetLevel() - 1) % 5) / 5f);
 
-        if (result == 0f)
+        int levelCheck = ProfileManager.GetLevel();
+
+        int result;
+
+        if ((levelCheck - 1) <= 5)
         {
-            result = 1f;
-            BlockPanel.Instance.SetupBlock(m_Canvas.sortingOrder + 1);
+            result = ((levelCheck - 1) % 5);
+
+            if (result == 0f)
+            {
+                result = 1;
+                BlockPanel.Instance.SetupBlock(m_Canvas.sortingOrder + 1);
+            }
+        }
+        else
+        {
+            result = ((levelCheck - 1) % 6);
+
+            if (result == 5f)
+            {
+                result = 1;
+                BlockPanel.Instance.SetupBlock(m_Canvas.sortingOrder + 1);
+            }
         }
 
         float time1 = 0f;

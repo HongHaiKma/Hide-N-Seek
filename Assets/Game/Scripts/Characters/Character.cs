@@ -96,10 +96,13 @@ public class Character : InGameObject
         {
             if (obj.m_ObjectType == ObjectType.DOOR)
             {
-                Disable();
-                ChangeState(P_WinState.Instance);
-                EventManager.CallEvent(GameEvent.CHAR_WIN);
-                GameManager.Instance.m_LevelStart = false;
+                if (GameManager.Instance.m_LevelStart)
+                {
+                    Disable();
+                    ChangeState(P_WinState.Instance);
+                    EventManager.CallEvent(GameEvent.CHAR_WIN);
+                    GameManager.Instance.m_LevelStart = false;
+                }
             }
         }
     }
