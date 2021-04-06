@@ -32,6 +32,7 @@ public class GUIManager : MonoBehaviour
     private UICanvas m_PreviousPopup = null;
     private UICanvas m_PreviousPanel = null;
     public GameObject m_MainCanvas;
+    public PanelLoading m_PanelLoading;
 
     private bool IsHoldBackkey = false;
 
@@ -92,6 +93,7 @@ public class GUIManager : MonoBehaviour
         //     Screen.SetResolution(Mathf.RoundToInt(ratio * (float)maxScreenHeight), maxScreenHeight, true);
         // }
 
+        FindPanelLoading();
         LoadInitScene();
     }
 
@@ -107,11 +109,18 @@ public class GUIManager : MonoBehaviour
         // async = SceneManager.LoadSceneAsync("InitScene", LoadSceneMode.Single);
         async = SceneManager.LoadSceneAsync("InitScene", LoadSceneMode.Single);
         async.allowSceneActivation = false;
-        //float _loadProgress = 0;
-        //while(_loadProgress <= 0.3f) {
-        //    _loadProgress += 0.02f;
-        //    yield return new WaitForSeconds(Time.deltaTime);
-        //}
+
+        float _loadProgress = 0;
+        while (_loadProgress <= 1)
+        {
+            _loadProgress += 0.02f;
+            m_PanelLoading.img_LoadingBar.fillAmount = _loadProgress;
+            // img_LoadingBar.fillAmount = _loadProgress;
+            int percent = (int)(_loadProgress * 100f);
+            if (percent > 100) percent = 100;
+            // m_TextLoadingPer.text = percent + "%";
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
 
         while (async.progress < 0.9f)
         {
@@ -182,6 +191,11 @@ public class GUIManager : MonoBehaviour
     public void FindMainCanvas()
     {
         m_MainCanvas = GameObject.Find("MainCanvas");
+    }
+
+    public void FindPanelLoading()
+    {
+        m_PanelLoading = GameObject.FindObjectOfType<PanelLoading>().GetComponent<PanelLoading>();
     }
 
     public UICanvas GetUICanvasByID(int id)

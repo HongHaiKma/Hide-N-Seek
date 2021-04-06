@@ -31,7 +31,7 @@ public class FieldOfView : MonoBehaviour
     public MeshRenderer fovRenderer;
     public Material normalMat, catchMat;
     [HideInInspector] LayerMask noMask;
-    public Color normalColor, DetectColor;
+    public Color normalColor, defaultColor;
 
 
     void OnEnable()
@@ -41,6 +41,7 @@ public class FieldOfView : MonoBehaviour
         viewMeshFilter.mesh = viewMesh;
 
         //SetMaterial(normalMat);
+        // defaultColor = Color.red;
         SetNormalColor();
     }
 
@@ -197,10 +198,6 @@ public class FieldOfView : MonoBehaviour
     public void SetMaterial(Material mat)
     {
         fovRenderer.sharedMaterial = mat;
-    }
-    public void SetDetectColor()
-    {
-        normalMat.DOColor(DetectColor, 0.25f);
     }
     public void SetNormalColor()
     {
