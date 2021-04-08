@@ -31,6 +31,8 @@ public class PlayerProfile
 
     public void CreateNewPlayer()
     {
+        PlayerPrefs.SetInt("BuyNoAds", 0);
+
         string ic = "0";
         m_Gold = new BigNumber(ic);
         m_Level = 1;

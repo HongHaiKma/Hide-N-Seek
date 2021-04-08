@@ -37,6 +37,9 @@ public class PopupWin : UICanvas
 
     private void OnEnable()
     {
+        AdsManager.Instance.m_WatchInter = true;
+        GameManager.Instance.m_LoseStreak = 0;
+
         btn_X3Reward.gameObject.SetActive(true);
 
         if (GameManager.Instance.m_MapType == MapType.KEY)
@@ -54,7 +57,7 @@ public class PopupWin : UICanvas
 
         MiniCharacterStudio.Instance.SpawnMiniCharacter("Win");
 
-        Helper.DebugLog("Popup win OnEnableeeeeeeeeeeeeeeeeeeeee");
+        // Helper.DebugLog("Popup win OnEnableeeeeeeeeeeeeeeeeeeeee");
 
         if (!m_OpenAgain)
         {
@@ -162,6 +165,14 @@ public class PopupWin : UICanvas
         InGameObjectsManager.Instance.LoadMap();
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         EventManager.CallEvent(GameEvent.LEVEL_END);
+
+        bool oddLevel = (((ProfileManager.GetLevel() - 1) % 2) == 1 ? true : false);
+        bool level = (ProfileManager.GetLevel() - 1) >= 3 ? true : false;
+
+        if (oddLevel && level)
+        {
+            AdsManager.Instance.WatchInterstitial();
+        }
     }
 
     public override void OnClose()
@@ -174,7 +185,9 @@ public class PopupWin : UICanvas
 
     public void OnX3Reward()
     {
-        AdsManager.Instance.WatchRewardVideoAds(RewardType.GOLD_2);
+        // AdsManager.Instance.WatchRewardVideoAds(RewardType.GOLD_2);
+        OnX3RewardLogic();
+        OnX3RewardAnim();
     }
 
     public void OnX3RewardLogic()

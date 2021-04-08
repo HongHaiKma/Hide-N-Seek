@@ -10,6 +10,8 @@ public class AdsManager : Singleton<AdsManager>
     public bool openRwdAds;
     private RewardType m_RewardType;
 
+    public bool m_WatchInter;
+
     private void Awake()
     {
 #if UNITY_ANDROID
@@ -101,12 +103,14 @@ public class AdsManager : Singleton<AdsManager>
                     EventManager.CallEvent(GameEvent.ADS_CHARACTER_LOGIC);
                     break;
                 case RewardType.CHARACTER_2:
+                    m_WatchInter = false;
                     EventManager.CallEvent(GameEvent.ADS_CHARACTER_2_LOGIC);
                     break;
                 case RewardType.GOLD_1:
                     EventManager.CallEvent(GameEvent.ADS_GOLD_1_LOGIC);
                     break;
                 case RewardType.GOLD_2:
+                    m_WatchInter = false;
                     EventManager.CallEvent(GameEvent.ADS_GOLD_2_LOGIC);
                     break;
             }
@@ -125,12 +129,14 @@ public class AdsManager : Singleton<AdsManager>
                     EventManager.CallEvent(GameEvent.ADS_CHARACTER_LOGIC);
                     break;
                 case RewardType.CHARACTER_2:
+                    m_WatchInter = false;
                     EventManager.CallEvent(GameEvent.ADS_CHARACTER_2_LOGIC);
                     break;
                 case RewardType.GOLD_1:
                     EventManager.CallEvent(GameEvent.ADS_GOLD_1_LOGIC);
                     break;
                 case RewardType.GOLD_2:
+                    m_WatchInter = false;
                     EventManager.CallEvent(GameEvent.ADS_GOLD_2_LOGIC);
                     break;
             }
@@ -196,10 +202,12 @@ public class AdsManager : Singleton<AdsManager>
 
     public void WatchInterstitial()
     {
-        if (IronSource.Agent.isInterstitialReady())
+        if (m_WatchInter)
         {
-            //Show inter then show panel
-            IronSource.Agent.showInterstitial();
+            if (IronSource.Agent.isInterstitialReady())
+            {
+                IronSource.Agent.showInterstitial();
+            }
         }
     }
 
