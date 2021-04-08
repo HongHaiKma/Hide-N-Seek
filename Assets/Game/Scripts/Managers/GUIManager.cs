@@ -258,9 +258,14 @@ public class GUIManager : MonoBehaviour
 
     public void ShowUIPopup(UICanvas popup, bool isClosePrevious = true)
     {
-        //Debug.Log("AAAA" + popup.ID());
         ShowUIPopup(popup, GetCenterPosition(), isClosePrevious);
     }
+
+    // IEnumerator IEShowUIPopup(UICanvas popup, bool isClosePrevious = true)
+    // {
+    //     // Yielders.Get();
+    // }
+
     public void ShowUIPopup(UICanvas popup, Vector3 position, bool isClosePreviousPopup = true)
     {
         if (popup == null) return;

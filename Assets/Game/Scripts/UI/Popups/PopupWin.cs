@@ -149,11 +149,6 @@ public class PopupWin : UICanvas
 
             InGameObjectsManager.Instance.m_IEffectFlyer.Add(iEF);
 
-            if (flyer == null)
-            {
-                Helper.DebugLog("Gold effect is nullllllllllllllllllllllllllllll");
-            }
-
             flyer.FlyToTargetOneSide(m_GoldEffectTarget.position, () =>
             {
 
