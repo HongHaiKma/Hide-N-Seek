@@ -28,15 +28,29 @@ public class PopupCaller : Singleton<PopupCaller>
         // EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, OpenPausePopup);
     }
 
-    public static void OpenWinPopup()
+    public void OpenWinPopup()
     {
+        StartCoroutine(IEOpenWinPopup());
+    }
+
+    IEnumerator IEOpenWinPopup()
+    {
+        yield return Yielders.Get(2f);
+
         PopupWin popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_WIN) as PopupWin;
         popup.Setup();
         GUIManager.Instance.ShowUIPopup(popup);
     }
 
-    public static void OpenLosePopup()
+    public void OpenLosePopup()
     {
+        StartCoroutine(IEOpenLosePopup());
+    }
+
+    IEnumerator IEOpenLosePopup()
+    {
+        yield return Yielders.Get(2f);
+
         PopupLose popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_LOSE) as PopupLose;
 
         GUIManager.Instance.ShowUIPopup(popup);

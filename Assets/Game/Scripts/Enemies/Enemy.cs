@@ -38,7 +38,7 @@ public class Enemy : InGameObject
 
 
     public Character m_Char;
-    Color m_CatchColorRange;
+    public Color m_CatchColorRange;
 
     [Header("Test")]
     public float m_PatrolRadius;
@@ -57,8 +57,7 @@ public class Enemy : InGameObject
         SetNavStopDist(0.6f);
         SetNavSpd(m_MoveSpd);
 
-        m_CatchColorRange = Color.white;
-        m_FOV.SetFieldOfView(m_RangeAngle + 10f);
+        SetFOV();
 
         if (m_StateMachine == null)
         {
@@ -122,7 +121,8 @@ public class Enemy : InGameObject
 
     public virtual void SetFOV()
     {
-
+        m_CatchColorRange = Color.white;
+        m_FOV.SetFieldOfView(m_RangeAngle + 10f);
     }
 
     #region NAVMESH
