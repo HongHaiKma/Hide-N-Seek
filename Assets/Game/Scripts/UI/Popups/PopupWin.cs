@@ -37,7 +37,7 @@ public class PopupWin : UICanvas
 
     private void OnEnable()
     {
-        AdsManager.Instance.m_WatchInter = true;
+        // AdsManager.Instance.m_WatchInter = true;
         GameManager.Instance.m_LoseStreak = 0;
 
         btn_X3Reward.gameObject.SetActive(true);
@@ -171,7 +171,7 @@ public class PopupWin : UICanvas
 
         if (oddLevel && level)
         {
-            AdsManager.Instance.WatchInterstitial();
+            // AdsManager.Instance.WatchInterstitial();
         }
     }
 
