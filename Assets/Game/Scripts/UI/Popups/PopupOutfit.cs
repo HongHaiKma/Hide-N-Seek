@@ -124,7 +124,8 @@ public class PopupOutfit : UICanvas
 
     public void OnBuyByAds() //Remember to Update UICharacterCard when buy succeed
     {
-        AdsManager.Instance.WatchRewardVideoAds(RewardType.CHARACTER);
+        // AdsManager.Instance.WatchRewardVideoAds(RewardType.CHARACTER);
+        OnByBuyAdsLogic();
     }
 
     public void OnByBuyAdsLogic()
@@ -156,7 +157,9 @@ public class PopupOutfit : UICanvas
 
     public void OnAdsGold()
     {
-        AdsManager.Instance.WatchRewardVideoAds(RewardType.GOLD_1);
+        // AdsManager.Instance.WatchRewardVideoAds(RewardType.GOLD_1);
+        OnAdsGoldLogic();
+        OnAdsGoldAnim();
     }
 
     public void OnAdsGoldLogic()

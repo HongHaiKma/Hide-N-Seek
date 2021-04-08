@@ -25,6 +25,7 @@ public class PanelInGame : MonoBehaviour
     public Button btn_Setting;
     public Button btn_Sound;
     public Button btn_Music;
+    public Button btn_BuyNoAds;
 
     [Header("UI GameObjects")]
     public GameObject g_SettingOption;
@@ -48,6 +49,15 @@ public class PanelInGame : MonoBehaviour
         GUIManager.Instance.AddClickEvent(btn_Setting, OnOpenSetting);
         GUIManager.Instance.AddClickEvent(btn_Sound, OnSetSound);
         GUIManager.Instance.AddClickEvent(btn_Music, OnSetMusic);
+
+        if (PlayerPrefs.GetInt("BuyNoAds") == 1)
+        {
+            GameManager.Instance.GetPanelInGame().g_NoAds.SetActive(false);
+        }
+        else
+        {
+            GUIManager.Instance.AddClickEvent(btn_BuyNoAds, OnBuyNoAds);
+        }
     }
 
     private void OnEnable()
@@ -245,6 +255,11 @@ public class PanelInGame : MonoBehaviour
         g_SettingOption.SetActive(!g_SettingOption.activeInHierarchy);
         SetSoundImage();
         SetMusicImage();
+    }
+
+    public void OnBuyNoAds()
+    {
+        Purchaser.Instance.BuyNoAds();
     }
 
     public void OnSetSound()

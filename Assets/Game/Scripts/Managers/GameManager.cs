@@ -19,9 +19,12 @@ public class GameManager : Singleton<GameManager>
 
     private PanelInGame m_PanelInGame;
 
+    public int m_LoseStreak;
+
     private void Awake()
     {
         Application.targetFrameRate = 60;
+        m_LoseStreak = 0;
     }
 
     private void OnEnable()
