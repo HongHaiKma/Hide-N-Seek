@@ -97,27 +97,37 @@ public class PopupWin : UICanvas
 
         int levelCheck = ProfileManager.GetLevel();
 
-        int result;
+        float result = 0f;
 
-        if ((levelCheck - 1) <= 5)
+        if ((levelCheck - 1) <= 6)
         {
-            result = ((levelCheck - 1) % 5);
+            result = (float)(((levelCheck - 1) % 5) / 5f);
 
-            if (result == 0f)
-            {
-                result = 1;
-                BlockPanel.Instance.SetupBlock(m_Canvas.sortingOrder + 1);
-            }
+            // if (result == 0f)
+            // {
+            //     result = 1f;
+            //     BlockPanel.Instance.SetupBlock(m_Canvas.sortingOrder + 1);
+            // }
         }
         else
         {
-            result = ((levelCheck - 1) % 6);
+            result = (float)(((levelCheck - 2) % 5) / 5f);
 
-            if (result == 5f)
-            {
-                result = 1;
-                BlockPanel.Instance.SetupBlock(m_Canvas.sortingOrder + 1);
-            }
+            // result /= 5f;
+
+            Helper.DebugLog("result: " + result);
+
+            // if (result == 0f)
+            // {
+            //     result = 1;
+            //     BlockPanel.Instance.SetupBlock(m_Canvas.sortingOrder + 1);
+            // }
+        }
+
+        if (result == 0f)
+        {
+            result = 1f;
+            BlockPanel.Instance.SetupBlock(m_Canvas.sortingOrder + 1);
         }
 
         float time1 = 0f;
