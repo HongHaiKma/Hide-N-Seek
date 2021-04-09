@@ -20,14 +20,14 @@ public class PopupLose : UICanvas
     private void OnEnable()
     {
         GameManager.Instance.m_LoseStreak++;
-        // if (GameManager.Instance.m_LoseStreak >= 2)
-        // {
-        //     AdsManager.Instance.m_WatchInter = true;
-        // }
-        // else
-        // {
-        //     AdsManager.Instance.m_WatchInter = false;
-        // }
+        if (GameManager.Instance.m_LoseStreak >= 2)
+        {
+            AdsManager.Instance.m_WatchInter = true;
+        }
+        else
+        {
+            AdsManager.Instance.m_WatchInter = false;
+        }
 
         MiniCharacterStudio.Instance.SpawnMiniCharacter("Lose");
     }
@@ -44,7 +44,7 @@ public class PopupLose : UICanvas
         bool level = (ProfileManager.GetLevel() - 1) >= 3 ? true : false;
         if (level)
         {
-            // AdsManager.Instance.WatchInterstitial();
+            AdsManager.Instance.WatchInterstitial();
         }
     }
 
@@ -58,7 +58,7 @@ public class PopupLose : UICanvas
         bool level = (ProfileManager.GetLevel() - 1) >= 3 ? true : false;
         if (level)
         {
-            // AdsManager.Instance.WatchInterstitial();
+            AdsManager.Instance.WatchInterstitial();
         }
     }
 }

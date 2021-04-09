@@ -64,13 +64,59 @@ public class Character : InGameObject
 
     void Update()
     {
+        // if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
+        // {
+        //     if (cc_Owner.isGrounded)
+        //     {
+        //         m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
+        //     }
+        //     else
+        //     {
+        //         m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), Physics.gravity.y / 10f, CF2Input.GetAxis("Mouse Y")).normalized;
+        //     }
+        // }
+
+        // if (IsRunning())
+        // {
+        //     // anim_Owner.CrossFade("Run", 2f);
+        //     anim_Owner.SetBool("IsRunning", true);
+
+        // }
+        // else
+        // {
+        //     // anim_Owner.CrossFade("Idle", 0f);
+        //     anim_Owner.SetBool("IsRunning", false);
+        // }
+
         m_StateMachine.ExecuteStateUpdate();
     }
 
-    // void FixedUpdate()
-    // {
-    //     m_StateMachine.ExecuteStateUpdate();
-    // }
+    void FixedUpdate()
+    {
+        if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
+        {
+            if (cc_Owner.isGrounded)
+            {
+                m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
+            }
+            else
+            {
+                m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), Physics.gravity.y / 10f, CF2Input.GetAxis("Mouse Y")).normalized;
+            }
+        }
+
+        if (IsRunning())
+        {
+            // anim_Owner.CrossFade("Run", 2f);
+            anim_Owner.SetBool("IsRunning", true);
+
+        }
+        else
+        {
+            // anim_Owner.CrossFade("Idle", 0f);
+            anim_Owner.SetBool("IsRunning", false);
+        }
+    }
 
     public float GetRotateAngle()
     {
@@ -133,6 +179,7 @@ public class Character : InGameObject
 
     public virtual void OnIdleEnter()
     {
+        // anim_Owner.SetTrigger(ConfigKeys.p_Idle);
         CheckCanMove();
 
         if (IsRunning())
@@ -141,7 +188,7 @@ public class Character : InGameObject
             return;
         }
 
-        anim_Owner.SetTrigger(ConfigKeys.p_Idle);
+        // anim_Owner.SetTrigger(ConfigKeys.p_Idle);
         m_CharState = CharState.IDLE;
     }
 
@@ -149,10 +196,10 @@ public class Character : InGameObject
     {
         CheckCanMove();
 
-        if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
-        {
-            m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
-        }
+        // if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
+        // {
+        //     m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
+        // }
 
         if (IsRunning())
         {
@@ -176,6 +223,7 @@ public class Character : InGameObject
 
     public virtual void OnRunEnter()
     {
+        // anim_Owner.SetTrigger(ConfigKeys.p_Run);
         CheckCanMove();
 
         if (!IsRunning() || m_DisableMove)
@@ -184,7 +232,7 @@ public class Character : InGameObject
             return;
         }
 
-        anim_Owner.SetTrigger(ConfigKeys.p_Run);
+        // anim_Owner.SetTrigger(ConfigKeys.p_Run);
         m_CharState = CharState.RUN;
     }
 
@@ -194,17 +242,17 @@ public class Character : InGameObject
     {
         CheckCanMove();
 
-        if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
-        {
-            if (cc_Owner.isGrounded)
-            {
-                m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
-            }
-            else
-            {
-                m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), Physics.gravity.y / 10f, CF2Input.GetAxis("Mouse Y")).normalized;
-            }
-        }
+        // if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
+        // {
+        //     if (cc_Owner.isGrounded)
+        //     {
+        //         m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
+        //     }
+        //     else
+        //     {
+        //         m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), Physics.gravity.y / 10f, CF2Input.GetAxis("Mouse Y")).normalized;
+        //     }
+        // }
 
         m_AxisX = m_MoveInput.x;
         m_AxisZ = m_MoveInput.z;

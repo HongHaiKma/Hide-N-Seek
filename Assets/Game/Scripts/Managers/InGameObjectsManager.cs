@@ -53,6 +53,16 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
     public void LoadMap()
     {
+        // if (!AdsManager.Instance.m_BannerLoaded)
+        // {
+        //     AdsManager.Instance.LoadBanner();
+        // }
+
+        // if (!AdsManager.Instance.interstitial.IsLoaded())
+        // {
+        //     AdsManager.Instance.RequestInter();
+        // }
+
         RemoveEnemies();
         RemoveGoldInGames();
 
