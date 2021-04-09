@@ -77,7 +77,8 @@ public class PanelInGame : MonoBehaviour
         EventManager.AddListener(GameEvent.CHAR_SPOTTED, () => g_Joystick.SetActive(false));
 
         // EventManager.AddListener(GameEvent.CHAR_WIN, ShowGameWinUI);
-        EventManager.AddListener(GameEvent.CHAR_WIN, SetUIWhenCharWin);
+        EventManager.AddListener(GameEvent.CHAR_WIN, SetUIWhenCharWinOrLose);
+        EventManager.AddListener(GameEvent.CHAR_SPOTTED, SetUIWhenCharWinOrLose);
 
         EventManager.AddListener(GameEvent.LEVEL_START, SetIngame);
         EventManager.AddListener(GameEvent.LEVEL_END, SetOutGame);
@@ -95,7 +96,8 @@ public class PanelInGame : MonoBehaviour
         EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, () => g_Joystick.SetActive(false));
 
         // EventManager.RemoveListener(GameEvent.CHAR_WIN, ShowGameWinUI);
-        EventManager.RemoveListener(GameEvent.CHAR_WIN, SetUIWhenCharWin);
+        EventManager.RemoveListener(GameEvent.CHAR_WIN, SetUIWhenCharWinOrLose);
+        EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, SetUIWhenCharWinOrLose);
 
         EventManager.RemoveListener(GameEvent.LEVEL_START, SetIngame);
         EventManager.RemoveListener(GameEvent.LEVEL_END, SetOutGame);
@@ -142,7 +144,7 @@ public class PanelInGame : MonoBehaviour
         txt_GoldLevel.text = GameManager.Instance.m_GoldLevel.ToString();
     }
 
-    public void SetUIWhenCharWin()
+    public void SetUIWhenCharWinOrLose()
     {
         g_Pause.SetActive(false);
         ui_Keys.SetActive(false);

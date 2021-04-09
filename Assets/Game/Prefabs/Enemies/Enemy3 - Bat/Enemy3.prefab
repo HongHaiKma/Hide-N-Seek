@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 845044550038497356}
   - component: {fileID: 845044550038497358}
   - component: {fileID: 1371264835655116452}
-  - component: {fileID: 2036618979871288088}
   m_Layer: 0
   m_Name: Enemy3
   m_TagString: Enemy
@@ -108,70 +107,6 @@ MonoBehaviour:
   m_CatchColorRange: {r: 0, g: 0, b: 0, a: 0}
   m_PatrolRadius: 0
   tf_RayStartPoint: {fileID: 3395891009798692328}
---- !u!114 &2036618979871288088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 845044550038497331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fe91dc294731a9428c0941ea7579110, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drawingMode: 1
-  outlineLayer: 0
-  outlineTargets:
-  - edgeDilateAmount: 5
-    frontEdgeDilateAmount: 5
-    backEdgeDilateAmount: 5
-    Renderer: {fileID: 0}
-    SubmeshIndex: 0
-    ForceRecalculateBounds: 0
-    CutoutDescriptionType: 0
-    CutoutThreshold: 0.5
-    CullMode: 2
-    cutoutTextureName: 
-    DilateRenderingMode: 0
-    cutoutTextureIndex: 0
-  - edgeDilateAmount: 5
-    frontEdgeDilateAmount: 5
-    backEdgeDilateAmount: 5
-    Renderer: {fileID: 0}
-    SubmeshIndex: 0
-    ForceRecalculateBounds: 0
-    CutoutDescriptionType: 0
-    CutoutThreshold: 0.5
-    CullMode: 2
-    cutoutTextureName: 
-    DilateRenderingMode: 0
-    cutoutTextureIndex: 0
-  renderStyle: 1
-  outlineParameters:
-    enabled: 1
-    color: {r: 1, g: 0, b: 0, a: 1}
-    dilateShift: 1
-    blurShift: 1
-    fillPass:
-      shader: {fileID: 0}
-      serializedProperties: []
-  backParameters:
-    enabled: 1
-    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-    dilateShift: 1
-    blurShift: 1
-    fillPass:
-      shader: {fileID: 0}
-      serializedProperties: []
-  frontParameters:
-    enabled: 1
-    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-    dilateShift: 1
-    blurShift: 1
-    fillPass:
-      shader: {fileID: 0}
-      serializedProperties: []
 --- !u!1 &845044550788468029
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,6 +146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 845044551961469540}
+  - component: {fileID: 7775883570061969603}
   m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
@@ -233,6 +169,24 @@ Transform:
   m_Father: {fileID: 845044550038497328}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7775883570061969603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845044551961469543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 4
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineWidth: 4
+  precomputeOutline: 1
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &845044552042207558
 GameObject:
   m_ObjectHideFlags: 0

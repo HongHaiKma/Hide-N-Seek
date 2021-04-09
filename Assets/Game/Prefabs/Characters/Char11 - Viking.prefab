@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 4874525667977482020}
   - component: {fileID: 4874525667977482023}
   - component: {fileID: 4874525667977482022}
-  - component: {fileID: 5297887145022352477}
+  - component: {fileID: 3101299852481678941}
   m_Layer: 0
   m_Name: Char11 - Viking
   m_TagString: Character
@@ -679,7 +679,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5297887145022352477
+--- !u!114 &3101299852481678941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -688,49 +688,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4874525667977482017}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fe91dc294731a9428c0941ea7579110, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawingMode: 1
-  outlineLayer: 0
-  outlineTargets:
-  - edgeDilateAmount: 5
-    frontEdgeDilateAmount: 5
-    backEdgeDilateAmount: 5
-    Renderer: {fileID: 6244126471832885059, guid: 614462df34cb3c14fb188a26a0b875e2, type: 3}
-    SubmeshIndex: 0
-    ForceRecalculateBounds: 0
-    CutoutDescriptionType: 0
-    CutoutThreshold: 0.5
-    CullMode: 2
-    cutoutTextureName: 
-    DilateRenderingMode: 0
-    cutoutTextureIndex: 0
-  renderStyle: 1
-  outlineParameters:
-    enabled: 1
-    color: {r: 0, g: 0, b: 0, a: 1}
-    dilateShift: 1
-    blurShift: 1
-    fillPass:
-      shader: {fileID: 0}
-      serializedProperties: []
-  backParameters:
-    enabled: 1
-    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-    dilateShift: 1
-    blurShift: 1
-    fillPass:
-      shader: {fileID: 0}
-      serializedProperties: []
-  frontParameters:
-    enabled: 1
-    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-    dilateShift: 1
-    blurShift: 1
-    fillPass:
-      shader: {fileID: 0}
-      serializedProperties: []
+  outlineMode: 3
+  outlineColor: {r: 0, g: 1, b: 0.038595676, a: 1}
+  outlineWidth: 4
+  precomputeOutline: 1
+  bakeKeys:
+  - {fileID: -2432090755550338912, guid: 3c12a2706f6abfb4da24b6437305eb39, type: 3}
+  bakeValues:
+  - data: []
 --- !u!1 &4874525668657167522
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,6 +853,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4874525668850416267}
+  - component: {fileID: 4847995073053556729}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -908,6 +877,26 @@ Transform:
   m_Father: {fileID: 4874525667977482042}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4847995073053556729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4874525668850416266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 4
+  precomputeOutline: 1
+  bakeKeys:
+  - {fileID: -2432090755550338912, guid: 3c12a2706f6abfb4da24b6437305eb39, type: 3}
+  bakeValues:
+  - data: []
 --- !u!1 &4943670569796116586
 GameObject:
   m_ObjectHideFlags: 0

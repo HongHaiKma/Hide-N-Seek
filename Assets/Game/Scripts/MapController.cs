@@ -41,6 +41,8 @@ public class MapController : MonoBehaviour
         SetupKeysAndDoor();
 
         SpawnChar();
+
+        nav_Surface.BuildNavMesh();
     }
 
     public void SpawnKey(int _value)

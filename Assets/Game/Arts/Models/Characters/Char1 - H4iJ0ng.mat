@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Char1 - H4iJ0ng
-  m_Shader: {fileID: 4800000, guid: a1116c8004174aa46a930f70fe69ee0b, type: 3}
+  m_Shader: {fileID: 4800000, guid: bca56e75ecb7277438a3fc9b33ce803f, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -85,6 +85,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Ramp:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -169,6 +173,7 @@ Material:
     - _NormalIntensity: 0.7
     - _OcclusionStrength: 1
     - _OcclussionIntensity: 0
+    - _Outline: 0.005
     - _OutlineWidth: 0.01
     - _Parallax: 0.02
     - _QueueOffset: 0
