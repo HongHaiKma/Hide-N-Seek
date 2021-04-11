@@ -74,8 +74,6 @@ public class GameManager : Singleton<GameManager>
 
     public void SaveGoldLevel()
     {
-        Helper.DebugLog("Claim gold level: " + m_GoldLevel);
-
         BigNumber bonusLevelGold = InGameObjectsManager.Instance.m_Map.m_LevelGold;
         m_GoldLevel += bonusLevelGold;
         ProfileManager.AddGold(m_GoldLevel);

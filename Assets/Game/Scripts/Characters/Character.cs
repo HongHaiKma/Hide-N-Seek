@@ -64,6 +64,26 @@ public class Character : InGameObject
 
     void Update()
     {
+        if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
+        {
+            if (cc_Owner.isGrounded)
+            {
+                m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
+            }
+            else
+            {
+                m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), Physics.gravity.y / 10f, CF2Input.GetAxis("Mouse Y")).normalized;
+            }
+        }
+
+        // anim_Owner.SetBool("IsRunning", IsRunning());
+        anim_Owner.SetBool("IsRunning", (cc_Owner.velocity != Vector3.zero));
+
+        m_StateMachine.ExecuteStateUpdate();
+    }
+
+    void FixedUpdate()
+    {
         // if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
         // {
         //     if (cc_Owner.isGrounded)
@@ -87,35 +107,6 @@ public class Character : InGameObject
         //     // anim_Owner.CrossFade("Idle", 0f);
         //     anim_Owner.SetBool("IsRunning", false);
         // }
-
-        m_StateMachine.ExecuteStateUpdate();
-    }
-
-    void FixedUpdate()
-    {
-        if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
-        {
-            if (cc_Owner.isGrounded)
-            {
-                m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
-            }
-            else
-            {
-                m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), Physics.gravity.y / 10f, CF2Input.GetAxis("Mouse Y")).normalized;
-            }
-        }
-
-        if (IsRunning())
-        {
-            // anim_Owner.CrossFade("Run", 2f);
-            anim_Owner.SetBool("IsRunning", true);
-
-        }
-        else
-        {
-            // anim_Owner.CrossFade("Idle", 0f);
-            anim_Owner.SetBool("IsRunning", false);
-        }
     }
 
     public float GetRotateAngle()
@@ -156,7 +147,7 @@ public class Character : InGameObject
     void Disable()
     {
         m_DisableMove = true;
-        ChangeState(P_IdleState.Instance);
+        // ChangeState(P_IdleState.Instance);
     }
 
     #region State
@@ -210,6 +201,7 @@ public class Character : InGameObject
     public bool IsRunning()
     {
         return (m_MoveInput.x != 0f || m_MoveInput.z != 0f);
+        // return (cc_Owner.velocity != Vector3.zero);
     }
 
     public virtual void OnIdleExit()
@@ -291,7 +283,7 @@ public class Character : InGameObject
     public virtual void OnWinEnter()
     {
         m_CharState = CharState.WIN;
-        anim_Owner.SetTrigger(ConfigKeys.p_Win);
+        anim_Owner.SetTrigger("Win");
     }
 
     public virtual void OnWinExecute()
@@ -311,11 +303,11 @@ public class Character : InGameObject
     public virtual void OnDieEnter()
     {
         m_CharState = CharState.DIE;
-        anim_Owner.SetTrigger(ConfigKeys.p_Die);
+        anim_Owner.SetTrigger("Die");
 
         m_MoveInput = Vector3.zero;
         CF2Input.ResetInputAxes();
-        // rb_Owner.velocity = Vector3.zero;
+        Helper.DebugLog("OnDieEnter");
     }
 
     public virtual void OnDieExecute()

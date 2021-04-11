@@ -39,6 +39,7 @@ public class GoldInGame : InGameObject
                 tf_Owner.DOMove(aaa, 0.15f).OnComplete(() =>
                 {
                     PrefabManager.Instance.DespawnPool(gameObject);
+                    InGameObjectsManager.Instance.m_GoldInGames.Remove(this);
                 });
             }
         }

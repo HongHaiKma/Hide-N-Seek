@@ -38,7 +38,6 @@ public class UICanvas : MonoBehaviour
 
     protected void Init(bool isActive = false)
     {
-        Helper.DebugLog("UICanvas Init");
         m_RectTransform = GetComponent<RectTransform>();
         m_CanvasGroup = GetComponent<CanvasGroup>();
         if (m_CanvasGroup == null)

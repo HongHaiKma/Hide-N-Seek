@@ -102,26 +102,10 @@ public class PopupWin : UICanvas
         if ((levelCheck - 1) <= 6)
         {
             result = (float)(((levelCheck - 1) % 5) / 5f);
-
-            // if (result == 0f)
-            // {
-            //     result = 1f;
-            //     BlockPanel.Instance.SetupBlock(m_Canvas.sortingOrder + 1);
-            // }
         }
         else
         {
             result = (float)(((levelCheck - 2) % 5) / 5f);
-
-            // result /= 5f;
-
-            Helper.DebugLog("result: " + result);
-
-            // if (result == 0f)
-            // {
-            //     result = 1;
-            //     BlockPanel.Instance.SetupBlock(m_Canvas.sortingOrder + 1);
-            // }
         }
 
         if (result == 0f)

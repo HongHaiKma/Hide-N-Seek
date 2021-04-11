@@ -123,7 +123,6 @@ public class PlayerProfile
 
     public int GetSelectedCharacter()
     {
-        Helper.DebugLog("Selected character: " + m_SelectedCharacter);
         return m_SelectedCharacter;
     }
 

@@ -15,6 +15,12 @@ public class GoldInGameSpawnPoint : SpawnPoint
     {
         GameObject goldInGame = PrefabManager.Instance.SpawnGoldInGamePool(m_GoldInGameKeys.ToString(), tf_Owner.position);
         GoldInGame goldInGame2 = goldInGame.GetComponent<GoldInGame>();
+
+        if (goldInGame2 == null)
+        {
+            Helper.DebugLog("Nullllllllllllllllllllllllllllllllllllll");
+        }
+
         InGameObjectsManager.Instance.m_GoldInGames.Add(goldInGame2);
         goldInGame.transform.SetParent(transform.transform);
         goldInGame.transform.localPosition = new Vector3(0f, 2f, 0f);

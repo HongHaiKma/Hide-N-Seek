@@ -108,14 +108,6 @@ public class ProfileManager : MonoBehaviour
 
     public void SaveData()
     {
-        if (m_LocalProfile != null)
-        {
-            Helper.DebugLog("m_LocalProfile is not null!!!");
-        }
-        else
-        {
-            Helper.DebugLog("nulllllllllllllllllllllllllll");
-        }
         m_LocalProfile.SaveDataToLocal();
     }
 
