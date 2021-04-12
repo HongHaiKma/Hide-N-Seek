@@ -179,9 +179,9 @@ public class PopupWin : UICanvas
 
     public void OnX3Reward()
     {
-        // AdsManager.Instance.WatchRewardVideoAds(RewardType.GOLD_2);
-        OnX3RewardLogic();
-        OnX3RewardAnim();
+        AdsManager.Instance.WatchRewardVideo(RewardType.GOLD_2);
+        // OnX3RewardLogic();
+        // OnX3RewardAnim();
     }
 
     public void OnX3RewardLogic()

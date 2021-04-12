@@ -230,9 +230,17 @@ public class AdsManager : Singleton<AdsManager>
     private string m_BannerId = "ca-app-pub-8721698442392956/1702569451";
     public bool m_BannerLoaded;
 
-    public InterstitialAd interstitial;
+    private InterstitialAd interstitial;
     private string m_InterId = "ca-app-pub-8721698442392956/3416952287";
     public bool m_WatchInter;
+
+    private RewardedAd rewardedAd;
+    private string m_RewardId = "ca-app-pub-8721698442392956/4408623845";
+
+
+    public bool openRwdAds;
+    private RewardType m_RewardType;
+
 
     private void Awake()
     {
@@ -243,6 +251,7 @@ public class AdsManager : Singleton<AdsManager>
 
         this.RequestBanner();
         this.RequestInter();
+        this.RequestRewardVideo();
     }
 
     // private void Start()
@@ -329,20 +338,49 @@ public class AdsManager : Singleton<AdsManager>
         this.interstitial.LoadAd(request);
     }
 
+    public void RequestRewardVideo()
+    {
+        this.rewardedAd = new RewardedAd(m_RewardId);
+
+        // Called when an ad request has successfully loaded.
+        this.rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
+        // Called when an ad request failed to load.
+        this.rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad;
+        // Called when an ad is shown.
+        this.rewardedAd.OnAdOpening += HandleRewardedAdOpening;
+        // Called when an ad request failed to show.
+        this.rewardedAd.OnAdFailedToShow += HandleRewardedAdFailedToShow;
+        // Called when the user should be rewarded for interacting with the ad.
+        this.rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
+        // Called when the ad is closed.
+        this.rewardedAd.OnAdClosed += HandleRewardedAdClosed;
+
+        // Create an empty ad request.
+        AdRequest request = new AdRequest.Builder().Build();
+        // Load the rewarded ad with the request.
+        this.rewardedAd.LoadAd(request);
+    }
+
     public void LoadBanner()
     {
         AdSize adSize = new AdSize(320, 35);
         this.m_BannerView = new BannerView(m_BannerId, adSize, AdPosition.Bottom);
         AdRequest request = new AdRequest.Builder().Build();
         this.m_BannerView.LoadAd(request);
-
-        Helper.DebugLog("LOAD BANNERRRRRRRRRRRRRR");
     }
 
     public void LoadInter()
     {
         AdRequest request = new AdRequest.Builder().Build();
         this.interstitial.LoadAd(request);
+    }
+
+    public void LoadRewardVideo()
+    {
+        // Create an empty ad request.
+        AdRequest request = new AdRequest.Builder().Build();
+        // Load the rewarded ad with the request.
+        this.rewardedAd.LoadAd(request);
     }
 
     public void WatchInterstitial()
@@ -393,4 +431,129 @@ public class AdsManager : Singleton<AdsManager>
     {
         MonoBehaviour.print("HandleAdLeavingApplication event received");
     }
+
+    public void HandleRewardedAdLoaded(object sender, EventArgs args)
+    {
+        MonoBehaviour.print("HandleRewardedAdLoaded event received");
+    }
+
+    public void HandleRewardedAdFailedToLoad(object sender, AdErrorEventArgs args)
+    {
+        MonoBehaviour.print(
+            "HandleRewardedAdFailedToLoad event received with message: "
+                             + args.Message);
+
+        LoadRewardVideo();
+    }
+
+    public void HandleRewardedAdOpening(object sender, EventArgs args)
+    {
+        MonoBehaviour.print("HandleRewardedAdOpening event received");
+    }
+
+    public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
+    {
+        MonoBehaviour.print(
+            "HandleRewardedAdFailedToShow event received with message: "
+                             + args.Message);
+
+        LoadRewardVideo();
+    }
+
+    public void HandleRewardedAdClosed(object sender, EventArgs args)
+    {
+        // MonoBehaviour.print("HandleRewardedAdClosed event received");
+        if (!openRwdAds)
+        {
+            switch (m_RewardType)
+            {
+                case RewardType.GOLD_1:
+                    EventManager.CallEvent(GameEvent.ADS_GOLD_1_ANIM);
+                    break;
+                case RewardType.GOLD_2:
+                    EventManager.CallEvent(GameEvent.ADS_GOLD_2_ANIM);
+                    break;
+                case RewardType.CHARACTER_2:
+                    EventManager.CallEvent(GameEvent.ADS_CHARACTER_2_ANIM);
+                    break;
+            }
+        }
+
+        LoadRewardVideo();
+    }
+
+    public void HandleUserEarnedReward(object sender, Reward args)
+    {
+        // string type = args.Type;
+        // double amount = args.Amount;
+        // MonoBehaviour.print(
+        //     "HandleRewardedAdRewarded event received for "
+        //                 + amount.ToString() + " " + type);
+
+        if (openRwdAds)
+        {
+            openRwdAds = false;
+
+            switch (m_RewardType)
+            {
+                case RewardType.CHARACTER:
+                    // EventManager.CallEvent(GameEvent.ADS_CHARACTER_LOGIC);
+                    TestFixRewardVideo();
+                    break;
+                case RewardType.CHARACTER_2:
+                    m_WatchInter = false;
+                    EventManager.CallEvent(GameEvent.ADS_CHARACTER_2_LOGIC);
+                    break;
+                case RewardType.GOLD_1:
+                    EventManager.CallEvent(GameEvent.ADS_GOLD_1_LOGIC);
+                    break;
+                case RewardType.GOLD_2:
+                    m_WatchInter = false;
+                    EventManager.CallEvent(GameEvent.ADS_GOLD_2_LOGIC);
+                    break;
+            }
+        }
+    }
+
+    public void TestFixRewardVideo()
+    {
+        StartCoroutine(IETestFixRewardVideo());
+    }
+
+    IEnumerator IETestFixRewardVideo()
+    {
+        yield return Yielders.EndOfFrame;
+        EventManager.CallEvent(GameEvent.ADS_CHARACTER_LOGIC);
+    }
+
+    public void WatchRewardVideo(RewardType _rewardType)
+    {
+        LoadRewardVideo();
+
+        m_RewardType = _rewardType;
+        openRwdAds = true;
+        // bool available = IronSource.Agent.isRewardedVideoAvailable();
+
+        // if (available)
+        // {
+        //     IronSource.Agent.showRewardedVideo();
+        // }
+
+        if (this.rewardedAd.IsLoaded())
+        {
+            this.rewardedAd.Show();
+        }
+        else
+        {
+            LoadRewardVideo();
+        }
+    }
+}
+
+public enum RewardType
+{
+    CHARACTER,
+    CHARACTER_2,
+    GOLD_1,
+    GOLD_2,
 }
