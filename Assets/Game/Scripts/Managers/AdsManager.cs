@@ -494,36 +494,36 @@ public class AdsManager : Singleton<AdsManager>
         {
             openRwdAds = false;
 
-            switch (m_RewardType)
-            {
-                case RewardType.CHARACTER:
-                    // EventManager.CallEvent(GameEvent.ADS_CHARACTER_LOGIC);
-                    TestFixRewardVideo();
-                    break;
-                case RewardType.CHARACTER_2:
-                    m_WatchInter = false;
-                    EventManager.CallEvent(GameEvent.ADS_CHARACTER_2_LOGIC);
-                    break;
-                case RewardType.GOLD_1:
-                    EventManager.CallEvent(GameEvent.ADS_GOLD_1_LOGIC);
-                    break;
-                case RewardType.GOLD_2:
-                    m_WatchInter = false;
-                    EventManager.CallEvent(GameEvent.ADS_GOLD_2_LOGIC);
-                    break;
-            }
+            ProcessRewardVideo();
         }
     }
 
-    public void TestFixRewardVideo()
+    public void ProcessRewardVideo()
     {
-        StartCoroutine(IETestFixRewardVideo());
+        StartCoroutine(IEProcessRewardVideo());
     }
 
-    IEnumerator IETestFixRewardVideo()
+    IEnumerator IEProcessRewardVideo()
     {
         yield return Yielders.EndOfFrame;
-        EventManager.CallEvent(GameEvent.ADS_CHARACTER_LOGIC);
+
+        switch (m_RewardType)
+        {
+            case RewardType.CHARACTER:
+                EventManager.CallEvent(GameEvent.ADS_CHARACTER_LOGIC);
+                break;
+            case RewardType.CHARACTER_2:
+                m_WatchInter = false;
+                EventManager.CallEvent(GameEvent.ADS_CHARACTER_2_LOGIC);
+                break;
+            case RewardType.GOLD_1:
+                EventManager.CallEvent(GameEvent.ADS_GOLD_1_LOGIC);
+                break;
+            case RewardType.GOLD_2:
+                m_WatchInter = false;
+                EventManager.CallEvent(GameEvent.ADS_GOLD_2_LOGIC);
+                break;
+        }
     }
 
     public void WatchRewardVideo(RewardType _rewardType)
