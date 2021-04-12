@@ -238,15 +238,17 @@ public class AdsManager : Singleton<AdsManager>
     {
         m_BannerLoaded = false;
         m_WatchInter = true;
-    }
 
-    private void Start()
-    {
         MobileAds.Initialize(initStatus => { });
 
         this.RequestBanner();
         this.RequestInter();
     }
+
+    // private void Start()
+    // {
+
+    // }
 
     // public void _InitilizationOfSDF()
     // {
@@ -254,6 +256,28 @@ public class AdsManager : Singleton<AdsManager>
 
     //     this.RequestBanner();
     // }
+
+    private void OnEnable()
+    {
+        StartListenToEvent();
+    }
+
+    private void OnDisable()
+    {
+        StopListenToEvent();
+    }
+
+    public void StartListenToEvent()
+    {
+        EventManager.AddListener(GameEvent.LEVEL_END, LoadBanner);
+        EventManager.AddListener(GameEvent.LEVEL_END, LoadInter);
+    }
+
+    public void StopListenToEvent()
+    {
+        EventManager.RemoveListener(GameEvent.LEVEL_END, LoadBanner);
+        EventManager.RemoveListener(GameEvent.LEVEL_END, LoadInter);
+    }
 
     public void RequestBanner()
     {
@@ -311,6 +335,8 @@ public class AdsManager : Singleton<AdsManager>
         this.m_BannerView = new BannerView(m_BannerId, adSize, AdPosition.Bottom);
         AdRequest request = new AdRequest.Builder().Build();
         this.m_BannerView.LoadAd(request);
+
+        Helper.DebugLog("LOAD BANNERRRRRRRRRRRRRR");
     }
 
     public void LoadInter()
@@ -329,7 +355,8 @@ public class AdsManager : Singleton<AdsManager>
             }
             else
             {
-                RequestInter();
+                // RequestInter();
+                LoadInter();
             }
         }
     }
@@ -347,9 +374,9 @@ public class AdsManager : Singleton<AdsManager>
                             + args.Message);
 
         m_BannerLoaded = false;
-        LoadBanner();
+        // LoadBanner();
 
-        LoadInter();
+        // LoadInter();
     }
 
     public void HandleOnAdOpened(object sender, EventArgs args)

@@ -184,11 +184,7 @@ public class GameManager : Singleton<GameManager>
         InGameObjectsManager.Instance.LoadMap();
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         FindPanelInGame();
-        // m_MapType = InGameObjectsManager.Instance.m_Map.m_MapType;
-        // else
-        // {
-        //     SoundManager.Instance.PlayBGM(BGMType.MENU);
-        // }
+        QualitySettings.vSyncCount = 0;
     }
 
     public void SetSoundState(int value)

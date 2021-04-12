@@ -63,10 +63,10 @@ namespace GoogleMobileAds.Common
 
         public static void InvokeInUpdate(UnityEvent eventParam)
         {
-          ExecuteInUpdate(() =>
-          {
-              eventParam.Invoke();
-          });
+            ExecuteInUpdate(() =>
+            {
+                eventParam.Invoke();
+            });
         }
 
         public void Update()
