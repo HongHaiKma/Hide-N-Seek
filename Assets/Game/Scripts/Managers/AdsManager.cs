@@ -377,9 +377,8 @@ public class AdsManager : Singleton<AdsManager>
 
     public void LoadRewardVideo()
     {
-        // Create an empty ad request.
+        // this.rewardedAd = new RewardedAd(m_RewardId);
         AdRequest request = new AdRequest.Builder().Build();
-        // Load the rewarded ad with the request.
         this.rewardedAd.LoadAd(request);
     }
 
@@ -443,7 +442,7 @@ public class AdsManager : Singleton<AdsManager>
             "HandleRewardedAdFailedToLoad event received with message: "
                              + args.Message);
 
-        LoadRewardVideo();
+        // LoadRewardVideo();
     }
 
     public void HandleRewardedAdOpening(object sender, EventArgs args)
@@ -457,7 +456,7 @@ public class AdsManager : Singleton<AdsManager>
             "HandleRewardedAdFailedToShow event received with message: "
                              + args.Message);
 
-        LoadRewardVideo();
+        // LoadRewardVideo();
     }
 
     public void HandleRewardedAdClosed(object sender, EventArgs args)

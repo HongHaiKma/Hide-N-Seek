@@ -176,33 +176,7 @@ public class PanelInGame : MonoBehaviour
 
         txt_Level.gameObject.SetActive(true);
 
-        // if (GameManager.Instance.m_MapType == MapType.KEY)
-        // if (InGameObjectsManager.Instance.m_Map.m_MapType == MapType.KEY)
-        // {
-        //     if (InGameObjectsManager.Instance.m_Map == null)
-        //     {
-        //         Helper.DebugLog("map is null");
-        //     }
-        //     else
-        //     {
-        //         Helper.DebugLog("map is not nulllllllllllllllllllll");
-        //     }
-        //     txt_Level.text = "LEVEL" + ProfileManager.GetLevel2();
-        //     Helper.DebugLog("Maptype: " + GameManager.Instance.m_MapType);
-        // }
-        // else if (InGameObjectsManager.Instance.m_Map.m_MapType == MapType.BONUS)
-        // {
-        //     if (InGameObjectsManager.Instance.m_Map == null)
-        //     {
-        //         Helper.DebugLog("map is null");
-        //     }
-        //     else
-        //     {
-        //         Helper.DebugLog("map is not nulllllllllllllllllllll");
-        //     }
-        //     txt_Level.text = "BONUS";
-        //     Helper.DebugLog("Maptype: " + GameManager.Instance.m_MapType);
-        // }
+        QualitySettings.vSyncCount = 1;
     }
 
     public void EnableJoystick()
@@ -242,7 +216,7 @@ public class PanelInGame : MonoBehaviour
         EventManager.CallEvent(GameEvent.LEVEL_START);
         GameManager.Instance.m_LevelStart = true;
         CamController.Instance.ZoomOutChar();
-        // InGameObjectsManager.Instance.m_Char.m_DisableMove = false;
+        QualitySettings.vSyncCount = 0;
     }
 
     public void OnPause()

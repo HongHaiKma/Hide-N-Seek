@@ -184,7 +184,8 @@ public class GameManager : Singleton<GameManager>
         InGameObjectsManager.Instance.LoadMap();
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         FindPanelInGame();
-        QualitySettings.vSyncCount = 0;
+        GUIManager.Instance.FindPanelLoadingAds();
+        // QualitySettings.vSyncCount = 0;
     }
 
     public void SetSoundState(int value)

@@ -39,6 +39,8 @@ public class GUIManager : MonoBehaviour
     public List<UICanvas> m_CurrentOpenedPopup = new List<UICanvas>();
     public List<UICanvas> m_CurrentOpenedPanel = new List<UICanvas>();
 
+    private PanelLoadingAds m_PanelLoadingAds;
+
     private static GUIManager m_Instance;
     public static GUIManager Instance
     {
@@ -143,6 +145,16 @@ public class GUIManager : MonoBehaviour
                 _UICanvas.OnBack();
             }
         }
+    }
+
+    public void FindPanelLoadingAds()
+    {
+        m_PanelLoadingAds = FindObjectOfType<PanelLoadingAds>().GetComponent<PanelLoadingAds>();
+    }
+
+    public PanelLoadingAds GetPanelLoadingAds()
+    {
+        return m_PanelLoadingAds;
     }
 
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
