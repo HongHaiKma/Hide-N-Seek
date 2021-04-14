@@ -4,6 +4,7 @@ using UnityEngine;
 using GoogleMobileAds.Api;
 using System;
 using GoogleMobileAdsMediationTestSuite.Api;
+using Facebook.Unity;
 
 public class AdsManager : Singleton<AdsManager>
 {
@@ -27,6 +28,8 @@ public class AdsManager : Singleton<AdsManager>
 
     private void Awake()
     {
+        FB.Init();
+
         m_BannerLoaded = false;
         m_WatchInter = true;
 
