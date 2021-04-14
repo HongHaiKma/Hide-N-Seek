@@ -9,7 +9,14 @@ public class CheatGame : MonoBehaviour
     public InputField m_Level;
     public PanelInGame m_PanelInGame;
 
+    public Button btn_CheckAdsMediation;
+
     public InputField m_Gold;
+
+    private void Awake()
+    {
+        GUIManager.Instance.AddClickEvent(btn_CheckAdsMediation, AdsManager.Instance.ShowMediationTestSuite);
+    }
 
     public void OpenCheatPanel()
     {

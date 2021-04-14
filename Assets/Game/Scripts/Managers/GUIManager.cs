@@ -154,6 +154,11 @@ public class GUIManager : MonoBehaviour
 
     public PanelLoadingAds GetPanelLoadingAds()
     {
+        if (m_PanelLoadingAds == null)
+        {
+            FindPanelLoadingAds();
+        }
+
         return m_PanelLoadingAds;
     }
 

@@ -131,15 +131,18 @@ public class UICharacterCard : MonoBehaviour, ICell
 
             txt_AdsClaim.text = data.m_AdsNumber.ToString() + "/" + config.m_AdsNumber.ToString();
         }
-        else
-        {
-            g_SelectedOutline.SetActive(false);
-        }
+        // else
+        // {
+        //     g_SelectedOutline.SetActive(false);
+        // }
     }
 
     public void SetEquippedChar(int _id)
     {
-        g_SelectedOutline.SetActive(_id == m_UICharacterCardInfo.m_Id);
+        CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_UICharacterCardInfo.m_Id);
+        CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_UICharacterCardInfo.m_Id);
+
+        g_SelectedOutline.SetActive(ProfileManager.CheckSelectedChar(m_UICharacterCardInfo.m_Id));
     }
 }
 
