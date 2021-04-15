@@ -18,7 +18,6 @@ public class PlayerProfile
     public void LoadLocalProfile()
     {
         m_Gold = new BigNumber(ic_Gold);
-
         LoadCharacterData();
 
         // if (GetCharacterProfile(CharacterType.BATMAN) != null)
@@ -70,6 +69,7 @@ public class PlayerProfile
 
     public bool IsEnoughGold(BigNumber _value)
     {
+        // _value += 0;
         return (m_Gold >= _value);
     }
 
@@ -98,7 +98,9 @@ public class PlayerProfile
 
     public void PassLevel()
     {
-        if (m_Level < 42)
+        AnalysticsManager.LogWinLevel(m_Level);
+
+        if (m_Level < 50)
         {
             m_Level++;
         }

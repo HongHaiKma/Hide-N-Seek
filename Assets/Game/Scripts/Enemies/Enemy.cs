@@ -382,6 +382,10 @@ public class Enemy : InGameObject
         if (GameManager.Instance.m_LevelStart)
         {
             EventManager.CallEvent(GameEvent.CHAR_SPOTTED);
+
+            int levelPlay = ProfileManager.GetLevel();
+            AnalysticsManager.LogLoseLevel(levelPlay);
+
             GameManager.Instance.m_LevelStart = false;
         }
     }

@@ -27,6 +27,9 @@ public class ProfileManager : MonoBehaviour
     }
     private PlayerProfile m_LocalProfile;
 
+    public BigNumber m_Gold;
+    public BigNumber m_Gold2 = new BigNumber(0);
+
     private void Awake()
     {
         if (m_Instance != null)
@@ -104,6 +107,7 @@ public class ProfileManager : MonoBehaviour
     {
         m_LocalProfile = JsonMapper.ToObject<PlayerProfile>(data);
         m_LocalProfile.LoadLocalProfile();
+        m_Gold = m_LocalProfile.GetGold();
     }
 
     public void SaveData()
@@ -151,6 +155,11 @@ public class ProfileManager : MonoBehaviour
     public static string GetGold()
     {
         return MyProfile.GetGold().ToString();
+    }
+
+    public static BigNumber GetGold2()
+    {
+        return MyProfile.GetGold();
     }
 
     public static void AddGold(BigNumber _gold)

@@ -92,6 +92,7 @@ public class PopupOutfit : UICanvas
 
     public void OnEquip()
     {
+        Helper.DebugLog("OnEquip Buttonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
         EventManagerWithParam<int>.CallEvent(GameEvent.EQUIP_CHAR, m_SelectedCharacter);
         SetOwned(m_SelectedCharacter);
     }
@@ -101,6 +102,7 @@ public class PopupOutfit : UICanvas
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_SelectedCharacter);
 
         if (ProfileManager.IsEnoughGold(config.m_Price))
+        // if (ProfileManager.MyProfile.IsEnoughGold(config.m_Price))
         {
             ProfileManager.ConsumeGold(config.m_Price);
             ProfileManager.UnlockNewCharacter(m_SelectedCharacter);
@@ -108,6 +110,8 @@ public class PopupOutfit : UICanvas
             SetOwned(m_SelectedCharacter);
             EventManagerWithParam<int>.CallEvent(GameEvent.CLAIM_CHAR, m_SelectedCharacter);
             EventManagerWithParam<int>.CallEvent(GameEvent.EQUIP_CHAR, m_SelectedCharacter);
+
+            AnalysticsManager.LogUnlockCharacter(config.m_Id, config.m_Name);
         }
         else
         {
@@ -124,12 +128,14 @@ public class PopupOutfit : UICanvas
 
     public void OnBuyByAds() //Remember to Update UICharacterCard when buy succeed
     {
-        AdsManager.Instance.WatchRewardVideo(RewardType.CHARACTER);
-        // OnByBuyAdsLogic();
+        // AdsManager.Instance.WatchRewardVideo(RewardType.CHARACTER);
+        Helper.DebugLog("OnBuyByAds");
+        OnByBuyAdsLogic();
     }
 
     public void OnByBuyAdsLogic()
     {
+        Helper.DebugLog("OnByBuyAdsLogic");
         CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_SelectedCharacter);
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_SelectedCharacter);
 
@@ -149,6 +155,8 @@ public class PopupOutfit : UICanvas
         {
             ProfileManager.SetSelectedCharacter(m_SelectedCharacter);
             EventManagerWithParam<int>.CallEvent(GameEvent.EQUIP_CHAR, m_SelectedCharacter);
+
+            AnalysticsManager.LogUnlockCharacter(config.m_Id, config.m_Name);
         }
 
         SetOwned(m_SelectedCharacter);
@@ -165,6 +173,7 @@ public class PopupOutfit : UICanvas
     public void OnAdsGoldLogic()
     {
         ProfileManager.AddGold(100);
+        AnalysticsManager.LogGetShopGold1();
     }
 
     public void OnAdsGoldAnim()
@@ -187,11 +196,6 @@ public class PopupOutfit : UICanvas
             IEffectFlyer iEF = g_EffectGold.GetComponent<IEffectFlyer>();
 
             InGameObjectsManager.Instance.m_IEffectFlyer.Add(iEF);
-
-            if (flyer == null)
-            {
-                Helper.DebugLog("Gold effect is nullllllllllllllllllllllllllllll");
-            }
 
             flyer.FlyToTargetOneSide(txt_TotalGold.transform.position, () =>
             {

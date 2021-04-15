@@ -213,6 +213,9 @@ public class PanelInGame : MonoBehaviour
 
     public void OnPlay()
     {
+        int levelPlay = ProfileManager.GetLevel();
+        AnalysticsManager.LogPlayLevel(levelPlay);
+
         EventManager.CallEvent(GameEvent.LEVEL_START);
         GameManager.Instance.m_LevelStart = true;
         CamController.Instance.ZoomOutChar();

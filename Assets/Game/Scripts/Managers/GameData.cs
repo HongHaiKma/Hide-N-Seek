@@ -14,7 +14,7 @@ public class GameData : Singleton<GameData>
     {
         LoadCharacterConfig();
 
-        CharacterDataConfig charrr = GetCharacterDataConfig(CharacterType.FIREMAN);
+        // CharacterDataConfig charrr = GetCharacterDataConfig(CharacterType.FIREMAN);
 
         // Helper.DebugLog("m_Id: " + charrr.m_Id);
         // Helper.DebugLog("m_Name: " + charrr.m_Name);
@@ -54,11 +54,11 @@ public class GameData : Singleton<GameData>
                 runSpeed = float.Parse(iNode[colName]);
             }
 
-            BigNumber price = 0f;
+            BigNumber price = 0;
             colName = "Price";
             if (iNode[colName].ToString().Length > 0)
             {
-                price = float.Parse(iNode[colName]);
+                price = new BigNumber(iNode[colName]) + 0;
             }
 
             int adsCheck = 0;

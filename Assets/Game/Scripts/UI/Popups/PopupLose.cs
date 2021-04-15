@@ -36,6 +36,11 @@ public class PopupLose : UICanvas
     {
         OnClose();
         InGameObjectsManager.Instance.LoadMap();
+
+        int levelPlay = ProfileManager.GetLevel();
+        AnalysticsManager.LogPlayLevel(levelPlay);
+        AnalysticsManager.LogRetryLevel(levelPlay);
+
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         // EventManager.CallEvent(GameEvent.LEVEL_END);
         EventManager.CallEvent(GameEvent.LEVEL_START);
