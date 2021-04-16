@@ -111,7 +111,9 @@ public class PopupOutfit : UICanvas
             EventManagerWithParam<int>.CallEvent(GameEvent.EQUIP_CHAR, m_SelectedCharacter);
 
             txt_TotalGold.text = ProfileManager.GetGold();
-            GameManager.Instance.GetPanelInGame().txt_TotalGold.text = ProfileManager.GetGold(); ;
+            GameManager.Instance.GetPanelInGame().txt_TotalGold.text = ProfileManager.GetGold();
+
+            SoundManager.Instance.PlaySoundBuySuccess();
 
             AnalysticsManager.LogUnlockCharacter(config.m_Id, config.m_Name);
         }
@@ -155,6 +157,8 @@ public class PopupOutfit : UICanvas
         {
             ProfileManager.SetSelectedCharacter(m_SelectedCharacter);
             EventManagerWithParam<int>.CallEvent(GameEvent.EQUIP_CHAR, m_SelectedCharacter);
+
+            SoundManager.Instance.PlaySoundBuySuccess();
 
             AnalysticsManager.LogUnlockCharacter(config.m_Id, config.m_Name);
         }

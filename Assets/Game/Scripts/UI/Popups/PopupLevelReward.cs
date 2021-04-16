@@ -92,6 +92,8 @@ public class PopupLevelReward : UICanvas
         EventManagerWithParam<int>.CallEvent(GameEvent.CLAIM_CHAR, m_CharId);
         EventManagerWithParam<int>.CallEvent(GameEvent.EQUIP_CHAR, m_CharId);
 
+        SoundManager.Instance.PlaySoundBuySuccess();
+
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_CharId);
 
         AnalysticsManager.LogUnlockCharacter(config.m_Id, config.m_Name);

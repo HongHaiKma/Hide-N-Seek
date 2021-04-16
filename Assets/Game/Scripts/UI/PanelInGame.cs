@@ -219,6 +219,7 @@ public class PanelInGame : MonoBehaviour
         EventManager.CallEvent(GameEvent.LEVEL_START);
         GameManager.Instance.m_LevelStart = true;
         CamController.Instance.ZoomOutChar();
+        SoundManager.Instance.m_BGM.Play();
         QualitySettings.vSyncCount = 0;
     }
 

@@ -61,6 +61,8 @@ public class PopupPause : UICanvas
 
         EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
 
+        SoundManager.Instance.m_BGM.Pause();
+
         // Time.timeScale = 1f;
         // m_PanelInGame
     }

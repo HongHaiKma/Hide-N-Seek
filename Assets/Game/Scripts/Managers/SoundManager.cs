@@ -9,6 +9,10 @@ public class SoundManager : Singleton<SoundManager>
 
     public AudioClip m_ButtonClick;
     public AudioClip m_SoundGetGold;
+    public AudioClip m_SoundObstacleDynamic;
+    public AudioClip m_SoundBuySuccess;
+    public AudioClip m_SoundWin;
+    public AudioClip m_SoundLose;
     public AudioClip m_ClipBGMInGame;
 
     bool IsSoundOn
@@ -25,6 +29,15 @@ public class SoundManager : Singleton<SoundManager>
         {
             return GameManager.Instance.GetMusicState() == 1;
         }
+    }
+
+    private void Awake()
+    {
+        m_BGM.Pause();
+    }
+    private void Start()
+    {
+        m_BGM.Pause();
     }
 
     private void OnEnable()
@@ -46,12 +59,16 @@ public class SoundManager : Singleton<SoundManager>
     {
         EventManager.AddListener(GameEvent.SOUND_CHANGE, OnSoundChange);
         EventManager.AddListener(GameEvent.MUSIC_CHANGE, OnMusicChange);
+        EventManager.AddListener(GameEvent.CHAR_WIN, OnSoundWin);
+        EventManager.AddListener(GameEvent.CHAR_SPOTTED, OnSoundLose);
     }
 
     public void StopListenToEvent()
     {
         EventManager.RemoveListener(GameEvent.SOUND_CHANGE, OnSoundChange);
         EventManager.RemoveListener(GameEvent.MUSIC_CHANGE, OnMusicChange);
+        EventManager.RemoveListener(GameEvent.CHAR_WIN, OnSoundWin);
+        EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, OnSoundLose);
     }
 
     public void OnSoundChange()
@@ -98,7 +115,56 @@ public class SoundManager : Singleton<SoundManager>
         // if (IsSoundOn && !IsLockSound)
         if (IsSoundOn)
         {
-            m_IngameShootingFx.PlayOneShot(m_SoundGetGold, 10);
+            m_IngameShootingFx.PlayOneShot(m_SoundGetGold, 5);
         }
+    }
+
+    public void PlaySoundObstacleDynamic(Vector3 pos)
+    {
+        // if (IsSoundOn && !IsLockSound)
+        if (IsSoundOn)
+        {
+            m_IngameShootingFx.PlayOneShot(m_SoundObstacleDynamic, 5);
+        }
+    }
+
+    public void PlaySoundBuySuccess()
+    {
+        // if (IsSoundOn && !IsLockSound)
+        if (IsSoundOn)
+        {
+            m_IngameShootingFx.PlayOneShot(m_SoundBuySuccess, 5);
+        }
+    }
+
+    public void PlaySoundWin()
+    {
+        // if (IsSoundOn && !IsLockSound)
+        if (IsSoundOn)
+        {
+            m_IngameShootingFx.PlayOneShot(m_SoundWin, 5);
+        }
+    }
+
+    public void PlaySoundLose()
+    {
+        // if (IsSoundOn && !IsLockSound)
+        if (IsSoundOn)
+        {
+            m_IngameShootingFx.PlayOneShot(m_SoundLose, 5);
+        }
+    }
+
+
+    public void OnSoundWin()
+    {
+        m_BGM.Pause();
+        PlaySoundWin();
+    }
+
+    public void OnSoundLose()
+    {
+        m_BGM.Pause();
+        PlaySoundLose();
     }
 }

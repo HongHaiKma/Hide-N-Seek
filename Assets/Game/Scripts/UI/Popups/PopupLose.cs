@@ -45,6 +45,7 @@ public class PopupLose : UICanvas
         // EventManager.CallEvent(GameEvent.LEVEL_END);
         EventManager.CallEvent(GameEvent.LEVEL_START);
         GameManager.Instance.m_LevelStart = true;
+        SoundManager.Instance.m_BGM.Play();
 
         bool level = (ProfileManager.GetLevel() - 1) >= 3 ? true : false;
         if (level)

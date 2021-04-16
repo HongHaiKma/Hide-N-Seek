@@ -127,6 +127,15 @@ public class Character : InGameObject
         //     EventManager.CallEvent(GameEvent.CHAR_WIN);
         // }
 
+        // Helper.DebugLog("Obstacle Dynamic Obstacle Dynamic Obstacle Dynamic Obstacle Dynamic Obstacle Dynamic");
+
+        // if (other.tag == "Obstacle Dynamic")
+        // {
+        //     Helper.DebugLog("Obstacle Dynamic Obstacle Dynamic Obstacle Dynamic Obstacle Dynamic Obstacle Dynamic");
+        //     SoundManager.Instance.PlaySoundObstacleDynamic(tf_Owner.position);
+        //     return;
+        // }
+
         InGameObject obj = other.GetComponent<InGameObject>();
 
         if (obj != null)
@@ -143,6 +152,16 @@ public class Character : InGameObject
             }
         }
     }
+
+    // private void OnCollisionEnter(Collision other)
+    // {
+    //     if (other.transform.CompareTag("Obstacle Dynamic"))
+    //     {
+    //         Helper.DebugLog("Obstacle Dynamic Obstacle Dynamic Obstacle Dynamic Obstacle Dynamic Obstacle Dynamic");
+    //         SoundManager.Instance.PlaySoundObstacleDynamic(tf_Owner.position);
+    //         return;
+    //     }
+    // }
 
     void Disable()
     {
