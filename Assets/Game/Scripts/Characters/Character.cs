@@ -77,7 +77,7 @@ public class Character : InGameObject
         }
 
         // anim_Owner.SetBool("IsRunning", IsRunning());
-        anim_Owner.SetBool("IsRunning", (cc_Owner.velocity != Vector3.zero));
+        anim_Owner.SetBool("IsRunning", IsRunning());
 
         m_StateMachine.ExecuteStateUpdate();
     }

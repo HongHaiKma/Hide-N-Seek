@@ -36,6 +36,8 @@ public class GoldInGame : InGameObject
                 Vector3 aaa = new Vector3(tf_Owner.position.x, tf_Owner.position.y + 2f, tf_Owner.position.z);
                 EventManagerWithParam<BigNumber>.CallEvent(GameEvent.CLAIM_GOLD_IN_GAME, m_Goldvalue);
 
+                SoundManager.Instance.PlaySoundGetGold(transform.position);
+
                 tf_Owner.DOMove(aaa, 0.15f).OnComplete(() =>
                 {
                     PrefabManager.Instance.DespawnPool(gameObject);

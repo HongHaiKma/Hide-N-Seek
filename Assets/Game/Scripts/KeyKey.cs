@@ -28,6 +28,8 @@ public class KeyKey : InGameObject
                 gameObject.SetActive(false);
                 m_KeyNo++;
                 EventManagerWithParam<int>.CallEvent(GameEvent.CHAR_CLAIM_KEYKEY, m_KeyNo);
+
+                SoundManager.Instance.PlaySoundGetGold(transform.position);
             }
         }
     }

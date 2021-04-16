@@ -8,6 +8,7 @@ public class SoundManager : Singleton<SoundManager>
     public AudioSource m_BGM;
 
     public AudioClip m_ButtonClick;
+    public AudioClip m_SoundGetGold;
     public AudioClip m_ClipBGMInGame;
 
     bool IsSoundOn
@@ -89,6 +90,15 @@ public class SoundManager : Singleton<SoundManager>
         if (IsSoundOn)
         {
             m_IngameShootingFx.PlayOneShot(m_ButtonClick, 1);
+        }
+    }
+
+    public void PlaySoundGetGold(Vector3 pos)
+    {
+        // if (IsSoundOn && !IsLockSound)
+        if (IsSoundOn)
+        {
+            m_IngameShootingFx.PlayOneShot(m_SoundGetGold, 10);
         }
     }
 }

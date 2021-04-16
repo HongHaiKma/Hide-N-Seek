@@ -110,6 +110,9 @@ public class PopupOutfit : UICanvas
             EventManagerWithParam<int>.CallEvent(GameEvent.CLAIM_CHAR, m_SelectedCharacter);
             EventManagerWithParam<int>.CallEvent(GameEvent.EQUIP_CHAR, m_SelectedCharacter);
 
+            txt_TotalGold.text = ProfileManager.GetGold();
+            GameManager.Instance.GetPanelInGame().txt_TotalGold.text = ProfileManager.GetGold(); ;
+
             AnalysticsManager.LogUnlockCharacter(config.m_Id, config.m_Name);
         }
         else
@@ -127,8 +130,8 @@ public class PopupOutfit : UICanvas
 
     public void OnBuyByAds() //Remember to Update UICharacterCard when buy succeed
     {
-        // AdsManager.Instance.WatchRewardVideo(RewardType.CHARACTER);
-        OnByBuyAdsLogic();
+        AdsManager.Instance.WatchRewardVideo(RewardType.CHARACTER);
+        // OnByBuyAdsLogic();
     }
 
     public void OnByBuyAdsLogic()

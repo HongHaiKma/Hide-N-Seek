@@ -376,7 +376,11 @@ public class Enemy : InGameObject
     {
         m_EnemyState = EnemyState.CATCH;
         tf_Owner.LookAt(m_Char.tf_Owner.position);
-        tf_Owner.DOMove(m_Char.tf_Owner.position, 0.7f);
+        tf_Owner.DOMove(m_Char.tf_Owner.position, 0.7f).OnComplete(() =>
+        {
+            SetDestination(m_Char.tf_Owner.position);
+        });
+
         anim_Owner.SetTrigger(ConfigKeys.e_Catch);
 
         if (GameManager.Instance.m_LevelStart)
@@ -392,7 +396,7 @@ public class Enemy : InGameObject
 
     public virtual void OnCatchExecute()
     {
-
+        // SetDestination(m_Char.tf_Owner.position);
     }
 
     public virtual void OnCatchExit()
