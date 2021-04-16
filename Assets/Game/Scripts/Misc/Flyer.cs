@@ -88,8 +88,15 @@ public class Flyer : MonoBehaviour, IEffectFlyer
         transform.DOMove(target1, time1).SetEase(Ease.InOutQuad);
         yield return Yielders.Get(time1);
 
-        transform.DOMove(target, time2).SetEase(Ease.InOutQuad);
+        // SoundManager.Instance.PlaySoundGetGold(target);
+
+        transform.DOMove(target, time2).SetEase(Ease.InOutQuad).OnComplete(() =>
+        {
+            SoundManager.Instance.PlaySoundGetGold(target);
+        });
         yield return Yielders.Get(time2);
+
+        // SoundManager.Instance.PlaySoundGetGold(target);
 
         SimplePool.Despawn(gameObject);
         if (callback != null)
