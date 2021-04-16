@@ -27,19 +27,19 @@ public class UICharacterOutfit : MonoBehaviour, IRecyclableScrollRectDataSource
     //Recyclable scroll rect's data source must be assigned in Awake.
     private void Awake()
     {
-        InitData();
+        InitCell();
         MiniCharacterStudio.Instance.SpawnMiniCharacterIdle(ProfileManager.GetSelectedCharacter());
         _recyclableScrollRect.DataSource = this;
     }
 
     //Initialising _contactList with dummy data 
-    private void InitData()
+    private void InitCell()
     {
         if (_contactList != null) _contactList.Clear();
 
         Dictionary<int, CharacterDataConfig> characterDataConfig = GameData.Instance.GetCharacterDataConfig();
         int len = characterDataConfig.Count;
-        _dataLength = len;
+        // _dataLength = len;
 
         Dictionary<int, CharacterDataConfig> charConfig = GameData.Instance.GetCharacterDataConfig();
 

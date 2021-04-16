@@ -14,4 +14,6 @@ public enum MiscSpriteKeys
     SOUND_OFF = 1,
     MUSIC_ON = 2,
     MUSIC_OFF = 3,
+    UI_CARD_BG = 4,
+    UI_CARD_BG_LOCK = 5,
 }

@@ -29,6 +29,8 @@ public class DemoCell : MonoBehaviour, ICell
         _cellIndex = cellIndex;
         _contactInfo = contactInfo;
 
+        idLabel.text = contactInfo.m_Id.ToString();
+
         nameLabel.text = contactInfo.m_Name;
     }
 

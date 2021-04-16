@@ -36,7 +36,7 @@ public class PopupOutfit : UICanvas
     private void OnEnable()
     {
         g_Warning.SetActive(false);
-        m_SelectedCharacter = ProfileManager.GetSelectedCharacter();
+        // m_SelectedCharacter = ProfileManager.GetSelectedCharacter();
         txt_TotalGold.text = ProfileManager.GetGold();
 
         SetChar(m_SelectedCharacter);
@@ -127,8 +127,8 @@ public class PopupOutfit : UICanvas
 
     public void OnBuyByAds() //Remember to Update UICharacterCard when buy succeed
     {
-        AdsManager.Instance.WatchRewardVideo(RewardType.CHARACTER);
-        // OnByBuyAdsLogic();
+        // AdsManager.Instance.WatchRewardVideo(RewardType.CHARACTER);
+        OnByBuyAdsLogic();
     }
 
     public void OnByBuyAdsLogic()

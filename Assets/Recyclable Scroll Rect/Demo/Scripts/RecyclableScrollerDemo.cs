@@ -39,7 +39,7 @@ public class RecyclableScrollerDemo : MonoBehaviour, IRecyclableScrollRectDataSo
             UICharacterCardInfo obj = new UICharacterCardInfo();
             // obj.m_Name = i + "_Name";
             // obj.Gender = genders[Random.Range(0, 2)];
-            // obj.id = "item : " + i;
+            obj.m_Id = i;
             _contactList.Add(obj);
         }
     }
