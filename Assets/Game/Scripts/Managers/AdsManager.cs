@@ -139,6 +139,7 @@ public class AdsManager : Singleton<AdsManager>
         // Create an empty ad request.
         AdRequest request = new AdRequest.Builder().Build();
         // Load the rewarded ad with the request.
+        // this.rewardedAd.LoadAd(request);
         this.rewardedAd.LoadAd(request);
     }
 
@@ -159,12 +160,12 @@ public class AdsManager : Singleton<AdsManager>
     public void LoadRewardVideo()
     {
         this.rewardedAd = new RewardedAd(m_RewardId);
-        // this.rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
-        // this.rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad;
-        // // this.rewardedAd.OnAdOpening += HandleRewardedAdOpening;
-        // this.rewardedAd.OnAdFailedToShow += HandleRewardedAdFailedToShow;
-        // this.rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
-        // this.rewardedAd.OnAdClosed += HandleRewardedAdClosed;
+        this.rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
+        this.rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad;
+        // this.rewardedAd.OnAdOpening += HandleRewardedAdOpening;
+        this.rewardedAd.OnAdFailedToShow += HandleRewardedAdFailedToShow;
+        this.rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
+        this.rewardedAd.OnAdClosed += HandleRewardedAdClosed;
         AdRequest request = new AdRequest.Builder().Build();
         this.rewardedAd.LoadAd(request);
     }

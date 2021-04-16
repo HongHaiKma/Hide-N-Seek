@@ -45,7 +45,7 @@ public class PopupOutfit : UICanvas
         StartListenToEvent();
     }
 
-    private void Disable()
+    private void OnDisable()
     {
         StopListenToEvent();
     }
@@ -92,7 +92,6 @@ public class PopupOutfit : UICanvas
 
     public void OnEquip()
     {
-        Helper.DebugLog("OnEquip Buttonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
         EventManagerWithParam<int>.CallEvent(GameEvent.EQUIP_CHAR, m_SelectedCharacter);
         SetOwned(m_SelectedCharacter);
     }
@@ -128,14 +127,12 @@ public class PopupOutfit : UICanvas
 
     public void OnBuyByAds() //Remember to Update UICharacterCard when buy succeed
     {
-        // AdsManager.Instance.WatchRewardVideo(RewardType.CHARACTER);
-        Helper.DebugLog("OnBuyByAds");
-        OnByBuyAdsLogic();
+        AdsManager.Instance.WatchRewardVideo(RewardType.CHARACTER);
+        // OnByBuyAdsLogic();
     }
 
     public void OnByBuyAdsLogic()
     {
-        Helper.DebugLog("OnByBuyAdsLogic");
         CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_SelectedCharacter);
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_SelectedCharacter);
 
