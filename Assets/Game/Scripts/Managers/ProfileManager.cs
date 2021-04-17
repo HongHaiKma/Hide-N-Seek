@@ -167,6 +167,11 @@ public class ProfileManager : MonoBehaviour
         MyProfile.AddGold(_gold);
     }
 
+    public static void SetGold(BigNumber _gold)
+    {
+        MyProfile.SetGold(_gold);
+    }
+
     public static void ConsumeGold(BigNumber _gold)
     {
         MyProfile.ConsumeGold(_gold);

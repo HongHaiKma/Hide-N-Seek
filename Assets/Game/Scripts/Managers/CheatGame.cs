@@ -40,7 +40,7 @@ public class CheatGame : MonoBehaviour
     public void AddGold()
     {
         BigNumber gold = new BigNumber(m_Gold.text);
-        ProfileManager.AddGold(gold);
+        ProfileManager.SetGold(gold);
         m_PanelInGame.txt_TotalGold.text = ProfileManager.GetGold();
     }
 
