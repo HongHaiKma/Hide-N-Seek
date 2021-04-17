@@ -30,7 +30,7 @@ public class PlayerProfile
 
     public void CreateNewPlayer()
     {
-        PlayerPrefs.SetInt("BuyNoAds", 0);
+        PlayerPrefs.SetInt(ConfigKeys.noAds, 0);
 
         string ic = "0";
         m_Gold = new BigNumber(ic);
@@ -91,6 +91,14 @@ public class PlayerProfile
         // EventManager.TriggerEvent("UpdateGold");
     }
 
+    public void SetGold(BigNumber _value)
+    {
+        m_Gold = _value;
+        ic_Gold = m_Gold.ToString();
+        // ProfileManager.Instance.SaveData();
+        SaveDataToLocal();
+        // EventManager.TriggerEvent("UpdateGold");
+    }
 
     #endregion
 

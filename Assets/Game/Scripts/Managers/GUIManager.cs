@@ -145,6 +145,11 @@ public class GUIManager : MonoBehaviour
                 _UICanvas.OnBack();
             }
         }
+
+        // if (Input.GetKeyDown(KeyCode.Z) && !IsHoldBackkey)
+        // {
+        //     PopupCaller.OpenRateUsPopup();
+        // }
     }
 
     public void FindPanelLoadingAds()
@@ -389,6 +394,9 @@ public class GUIManager : MonoBehaviour
             case UIID.POPUP_LEVELREWARD:
                 prefabName = "PopupLevelReward";
                 break;
+            case UIID.POPUP_RATEUS:
+                prefabName = "PopupRateUs";
+                break;
         }
         prefab = GetPopupPrefabByName(prefabName);
         return prefab;
@@ -442,4 +450,5 @@ public enum UIID
     POPUP_PAUSE = 5,
     POPUP_OUTFIT = 6,
     POPUP_LEVELREWARD = 7,
+    POPUP_RATEUS = 8,
 }

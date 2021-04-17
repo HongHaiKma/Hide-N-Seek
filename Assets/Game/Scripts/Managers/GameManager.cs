@@ -23,7 +23,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 90;
         m_LoseStreak = 0;
     }
 

@@ -27,6 +27,8 @@ public class UICharacterCard : MonoBehaviour, ICell
     private UICharacterCardInfo m_UICharacterCardInfo;
     private int _cellIndex;
 
+    public int txt_SelectChar;
+
     private void Start()
     {
         // img_Char.sprite = SpriteManager.Instance.m_CharCards[m_UIChar];
@@ -91,7 +93,7 @@ public class UICharacterCard : MonoBehaviour, ICell
     {
         CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_UICharacterCardInfo.m_Id);
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_UICharacterCardInfo.m_Id);
-
+        txt_SelectChar = m_UICharacterCardInfo.m_Id;
         if (ProfileManager.IsOwned(m_UICharacterCardInfo.m_Id))
         {
             if (ProfileManager.CheckSelectedChar(m_UICharacterCardInfo.m_Id))
@@ -113,6 +115,7 @@ public class UICharacterCard : MonoBehaviour, ICell
         else
         {
             g_Owned.SetActive(false);
+            g_Equipped.SetActive(false);
             g_Lock.SetActive(true);
 
             bool adsCheck;

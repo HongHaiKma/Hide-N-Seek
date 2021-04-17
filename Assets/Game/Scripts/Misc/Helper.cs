@@ -213,4 +213,9 @@ public class Helper
     }
 
     #endregion
+
+    public static bool NoAds()
+    {
+        return (PlayerPrefs.GetInt(ConfigKeys.noAds) == 1);
+    }
 }

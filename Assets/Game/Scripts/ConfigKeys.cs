@@ -31,6 +31,12 @@ public static class ConfigKeys
     #region EFFECT_PREFAB
 
     #endregion
+
+    #region MISC_PLAYERPREF
+
+    public static string noAds = "BuyNoAds";
+
+    #endregion
 }
 
 public enum EnemyKeys

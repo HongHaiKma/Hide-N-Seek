@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using GoogleMobileAdsMediationTestSuite.Api;
 
 public class CheatGame : MonoBehaviour
 {
@@ -11,11 +12,14 @@ public class CheatGame : MonoBehaviour
 
     public Button btn_CheckAdsMediation;
 
+    public Button btn_NoAds;
+
     public InputField m_Gold;
 
     private void Awake()
     {
-        GUIManager.Instance.AddClickEvent(btn_CheckAdsMediation, AdsManager.Instance.ShowMediationTestSuite);
+        // GUIManager.Instance.AddClickEvent(btn_CheckAdsMediation, AdsManager.Instance.ShowMediationTestSuite);
+        // GUIManager.Instance.AddClickEvent(btn_NoAds, HideBanner);
     }
 
     public void OpenCheatPanel()
@@ -38,5 +42,16 @@ public class CheatGame : MonoBehaviour
         BigNumber gold = new BigNumber(m_Gold.text);
         ProfileManager.AddGold(gold);
         m_PanelInGame.txt_TotalGold.text = ProfileManager.GetGold();
+    }
+
+    public void HideBanner()
+    {
+        PlayerPrefs.SetInt(ConfigKeys.noAds, 1);
+        AdsManager.Instance.DestroyBanner();
+    }
+
+    public void ShowMediationTestSuite()
+    {
+        MediationTestSuite.Show();
     }
 }

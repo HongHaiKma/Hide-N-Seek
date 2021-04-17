@@ -362,8 +362,9 @@ public class Purchaser : MonoBehaviour, IStoreListener
             // AppFlyer.Instance.Purchase(1, args.purchasedProduct.metadata.localizedPrice.ToString(), args.purchasedProduct.metadata.isoCurrencyCode);
             // FirebaseManager.Instance.Buy_IAP("gempack1", FirebaseManager.Instance.GetDayPlayGame(), FirebaseManager.Instance.GetLevel(), FirebaseManager.Instance.GetTotalTimePlay());
 
-            PlayerPrefs.SetInt("BuyNoAds", 1);
+            PlayerPrefs.SetInt(ConfigKeys.noAds, 1);
             GameManager.Instance.GetPanelInGame().g_NoAds.SetActive(false);
+            AdsManager.Instance.DestroyBanner();
         }
 
         //// Or ... a non-consumable product has been purchased by this user.

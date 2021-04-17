@@ -8,18 +8,18 @@ using Facebook.Unity;
 
 public class AdsManager : Singleton<AdsManager>
 {
-    private string m_APP_ID = "ca-app-pub-8721698442392956~5641814462";
+    private string m_APP_ID = "ca-app-pub-8721698442392956~1232205283";
 
     private BannerView m_BannerView;
-    private string m_BannerId = "ca-app-pub-8721698442392956/1702569451";
+    private string m_BannerId = "ca-app-pub-8721698442392956/8871323474";
     public bool m_BannerLoaded;
 
     private InterstitialAd interstitial;
-    private string m_InterId = "ca-app-pub-8721698442392956/3416952287";
+    private string m_InterId = "ca-app-pub-8721698442392956/5034707168";
     public bool m_WatchInter;
 
     private RewardedAd rewardedAd;
-    private string m_RewardId = "ca-app-pub-8721698442392956/4408623845";
+    private string m_RewardId = "ca-app-pub-8721698442392956/2114343439";
 
 
     public bool openRwdAds;
@@ -80,23 +80,26 @@ public class AdsManager : Singleton<AdsManager>
 #if UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif
-        AdSize adSize = new AdSize(320, 35);
-        this.m_BannerView = new BannerView(m_BannerId, adSize, AdPosition.Bottom);
+        if (!Helper.NoAds())
+        {
+            AdSize adSize = new AdSize(320, 35);
+            this.m_BannerView = new BannerView(m_BannerId, adSize, AdPosition.Bottom);
 
-        // Called when an ad request has successfully loaded.
-        this.m_BannerView.OnAdLoaded += this.HandleOnAdLoaded;
-        // Called when an ad request failed to load.
-        this.m_BannerView.OnAdFailedToLoad += this.HandleOnAdFailedToLoad;
-        // Called when an ad is clicked.
-        this.m_BannerView.OnAdOpening += this.HandleOnAdOpened;
-        // Called when the user returned from the app after an ad click.
-        this.m_BannerView.OnAdClosed += this.HandleOnAdClosed;
-        // Called when the ad click caused the user to leave the application.
-        this.m_BannerView.OnAdLeavingApplication += this.HandleOnAdLeavingApplication;
+            // Called when an ad request has successfully loaded.
+            this.m_BannerView.OnAdLoaded += this.HandleOnAdLoaded;
+            // Called when an ad request failed to load.
+            this.m_BannerView.OnAdFailedToLoad += this.HandleOnAdFailedToLoad;
+            // Called when an ad is clicked.
+            this.m_BannerView.OnAdOpening += this.HandleOnAdOpened;
+            // Called when the user returned from the app after an ad click.
+            this.m_BannerView.OnAdClosed += this.HandleOnAdClosed;
+            // Called when the ad click caused the user to leave the application.
+            this.m_BannerView.OnAdLeavingApplication += this.HandleOnAdLeavingApplication;
 
-        AdRequest request = new AdRequest.Builder().Build();
+            AdRequest request = new AdRequest.Builder().Build();
 
-        this.m_BannerView.LoadAd(request);
+            this.m_BannerView.LoadAd(request);
+        }
     }
 
     public void RequestInter()
@@ -104,25 +107,28 @@ public class AdsManager : Singleton<AdsManager>
 #if UNITY_ANDROID
 #elif UNITY_IPHONE
 #endif
+        if (!Helper.NoAds())
+        {
 
-        // Initialize an InterstitialAd.
-        this.interstitial = new InterstitialAd(m_InterId);
+            // Initialize an InterstitialAd.
+            this.interstitial = new InterstitialAd(m_InterId);
 
-        // Called when an ad request has successfully loaded.
-        this.interstitial.OnAdLoaded += HandleOnAdLoaded;
-        // Called when an ad request failed to load.
-        this.interstitial.OnAdFailedToLoad += HandleOnAdFailedToLoad;
-        // Called when an ad is shown.
-        this.interstitial.OnAdOpening += HandleOnAdOpened;
-        // Called when the ad is closed.
-        this.interstitial.OnAdClosed += HandleOnAdClosed;
-        // Called when the ad click caused the user to leave the application.
-        this.interstitial.OnAdLeavingApplication += HandleOnAdLeavingApplication;
+            // Called when an ad request has successfully loaded.
+            this.interstitial.OnAdLoaded += HandleOnAdLoaded;
+            // Called when an ad request failed to load.
+            this.interstitial.OnAdFailedToLoad += HandleOnAdFailedToLoad;
+            // Called when an ad is shown.
+            this.interstitial.OnAdOpening += HandleOnAdOpened;
+            // Called when the ad is closed.
+            this.interstitial.OnAdClosed += HandleOnAdClosed;
+            // Called when the ad click caused the user to leave the application.
+            this.interstitial.OnAdLeavingApplication += HandleOnAdLeavingApplication;
 
-        // Create an empty ad request.
-        AdRequest request = new AdRequest.Builder().Build();
-        // Load the interstitial with the request.
-        this.interstitial.LoadAd(request);
+            // Create an empty ad request.
+            AdRequest request = new AdRequest.Builder().Build();
+            // Load the interstitial with the request.
+            this.interstitial.LoadAd(request);
+        }
     }
 
     public void RequestRewardVideo()
@@ -145,16 +151,28 @@ public class AdsManager : Singleton<AdsManager>
 
     public void LoadBanner()
     {
-        AdSize adSize = new AdSize(320, 35);
-        this.m_BannerView = new BannerView(m_BannerId, adSize, AdPosition.Bottom);
-        AdRequest request = new AdRequest.Builder().Build();
-        this.m_BannerView.LoadAd(request);
+        if (!Helper.NoAds())
+        {
+            AdSize adSize = new AdSize(320, 35);
+            this.m_BannerView = new BannerView(m_BannerId, adSize, AdPosition.Bottom);
+            AdRequest request = new AdRequest.Builder().Build();
+            this.m_BannerView.LoadAd(request);
+        }
+    }
+
+    public void DestroyBanner()
+    {
+        this.m_BannerView.Hide();
+        this.m_BannerView.Destroy();
     }
 
     public void LoadInter()
     {
-        AdRequest request = new AdRequest.Builder().Build();
-        this.interstitial.LoadAd(request);
+        if (!Helper.NoAds())
+        {
+            AdRequest request = new AdRequest.Builder().Build();
+            this.interstitial.LoadAd(request);
+        }
     }
 
     public void LoadRewardVideo()
@@ -172,7 +190,7 @@ public class AdsManager : Singleton<AdsManager>
 
     public void WatchInterstitial()
     {
-        if (m_WatchInter)
+        if (m_WatchInter && !Helper.NoAds())
         {
             if (interstitial.IsLoaded())
             {

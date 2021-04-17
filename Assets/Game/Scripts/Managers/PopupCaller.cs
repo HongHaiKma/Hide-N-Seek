@@ -76,4 +76,10 @@ public class PopupCaller : Singleton<PopupCaller>
 
         GUIManager.Instance.ShowUIPopup(popup);
     }
+    public static void OpenRateUsPopup()
+    {
+        PopupRateUs popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_RATEUS) as PopupRateUs;
+
+        GUIManager.Instance.ShowUIPopup(popup);
+    }
 }

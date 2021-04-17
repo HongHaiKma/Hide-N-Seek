@@ -51,14 +51,14 @@ public class PanelInGame : MonoBehaviour
         GUIManager.Instance.AddClickEvent(btn_Sound, OnSetSound);
         GUIManager.Instance.AddClickEvent(btn_Music, OnSetMusic);
 
-        if (PlayerPrefs.GetInt("BuyNoAds") == 1)
-        {
-            GameManager.Instance.GetPanelInGame().g_NoAds.SetActive(false);
-        }
-        else
-        {
-            GUIManager.Instance.AddClickEvent(btn_BuyNoAds, OnBuyNoAds);
-        }
+        // if (Helper.NoAds())
+        // {
+        //     GameManager.Instance.GetPanelInGame().g_NoAds.SetActive(false);
+        // }
+        // else
+        // {
+        //     GUIManager.Instance.AddClickEvent(btn_BuyNoAds, OnBuyNoAds);
+        // }
     }
 
     private void OnEnable()
@@ -163,7 +163,7 @@ public class PanelInGame : MonoBehaviour
         g_Setting.SetActive(true);
         g_Gold.SetActive(true);
         g_Shop.SetActive(true);
-        g_NoAds.SetActive(true);
+        // g_NoAds.SetActive(true);
         g_Play.SetActive(true);
         g_Play.SetActive(true);
         g_Pause.SetActive(false);
@@ -175,6 +175,15 @@ public class PanelInGame : MonoBehaviour
         g_GoldLevel.SetActive(false);
 
         txt_Level.gameObject.SetActive(true);
+
+        if (Helper.NoAds())
+        {
+            g_NoAds.SetActive(false);
+        }
+        else
+        {
+            GUIManager.Instance.AddClickEvent(btn_BuyNoAds, OnBuyNoAds);
+        }
 
         QualitySettings.vSyncCount = 1;
     }
