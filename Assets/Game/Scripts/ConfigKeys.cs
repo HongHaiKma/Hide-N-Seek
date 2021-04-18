@@ -37,6 +37,15 @@ public static class ConfigKeys
     public static string noAds = "BuyNoAds";
 
     #endregion
+
+    #region COOLDOWN
+
+    public static string m_DailyNotiCdTime = "m_DailyNotiCdTime";
+    public static string m_DailyNotiCdTimeMax = "m_DailyNotiCdTimeMax";
+    public static string m_DailyNotiTimeout = "m_DailyNotiTimeout";
+    public static string m_DailyNotiRunning = "m_DailyNotiRunning";
+
+    #endregion
 }
 
 public enum EnemyKeys

@@ -21,10 +21,59 @@ public class GameManager : Singleton<GameManager>
 
     public int m_LoseStreak;
 
+    [Header("CoolDown")]
+    private CoolDown m_DailyNoti;
+    private string m_DailyNotiContent = "Let's escape and get new character!!!";
+    private double m_DailyNotiTimeMax;
+
     private void Awake()
     {
         Application.targetFrameRate = 90;
         m_LoseStreak = 0;
+
+        NotificationManager.Instance.m_NotiDict.Add(CdType.NOTI_DAILY, m_DailyNotiContent);
+        m_DailyNotiTimeMax = 60 * 60 * 24;
+        m_DailyNoti = new CoolDown(ConfigKeys.m_DailyNotiTimeout, ConfigKeys.m_DailyNotiRunning, ConfigKeys.m_DailyNotiCdTime, ConfigKeys.m_DailyNotiCdTimeMax, m_DailyNotiTimeMax, CdType.NOTI_DAILY, true);
+        m_DailyNoti.Awake();
+    }
+
+    private void Update()
+    {
+        if (m_DailyNoti != null)
+        {
+            m_DailyNoti.OnUpdate();
+        }
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (m_DailyNoti != null)
+        {
+            if (focus)
+            {
+                m_DailyNoti.Awake();
+            }
+            else
+            {
+                m_DailyNoti.Save();
+            }
+        }
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (m_DailyNoti != null)
+        {
+            m_DailyNoti.Save();
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        if (m_DailyNoti != null)
+        {
+            m_DailyNoti.Save();
+        }
     }
 
     private void OnEnable()
@@ -43,6 +92,9 @@ public class GameManager : Singleton<GameManager>
         EventManager.AddListener(GameEvent.LEVEL_START, ResetGoldLevel);
         EventManager.AddListener(GameEvent.CHAR_WIN, SaveGoldLevel);
         EventManagerWithParam<BigNumber>.AddListener(GameEvent.CLAIM_GOLD_IN_GAME, SetGoldLevel);
+
+        EventManager2.StartListening(ConfigKeys.m_DailyNotiTimeout, SetNotiDailyTimeout);
+        EventManager2.StartListening(ConfigKeys.m_DailyNotiRunning, SetNotiDailyRunning);
     }
 
     public void StopListenToEvent()
@@ -51,6 +103,19 @@ public class GameManager : Singleton<GameManager>
         EventManager.RemoveListener(GameEvent.LEVEL_START, ResetGoldLevel);
         EventManager.RemoveListener(GameEvent.CHAR_WIN, SaveGoldLevel);
         EventManagerWithParam<BigNumber>.RemoveListener(GameEvent.CLAIM_GOLD_IN_GAME, SetGoldLevel);
+
+        EventManager2.StopListening(ConfigKeys.m_DailyNotiTimeout, SetNotiDailyTimeout);
+        EventManager2.StopListening(ConfigKeys.m_DailyNotiRunning, SetNotiDailyRunning);
+    }
+
+    public void SetNotiDailyTimeout()
+    {
+        m_DailyNoti.BeginCoolDown();
+    }
+
+    public void SetNotiDailyRunning()
+    {
+
     }
 
     public void PauseLevel(bool _pause)
@@ -207,5 +272,16 @@ public class GameManager : Singleton<GameManager>
     public int GetMusicState()
     {
         return PlayerPrefs.GetInt("Music", 1);
+    }
+
+
+    public void SetDailyNotiTimeout()
+    {
+
+    }
+
+    public void SetDailyNotiRunning()
+    {
+
     }
 }

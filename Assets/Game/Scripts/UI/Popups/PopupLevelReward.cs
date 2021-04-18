@@ -63,13 +63,13 @@ public class PopupLevelReward : UICanvas
     public void StartListenToEvent()
     {
         EventManager.AddListener(GameEvent.ADS_CHARACTER_2_LOGIC, OnWatchVideoRewardLogic);
-        EventManager.AddListener(GameEvent.ADS_CHARACTER_2_ANIM, OnWatchVideoRewardAnim);
+        // EventManager.AddListener(GameEvent.ADS_CHARACTER_2_ANIM, OnWatchVideoRewardAnim);
     }
 
     public void StopListenToEvent()
     {
         EventManager.RemoveListener(GameEvent.ADS_CHARACTER_2_LOGIC, OnWatchVideoRewardLogic);
-        EventManager.RemoveListener(GameEvent.ADS_CHARACTER_2_ANIM, OnWatchVideoRewardAnim);
+        // EventManager.RemoveListener(GameEvent.ADS_CHARACTER_2_ANIM, OnWatchVideoRewardAnim);
     }
 
     IEnumerator DisplayNoThanks()
@@ -97,6 +97,8 @@ public class PopupLevelReward : UICanvas
         CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_CharId);
 
         AnalysticsManager.LogUnlockCharacter(config.m_Id, config.m_Name);
+
+        OnClose();
 
         // CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_CharId);
         // CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_CharId);

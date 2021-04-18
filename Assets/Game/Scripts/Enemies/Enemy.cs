@@ -385,6 +385,7 @@ public class Enemy : InGameObject
 
         if (GameManager.Instance.m_LevelStart)
         {
+            Helper.DebugLog("OnCatchEnter");
             EventManager.CallEvent(GameEvent.CHAR_SPOTTED);
 
             int levelPlay = ProfileManager.GetLevel();

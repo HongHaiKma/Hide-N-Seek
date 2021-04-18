@@ -218,4 +218,42 @@ public class Helper
     {
         return (PlayerPrefs.GetInt(ConfigKeys.noAds) == 1);
     }
+
+    public static string ConvertSecondsToDateTimeFormat(int type, double defValue)
+    {
+        if (type == 4)
+        {
+            string ret;
+            int min = (int)(defValue / 60);
+            int sec = (int)(defValue % 60);
+            int hour = min / 60;
+            int day = hour / 24;
+            min = min % 60;
+            hour = hour % 24;
+            ret = (day >= 10 ? day.ToString() : "0" + day.ToString()) + "D:" + (hour >= 10 ? hour.ToString() : "0" + hour.ToString()) + "H:" + (min >= 10 ? min.ToString() : "0" + min.ToString()) + "M:" + (sec >= 10 ? sec.ToString() : "0" + sec.ToString()) + "S";
+            return ret;
+        }
+        else if (type == 3)
+        {
+            string ret;
+            int min = (int)(defValue / 60);
+            int sec = (int)(defValue % 60);
+            int hour = min / 60;
+            min = min % 60;
+            ret = (hour >= 10 ? hour.ToString() : "0" + hour.ToString()) + ":" + (min >= 10 ? min.ToString() : "0" + min.ToString()) + ":" + (sec >= 10 ? sec.ToString() : "0" + sec.ToString());
+            return ret;
+        }
+        else if (type == 2)
+        {
+            string ret;
+            int min = (int)(defValue / 60);
+            int sec = (int)(defValue % 60);
+            ret = (min >= 10 ? min.ToString() : "0" + min.ToString()) + ":" + (sec >= 10 ? sec.ToString() : "0" + sec.ToString());
+            return ret;
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

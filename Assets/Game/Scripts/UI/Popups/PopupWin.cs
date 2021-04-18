@@ -37,8 +37,11 @@ public class PopupWin : UICanvas
 
     private void OnEnable()
     {
-        AdsManager.Instance.m_WatchInter = true;
-        GameManager.Instance.m_LoseStreak = 0;
+        if (!m_OpenAgain)
+        {
+            AdsManager.Instance.m_WatchInter = true;
+            GameManager.Instance.m_LoseStreak = 0;
+        }
 
         btn_X3Reward.gameObject.SetActive(true);
 
@@ -186,6 +189,7 @@ public class PopupWin : UICanvas
 
     public void OnX3RewardLogic()
     {
+        txt_GoldLevel.text = "+" + (GameManager.Instance.m_GoldLevel * 3f).ToString();
         ProfileManager.AddGold(GameManager.Instance.m_GoldLevel * 2f);
         btn_X3Reward.gameObject.SetActive(false);
     }

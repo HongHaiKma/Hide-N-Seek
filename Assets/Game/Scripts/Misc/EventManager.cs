@@ -100,4 +100,6 @@ public enum GameEvent
     ADS_GOLD_1_ANIM,
     ADS_GOLD_2_LOGIC,
     ADS_GOLD_2_ANIM,
+    NOTI_DAILY_TIMEOUT,
+    NOTI_DAILY_RUNNING
 }
