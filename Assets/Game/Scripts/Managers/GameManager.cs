@@ -238,18 +238,24 @@ public class GameManager : Singleton<GameManager>
 
         if (m_NextScene.Contains("PlayScene"))
         {
-            // SoundManager.Instance.PlayBGM(BGMType.INGAME);
-            Helper.DebugLog("PlayerScene");
-            // InGameObjectsManager.Instance.LoadMap();
+            // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
         }
+        // InGameObjectsManager.Instance.LoadMap();
+        // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
 
         yield return Yielders.Get(0.1f);
+        GUIManager.Instance.GetGOPanelLoading().SetActive(false);
         yield return Yielders.EndOfFrame;
 
         InGameObjectsManager.Instance.LoadMap();
+        // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         FindPanelInGame();
         GUIManager.Instance.FindPanelLoadingAds();
+
+        // yield return Yielders.Get(0.2f);
+        // yield return Yielders.EndOfFrame;
+        // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
         // QualitySettings.vSyncCount = 0;
     }
 

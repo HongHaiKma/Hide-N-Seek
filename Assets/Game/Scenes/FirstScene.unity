@@ -216,6 +216,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &354094199 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5969663804160422588, guid: 269401c651941864fbc8f280f662bcbd, type: 3}
+  m_PrefabInstance: {fileID: 3577230453593986659}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390424675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a7cd970ad83a949b7ea2b0543dd83f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &943758620
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +293,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1390424675 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5969663804160422584, guid: 269401c651941864fbc8f280f662bcbd, type: 3}
+  m_PrefabInstance: {fileID: 3577230453593986659}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1429768163
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,9 +343,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsLongDevice: 0
   m_MainCanvas: {fileID: 0}
-  m_PanelLoading: {fileID: 0}
   m_CurrentOpenedPopup: []
   m_CurrentOpenedPanel: []
+  g_SubCanvas: {fileID: 7168712169803334390}
+  m_PanelLoading: {fileID: 354094199}
+  g_PanelLoading: {fileID: 1390424675}
 --- !u!1 &1599686700
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,7 +638,7 @@ GameObject:
   - component: {fileID: 7168712169803334388}
   - component: {fileID: 7168712169803334391}
   m_Layer: 5
-  m_Name: MainCanvas
+  m_Name: SubCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

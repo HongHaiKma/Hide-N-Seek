@@ -32,7 +32,7 @@ public class GUIManager : MonoBehaviour
     private UICanvas m_PreviousPopup = null;
     private UICanvas m_PreviousPanel = null;
     public GameObject m_MainCanvas;
-    public PanelLoading m_PanelLoading;
+
 
     private bool IsHoldBackkey = false;
 
@@ -40,6 +40,9 @@ public class GUIManager : MonoBehaviour
     public List<UICanvas> m_CurrentOpenedPanel = new List<UICanvas>();
 
     private PanelLoadingAds m_PanelLoadingAds;
+    public GameObject g_SubCanvas;
+    public PanelLoading m_PanelLoading;
+    public GameObject g_PanelLoading;
 
     private static GUIManager m_Instance;
     public static GUIManager Instance
@@ -78,6 +81,8 @@ public class GUIManager : MonoBehaviour
             // m_CenterPos = Vector3.zero + new Vector3(0, m_OffsetTop);
         }
 
+        DontDestroyOnLoad(g_SubCanvas);
+
         int maxScreenHeight = 1080;
         float ratio = (float)Screen.currentResolution.width / (float)Screen.currentResolution.height;
         if (Screen.currentResolution.height > maxScreenHeight)
@@ -95,7 +100,8 @@ public class GUIManager : MonoBehaviour
         //     Screen.SetResolution(Mathf.RoundToInt(ratio * (float)maxScreenHeight), maxScreenHeight, true);
         // }
 
-        FindPanelLoading();
+        // FindPanelLoading();
+        // 
         LoadInitScene();
     }
 
@@ -155,6 +161,16 @@ public class GUIManager : MonoBehaviour
     public void FindPanelLoadingAds()
     {
         m_PanelLoadingAds = FindObjectOfType<PanelLoadingAds>().GetComponent<PanelLoadingAds>();
+    }
+
+    public PanelLoading GetPanelLoading()
+    {
+        return m_PanelLoading;
+    }
+
+    public GameObject GetGOPanelLoading()
+    {
+        return g_PanelLoading;
     }
 
     public PanelLoadingAds GetPanelLoadingAds()
