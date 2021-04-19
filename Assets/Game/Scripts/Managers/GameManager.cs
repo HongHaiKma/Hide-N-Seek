@@ -170,7 +170,7 @@ public class GameManager : Singleton<GameManager>
         return m_PanelInGame;
     }
 
-    public void ChangeToStartMenu()
+    public void ChangeToPlayScene()
     {
         // Debug.Log("PlayScene");
         ChangeScene("PlayScene", () =>

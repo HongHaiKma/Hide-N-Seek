@@ -188,7 +188,7 @@ public class GUIManager : MonoBehaviour
         if (!isLoadInitScene)
         {
             isLoadInitScene = true;
-            GameManager.Instance.ChangeToStartMenu();
+            GameManager.Instance.ChangeToPlayScene();
         }
     }
 
