@@ -13,7 +13,7 @@ public class PanelInGame : MonoBehaviour
     public Text txt_Keys;
     public Text txt_TotalGold;
     public Text txt_GoldLevel;
-    public Text txt_Fps;
+    // public Text txt_Fps;
 
     [Header("UI GameObjects")]
     public Image img_Sound;
@@ -111,10 +111,10 @@ public class PanelInGame : MonoBehaviour
         EventManagerWithParam<bool>.RemoveListener(GameEvent.LEVEL_PAUSE, PauseLevel);
     }
 
-    private void Update()
-    {
-        txt_Fps.text = Application.targetFrameRate.ToString();
-    }
+    // private void Update()
+    // {
+    //     txt_Fps.text = Application.targetFrameRate.ToString();
+    // }
 
     public void OnUpdateGold()
     {

@@ -62,9 +62,9 @@ public class AdsManager : Singleton<AdsManager>
                 }
             }
             //MediationTestSuite.OnMediationTestSuiteDismissed += this.HandleMediationTestSuiteDismissed;
-            this.RequestBanner();
-            this.RequestInter();
-            this.RequestRewardVideo();
+            // this.RequestBanner();
+            // this.RequestInter();
+            // this.RequestRewardVideo();
         });
         // #endif
 
@@ -102,14 +102,14 @@ public class AdsManager : Singleton<AdsManager>
 
     public void StartListenToEvent()
     {
-        EventManager.AddListener(GameEvent.LEVEL_END, LoadBanner);
-        EventManager.AddListener(GameEvent.LEVEL_END, LoadInter);
+        // EventManager.AddListener(GameEvent.LEVEL_END, LoadBanner);
+        // EventManager.AddListener(GameEvent.LEVEL_END, LoadInter);
     }
 
     public void StopListenToEvent()
     {
-        EventManager.RemoveListener(GameEvent.LEVEL_END, LoadBanner);
-        EventManager.RemoveListener(GameEvent.LEVEL_END, LoadInter);
+        // EventManager.RemoveListener(GameEvent.LEVEL_END, LoadBanner);
+        // EventManager.RemoveListener(GameEvent.LEVEL_END, LoadInter);
     }
 
     public void RequestBanner()
@@ -190,8 +190,9 @@ public class AdsManager : Singleton<AdsManager>
     {
         if (!Helper.NoAds())
         {
-            AdSize adSize = new AdSize(320, 35);
-            this.m_BannerView = new BannerView(m_BannerId, adSize, AdPosition.Bottom);
+            // AdSize adSize = new AdSize(320, 35);
+            // this.m_BannerView = new BannerView(m_BannerId, adSize, AdPosition.Bottom);
+            this.m_BannerView.Destroy();
             AdRequest request = new AdRequest.Builder().Build();
             this.m_BannerView.LoadAd(request);
         }
@@ -207,6 +208,7 @@ public class AdsManager : Singleton<AdsManager>
     {
         if (!Helper.NoAds())
         {
+            this.interstitial.Destroy();
             AdRequest request = new AdRequest.Builder().Build();
             this.interstitial.LoadAd(request);
         }
@@ -214,7 +216,7 @@ public class AdsManager : Singleton<AdsManager>
 
     public void LoadRewardVideo()
     {
-        this.rewardedAd = new RewardedAd(m_RewardId);
+        // this.rewardedAd = new RewardedAd(m_RewardId);
         this.rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
         this.rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad;
         // this.rewardedAd.OnAdOpening += HandleRewardedAdOpening;

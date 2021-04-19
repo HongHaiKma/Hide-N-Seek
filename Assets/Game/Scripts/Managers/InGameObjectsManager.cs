@@ -51,6 +51,11 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         m_PanelInGame = FindObjectOfType<PanelInGame>().GetComponent<PanelInGame>();
     }
 
+    // public void LoadMap()
+    // {
+    //     StartCoroutine(IELoadMap());
+    // }
+
     public void LoadMap()
     {
         // if (!AdsManager.Instance.m_BannerLoaded)
@@ -62,6 +67,10 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         // {
         //     AdsManager.Instance.RequestInter();
         // }
+        Resources.UnloadUnusedAssets();
+        System.GC.Collect();
+        // yield return Yielders.Get(0.1f);
+
 
         RemoveEnemies();
         RemoveGoldInGames();
