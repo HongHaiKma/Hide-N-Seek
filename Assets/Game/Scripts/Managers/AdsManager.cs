@@ -247,6 +247,11 @@ public class AdsManager : Singleton<AdsManager>
         MonoBehaviour.print("HandleAdLoaded event received");
 
         m_BannerLoaded = true;
+
+        if (Helper.NoAds())
+        {
+            DestroyBanner();
+        }
     }
 
     public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
@@ -263,6 +268,11 @@ public class AdsManager : Singleton<AdsManager>
     public void HandleOnAdOpened(object sender, EventArgs args)
     {
         MonoBehaviour.print("HandleAdOpened event received");
+
+        if (Helper.NoAds())
+        {
+            DestroyBanner();
+        }
     }
 
     public void HandleOnAdClosed(object sender, EventArgs args)

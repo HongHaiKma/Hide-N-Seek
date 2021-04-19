@@ -169,6 +169,7 @@ public class PopupOutfit : UICanvas
 
     public void OnAdsGold()
     {
+        InGameObjectsManager.Instance.RemoveEffectFlyer();
         AdsManager.Instance.WatchRewardVideo(RewardType.GOLD_1);
         // OnAdsGoldLogic();
         // OnAdsGoldAnim();
@@ -189,6 +190,8 @@ public class PopupOutfit : UICanvas
 
     public void SpawnGoldEffect()
     {
+        // InGameObjectsManager.Instance.RemoveEffectFlyer();
+
         for (int i = 0; i < 15; i++)
         {
             GameObject g_EffectGold = PrefabManager.Instance.SpawnEffectPrefabPool(EffectKeys.GoldEffect1.ToString(), btn_AdsGold.transform.position);
