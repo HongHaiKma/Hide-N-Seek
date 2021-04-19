@@ -53,6 +53,39 @@ public class AdsManager : Singleton<AdsManager>
     //     this.RequestBanner();
     // }
 
+    // public void Start()
+    // {
+    //     MobileAds.SetiOSAppPauseOnBackground(true);
+    //     // #if UNITY_EDITOR
+    //     //         // Initialize the Google Mobile Ads SDK.
+    //     //         MobileAds.Initialize(HandleInitCompleteAction);
+    //     //         AppLovin.Initialize();
+    //     // #else
+    //     MobileAds.Initialize((initStatus) =>
+    //     {
+    //         Dictionary<string, AdapterStatus> map = initStatus.getAdapterStatusMap();
+    //         foreach (KeyValuePair<string, AdapterStatus> keyValuePair in map)
+    //         {
+    //             string className = keyValuePair.Key;
+    //             AdapterStatus status = keyValuePair.Value;
+    //             switch (status.InitializationState)
+    //             {
+    //                 case AdapterState.NotReady:
+    //                     // The adapter initialization did not complete.
+    //                     MonoBehaviour.print("Adapter: " + className + " not ready.");
+    //                     break;
+    //                 case AdapterState.Ready:
+    //                     // The adapter was successfully initialized.
+    //                     MonoBehaviour.print("Adapter: " + className + " is initialized.");
+    //                     break;
+    //             }
+    //         }
+    //         //MediationTestSuite.OnMediationTestSuiteDismissed += this.HandleMediationTestSuiteDismissed;
+    //         CheckAndRequestAllAds();
+    //     });
+    //     // #endif
+    // }
+
     private void OnEnable()
     {
         StartListenToEvent();
