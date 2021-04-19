@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 [DefaultExecutionOrder(-90)]
 public class InGameObjectsManager : Singleton<InGameObjectsManager>
 {
+    // public AssetReference m_Maps;
     public Character m_Char;
     public List<Enemy> m_Enemies;
     public List<GoldInGame> m_GoldInGames;
@@ -67,8 +70,8 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         // {
         //     AdsManager.Instance.RequestInter();
         // }
-        Resources.UnloadUnusedAssets();
-        System.GC.Collect();
+        // Resources.UnloadUnusedAssets();
+        // System.GC.Collect();
         // yield return Yielders.Get(0.1f);
 
 
@@ -87,9 +90,25 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         }
         int level = ProfileManager.GetLevel();
         string name = "Maps/Map" + level.ToString();
+        string name2 = "Map" + level.ToString();
         GameObject go = Resources.Load<GameObject>(name);
+
+        // GameObject go = new GameObject();
+        // var go = SyncAddressables.Instantiate(name2);
+        // Addressables.LoadAssetAsync<GameObject>(name2).Completed += OnLoadDone;
+
+        // AsyncOperationHandle<GameObject> textureHandle = Addressables.LoadAssetAsync<GameObject>(name2);
+
+        // var obj = Addressables.InstantiateAsync("Map2");
+        // if (obj.IsDone)
+        // {
+        //     Helper.DebugLog("Addresables is doneeeeeeeeeeeeee");
+        //     go = obj.Result as GameObject;
+        // }
+
         GameObject map = Instantiate(go, Vector3.zero, Quaternion.identity);
         MapController mapControl = map.GetComponent<MapController>();
+        // MapController mapControl = go.GetComponent<MapController>();
         m_Map = mapControl;
         m_Map.SetupMap();
 
@@ -109,6 +128,11 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
             GameManager.Instance.m_MapType = MapType.BONUS;
         }
     }
+
+    // public GameObject OnLoadDone(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<GameObject> obj)
+    // {
+    //     return obj;
+    // }
 
     public void LoadMapCheat(int _level)
     {
