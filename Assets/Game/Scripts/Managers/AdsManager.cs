@@ -33,12 +33,44 @@ public class AdsManager : Singleton<AdsManager>
         m_BannerLoaded = false;
         m_WatchInter = true;
 
-        MobileAds.Initialize(initStatus => { });
-        // MobileAds.Initialize(m_APP_ID);
+        // MobileAds.Initialize(initStatus => { });
+        // // MobileAds.Initialize(m_APP_ID);
 
-        this.RequestBanner();
-        this.RequestInter();
-        this.RequestRewardVideo();
+        MobileAds.SetiOSAppPauseOnBackground(true);
+        // #if UNITY_EDITOR
+        //         // Initialize the Google Mobile Ads SDK.
+        //         MobileAds.Initialize(HandleInitCompleteAction);
+        //         AppLovin.Initialize();
+        // #else
+        MobileAds.Initialize((initStatus) =>
+        {
+            Dictionary<string, AdapterStatus> map = initStatus.getAdapterStatusMap();
+            foreach (KeyValuePair<string, AdapterStatus> keyValuePair in map)
+            {
+                string className = keyValuePair.Key;
+                AdapterStatus status = keyValuePair.Value;
+                switch (status.InitializationState)
+                {
+                    case AdapterState.NotReady:
+                        // The adapter initialization did not complete.
+                        MonoBehaviour.print("Adapter: " + className + " not ready.");
+                        break;
+                    case AdapterState.Ready:
+                        // The adapter was successfully initialized.
+                        MonoBehaviour.print("Adapter: " + className + " is initialized.");
+                        break;
+                }
+            }
+            //MediationTestSuite.OnMediationTestSuiteDismissed += this.HandleMediationTestSuiteDismissed;
+            this.RequestBanner();
+            this.RequestInter();
+            this.RequestRewardVideo();
+        });
+        // #endif
+
+        // this.RequestBanner();
+        // this.RequestInter();
+        // this.RequestRewardVideo();
     }
 
     // private void Start()
@@ -55,35 +87,7 @@ public class AdsManager : Singleton<AdsManager>
 
     // public void Start()
     // {
-    //     MobileAds.SetiOSAppPauseOnBackground(true);
-    //     // #if UNITY_EDITOR
-    //     //         // Initialize the Google Mobile Ads SDK.
-    //     //         MobileAds.Initialize(HandleInitCompleteAction);
-    //     //         AppLovin.Initialize();
-    //     // #else
-    //     MobileAds.Initialize((initStatus) =>
-    //     {
-    //         Dictionary<string, AdapterStatus> map = initStatus.getAdapterStatusMap();
-    //         foreach (KeyValuePair<string, AdapterStatus> keyValuePair in map)
-    //         {
-    //             string className = keyValuePair.Key;
-    //             AdapterStatus status = keyValuePair.Value;
-    //             switch (status.InitializationState)
-    //             {
-    //                 case AdapterState.NotReady:
-    //                     // The adapter initialization did not complete.
-    //                     MonoBehaviour.print("Adapter: " + className + " not ready.");
-    //                     break;
-    //                 case AdapterState.Ready:
-    //                     // The adapter was successfully initialized.
-    //                     MonoBehaviour.print("Adapter: " + className + " is initialized.");
-    //                     break;
-    //             }
-    //         }
-    //         //MediationTestSuite.OnMediationTestSuiteDismissed += this.HandleMediationTestSuiteDismissed;
-    //         CheckAndRequestAllAds();
-    //     });
-    //     // #endif
+
     // }
 
     private void OnEnable()

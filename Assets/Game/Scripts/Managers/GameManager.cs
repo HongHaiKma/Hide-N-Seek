@@ -243,8 +243,8 @@ public class GameManager : Singleton<GameManager>
         // InGameObjectsManager.Instance.LoadMap();
         // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
 
-        yield return Yielders.Get(0.1f);
-        GUIManager.Instance.GetGOPanelLoading().SetActive(false);
+        yield return Yielders.Get(0.3f);
+        // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
         yield return Yielders.EndOfFrame;
 
         InGameObjectsManager.Instance.LoadMap();
@@ -253,9 +253,9 @@ public class GameManager : Singleton<GameManager>
         FindPanelInGame();
         GUIManager.Instance.FindPanelLoadingAds();
 
-        // yield return Yielders.Get(0.2f);
+        yield return Yielders.Get(0.2f);
         // yield return Yielders.EndOfFrame;
-        // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
+        GUIManager.Instance.GetGOPanelLoading().SetActive(false);
         // QualitySettings.vSyncCount = 0;
     }
 
