@@ -82,6 +82,7 @@ public class UICharacterCard : MonoBehaviour, ICell
         txt_Price.text = _info.m_Price;
 
         img_Char.sprite = SpriteManager.Instance.m_CharCards[_info.m_Id - 1];
+        // img_Char.sprite = SpriteManager.Instance.m_CharCard.GetSprite(_info.m_Name);
 
         PopupOutfit popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_OUTFIT) as PopupOutfit;
         g_SelectedOutline.SetActive(_info.m_Id == popup.m_SelectedCharacter);

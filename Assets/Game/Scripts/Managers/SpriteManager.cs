@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// using UnityEngine.UI;
+using UnityEngine.U2D;
 
 public class SpriteManager : Singleton<SpriteManager>
 {
+    // public SpriteAtlas m_CharCard;
     public List<Sprite> m_CharCards;
     public List<Sprite> m_Mics;
 }

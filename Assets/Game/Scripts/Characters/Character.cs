@@ -136,6 +136,17 @@ public class Character : InGameObject
         //     return;
         // }
 
+        if (other.CompareTag("DeadCollider"))
+        {
+            if (GameManager.Instance.m_LevelStart)
+            {
+                EventManager.CallEvent(GameEvent.CHAR_SPOTTED);
+
+                GameManager.Instance.m_LevelStart = false;
+                return;
+            }
+        }
+
         InGameObject obj = other.GetComponent<InGameObject>();
 
         if (obj != null)

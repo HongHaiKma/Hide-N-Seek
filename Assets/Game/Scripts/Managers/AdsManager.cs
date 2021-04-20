@@ -190,8 +190,8 @@ public class AdsManager : Singleton<AdsManager>
     {
         if (!Helper.NoAds())
         {
-            AdSize adSize = new AdSize(320, 35);
-            this.m_BannerView = new BannerView(m_BannerId, adSize, AdPosition.Bottom);
+            // AdSize adSize = new AdSize(320, 35);
+            // this.m_BannerView = new BannerView(m_BannerId, adSize, AdPosition.Bottom);
             // this.m_BannerView.Destroy();
             AdRequest request = new AdRequest.Builder().Build();
             this.m_BannerView.LoadAd(request);
@@ -216,7 +216,7 @@ public class AdsManager : Singleton<AdsManager>
 
     public void LoadRewardVideo()
     {
-        // this.rewardedAd = new RewardedAd(m_RewardId);
+        this.rewardedAd = new RewardedAd(m_RewardId);
         this.rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
         this.rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad;
         // this.rewardedAd.OnAdOpening += HandleRewardedAdOpening;

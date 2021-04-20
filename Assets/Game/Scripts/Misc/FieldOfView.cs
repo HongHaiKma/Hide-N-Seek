@@ -45,7 +45,7 @@ public class FieldOfView : MonoBehaviour
         SetNormalColor();
     }
 
-    void LateUpdate()
+    void Update()
     {
         DrawFieldOfView();
     }

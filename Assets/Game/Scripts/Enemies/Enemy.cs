@@ -397,7 +397,7 @@ public class Enemy : InGameObject
 
     public virtual void OnCatchExecute()
     {
-        // SetDestination(m_Char.tf_Owner.position);
+        SetDestination(m_Char.tf_Owner.position);
     }
 
     public virtual void OnCatchExit()
