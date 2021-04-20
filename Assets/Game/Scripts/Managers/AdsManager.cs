@@ -192,6 +192,7 @@ public class AdsManager : Singleton<AdsManager>
         {
             AdSize adSize = new AdSize(320, 35);
             this.m_BannerView = new BannerView(m_BannerId, adSize, AdPosition.Bottom);
+            // this.m_BannerView.Destroy();
             AdRequest request = new AdRequest.Builder().Build();
             this.m_BannerView.LoadAd(request);
         }
@@ -207,6 +208,7 @@ public class AdsManager : Singleton<AdsManager>
     {
         if (!Helper.NoAds())
         {
+            // this.interstitial.Destroy();
             AdRequest request = new AdRequest.Builder().Build();
             this.interstitial.LoadAd(request);
         }
@@ -214,7 +216,7 @@ public class AdsManager : Singleton<AdsManager>
 
     public void LoadRewardVideo()
     {
-        this.rewardedAd = new RewardedAd(m_RewardId);
+        // this.rewardedAd = new RewardedAd(m_RewardId);
         this.rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
         this.rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad;
         // this.rewardedAd.OnAdOpening += HandleRewardedAdOpening;
@@ -247,6 +249,11 @@ public class AdsManager : Singleton<AdsManager>
         MonoBehaviour.print("HandleAdLoaded event received");
 
         m_BannerLoaded = true;
+
+        if (Helper.NoAds())
+        {
+            DestroyBanner();
+        }
     }
 
     public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
@@ -263,6 +270,11 @@ public class AdsManager : Singleton<AdsManager>
     public void HandleOnAdOpened(object sender, EventArgs args)
     {
         MonoBehaviour.print("HandleAdOpened event received");
+
+        if (Helper.NoAds())
+        {
+            DestroyBanner();
+        }
     }
 
     public void HandleOnAdClosed(object sender, EventArgs args)

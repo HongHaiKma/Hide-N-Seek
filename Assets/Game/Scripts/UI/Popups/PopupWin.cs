@@ -137,6 +137,8 @@ public class PopupWin : UICanvas
 
     public void SpawnGoldEffect()
     {
+        // InGameObjectsManager.Instance.RemoveEffectFlyer();
+
         for (int i = 0; i < 15; i++)
         {
             GameObject g_EffectGold = PrefabManager.Instance.SpawnEffectPrefabPool(EffectKeys.GoldEffect1.ToString(), m_GoldEffectStart.position);
@@ -182,6 +184,7 @@ public class PopupWin : UICanvas
 
     public void OnX3Reward()
     {
+        InGameObjectsManager.Instance.RemoveEffectFlyer();
         AdsManager.Instance.WatchRewardVideo(RewardType.GOLD_2);
         // OnX3RewardLogic();
         // OnX3RewardAnim();
