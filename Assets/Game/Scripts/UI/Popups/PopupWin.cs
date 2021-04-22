@@ -41,6 +41,7 @@ public class PopupWin : UICanvas
         {
             AdsManager.Instance.m_WatchInter = true;
             GameManager.Instance.m_LoseStreak = 0;
+            SoundManager.Instance.PlaySoundWinLong(false);
         }
 
         btn_X3Reward.gameObject.SetActive(true);
@@ -176,6 +177,7 @@ public class PopupWin : UICanvas
 
     public override void OnClose()
     {
+        SoundManager.Instance.PlaySoundWinLong(true);
         base.OnClose();
         MiniCharacterStudio.Instance.DestroyChar();
         InGameObjectsManager.Instance.RemoveEffectFlyer();
@@ -184,6 +186,7 @@ public class PopupWin : UICanvas
 
     public void OnX3Reward()
     {
+        SoundManager.Instance.PlaySoundWinLong(true);
         InGameObjectsManager.Instance.RemoveEffectFlyer();
         AdsManager.Instance.WatchRewardVideo(RewardType.GOLD_2);
         // OnX3RewardLogic();

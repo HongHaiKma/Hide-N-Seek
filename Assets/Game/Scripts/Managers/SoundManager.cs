@@ -12,6 +12,7 @@ public class SoundManager : Singleton<SoundManager>
     public AudioClip m_SoundObstacleDynamic;
     public AudioClip m_SoundBuySuccess;
     public AudioClip m_SoundWin;
+    public AudioClip m_SoundWinLong;
     public AudioClip m_SoundLose;
     public AudioClip m_ClipBGMInGame;
 
@@ -143,6 +144,20 @@ public class SoundManager : Singleton<SoundManager>
         if (IsSoundOn)
         {
             m_IngameShootingFx.PlayOneShot(m_SoundWin, 5);
+        }
+    }
+
+    public void PlaySoundWinLong(bool _stop)
+    {
+        if (_stop)
+        {
+            m_IngameShootingFx.Stop();
+            return;
+        }
+
+        if (IsSoundOn)
+        {
+            m_IngameShootingFx.PlayOneShot(m_SoundWinLong, 5);
         }
     }
 
