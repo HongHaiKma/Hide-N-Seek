@@ -49,7 +49,7 @@ public class Enemy1 : Enemy
     {
         m_CatchColorRange = Color.red;
         m_FOV.defaultColor = Color.red;
-        m_FOV.normalColor = m_FOV.defaultColor;
+        m_FOV.normalColor = Color.red;
         // m_FOV.normalMat.color = Color.red;
         m_FOV.SetFieldOfView(m_RangeAngle + 10f);
     }
