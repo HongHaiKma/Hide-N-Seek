@@ -194,6 +194,11 @@ public class Helper
         return posSmooth;
     }
 
+    public static Vector3 Follow(Vector3 _target, Vector3 _owner, Vector3 _offset)
+    {
+        return (_target + _offset);
+    }
+
     #endregion
 
     #region OBJECT_ROTATING

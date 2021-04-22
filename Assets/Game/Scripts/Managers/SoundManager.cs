@@ -87,7 +87,7 @@ public class SoundManager : Singleton<SoundManager>
     {
         if (IsMusicOn)
         {
-            m_BGM.volume = 0.3f;
+            m_BGM.volume = 0.6f;
         }
         else
         {
@@ -124,7 +124,7 @@ public class SoundManager : Singleton<SoundManager>
         // if (IsSoundOn && !IsLockSound)
         if (IsSoundOn)
         {
-            m_IngameShootingFx.PlayOneShot(m_SoundObstacleDynamic, 5);
+            m_IngameShootingFx.PlayOneShot(m_SoundObstacleDynamic, 2);
         }
     }
 

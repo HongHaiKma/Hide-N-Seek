@@ -81,7 +81,7 @@ public class PanelInGame : MonoBehaviour
         EventManager.AddListener(GameEvent.CHAR_WIN, SetUIWhenCharWinOrLose);
         EventManager.AddListener(GameEvent.CHAR_SPOTTED, SetUIWhenCharWinOrLose);
 
-        EventManager.AddListener(GameEvent.LEVEL_START, SetIngame);
+        // EventManager.AddListener(GameEvent.LEVEL_START, SetIngame);
         EventManager.AddListener(GameEvent.LEVEL_END, SetOutGame);
 
         EventManager.AddListener(GameEvent.UPDATE_GOLD_TEXT, OnUpdateGold);
@@ -100,7 +100,7 @@ public class PanelInGame : MonoBehaviour
         EventManager.RemoveListener(GameEvent.CHAR_WIN, SetUIWhenCharWinOrLose);
         EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, SetUIWhenCharWinOrLose);
 
-        EventManager.RemoveListener(GameEvent.LEVEL_START, SetIngame);
+        // EventManager.RemoveListener(GameEvent.LEVEL_START, SetIngame);
         EventManager.RemoveListener(GameEvent.LEVEL_END, SetOutGame);
 
         EventManager.RemoveListener(GameEvent.UPDATE_GOLD_TEXT, OnUpdateGold);
@@ -131,7 +131,7 @@ public class PanelInGame : MonoBehaviour
         g_Play.SetActive(false);
         g_Pause.SetActive(true);
 
-        g_Joystick.SetActive(true);
+        // g_Joystick.SetActive(true);
         ui_Keys.SetActive(true);
 
         int keys = InGameObjectsManager.Instance.m_Map.m_Keys.Count;
@@ -163,7 +163,7 @@ public class PanelInGame : MonoBehaviour
         g_Setting.SetActive(true);
         g_Gold.SetActive(true);
         g_Shop.SetActive(true);
-        // g_NoAds.SetActive(true);
+        g_NoAds.SetActive(true);
         g_Play.SetActive(true);
         g_Play.SetActive(true);
         g_Pause.SetActive(false);
@@ -222,12 +222,29 @@ public class PanelInGame : MonoBehaviour
 
     public void OnPlay()
     {
+        // int levelPlay = ProfileManager.GetLevel();
+        // AnalysticsManager.LogPlayLevel(levelPlay);
+
+        // EventManager.CallEvent(GameEvent.LEVEL_START);
+        // GameManager.Instance.m_LevelStart = true;
+        // CamController.Instance.ZoomOutChar();
+        // SoundManager.Instance.m_BGM.Play();
+        // QualitySettings.vSyncCount = 0;
+        btn_Pause.interactable = false;
+        SetIngame();
+
+        CamController.Instance.ZoomInChar();
+    }
+
+    public void JumpToPlay()
+    {
         int levelPlay = ProfileManager.GetLevel();
         AnalysticsManager.LogPlayLevel(levelPlay);
 
+        g_Joystick.SetActive(true);
         EventManager.CallEvent(GameEvent.LEVEL_START);
         GameManager.Instance.m_LevelStart = true;
-        CamController.Instance.ZoomOutChar();
+        // CamController.Instance.ZoomOutChar();
         SoundManager.Instance.m_BGM.Play();
         QualitySettings.vSyncCount = 0;
     }

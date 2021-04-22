@@ -44,7 +44,10 @@ public class PopupLose : UICanvas
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         // EventManager.CallEvent(GameEvent.LEVEL_END);
         EventManager.CallEvent(GameEvent.LEVEL_START);
+        GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
+        GameManager.Instance.GetPanelInGame().SetIngame();
         GameManager.Instance.m_LevelStart = true;
+        CamController.Instance.m_StartFollow = true;
         SoundManager.Instance.m_BGM.Play();
 
         bool level = (ProfileManager.GetLevel() - 1) >= 3 ? true : false;

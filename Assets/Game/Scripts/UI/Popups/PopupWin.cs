@@ -192,13 +192,38 @@ public class PopupWin : UICanvas
 
     public void OnX3RewardLogic()
     {
-        txt_GoldLevel.text = "+" + (GameManager.Instance.m_GoldLevel * 3f).ToString();
-        ProfileManager.AddGold(GameManager.Instance.m_GoldLevel * 2f);
+        ProfileManager.AddGold(GameManager.Instance.m_GoldLevel * 2);
+        GameManager.Instance.m_GoldLevel += GameManager.Instance.m_GoldLevel * 2;
+        txt_GoldLevel.text = "+" + (GameManager.Instance.m_GoldLevel).ToString();
         btn_X3Reward.gameObject.SetActive(false);
+        SpawnGoldEffect();
+        FadeIn(0.35f);
     }
 
     public void OnX3RewardAnim()
     {
-        SpawnGoldEffect();
+        // SpawnGoldEffect();
+        // GameManager.Instance.m_GoldLevel += GameManager.Instance.m_GoldLevel * 2;
+        // txt_GoldLevel.text = "+" + (GameManager.Instance.m_GoldLevel).ToString();
+        // btn_X3Reward.gameObject.SetActive(false);
+
+        // FadeIn();
     }
+
+    // public void AnimFadeIn()
+    // {
+    //     StartCoroutine(IEAnimFadeIn());
+    // }
+
+    // IEnumerator IEAnimFadeIn()
+    // {
+    //     float m_Time = 1.5f;
+    //     float m_TimeCount = 0f;
+    //     m_TimeCount += Time.deltaTime;
+    //     m_CanvasGroup.alpha = m_TimeCount;
+
+    //     yield return Yielders.Get(1f);
+
+    //     m_CanvasGroup.alpha = 1f;
+    // }
 }

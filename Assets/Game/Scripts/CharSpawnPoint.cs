@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class CharSpawnPoint : SpawnPoint
 {
@@ -37,5 +38,12 @@ public class CharSpawnPoint : SpawnPoint
         Character character = go.GetComponent<Character>();
         InGameObjectsManager.Instance.m_Char = character;
         CamController.Instance.m_Char = character;
+
+        // Vector3 pos = new Vector3(0f, 32f, -21f);
+        // CamController.Instance.tf_Owner.DOMove(pos, 1);
+        CamController.Instance.ZoomOutChar();
+        // CamController.Instance.tf_Owner.position = Helper.Follow(pos, CamController.Instance.tf_Owner.position, Vector3.zero);
+        // CamController.Instance.tf_Owner.position = vecc;
+        //  = m_Char.tf_Owner.position;
     }
 }

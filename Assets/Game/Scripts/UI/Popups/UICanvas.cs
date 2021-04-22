@@ -124,12 +124,12 @@ public class UICanvas : MonoBehaviour
             m_RectTransform.localPosition = position;
     }
 
-    private void FadeOut()
+    public void FadeOut()
     {
         m_CanvasGroup.DOFade(0, 0.2f).SetEase(Ease.Flash).SetUpdate(UpdateType.Late, true); ;
         transform.DOScale(1.05f, 0.2f).SetEase(Ease.Flash).OnComplete(() => { gameObject.SetActive(false); }).SetUpdate(UpdateType.Late, true);
     }
-    private void FadeIn()
+    public void FadeIn()
     {
         if (m_CanvasGroup != null)
         {
@@ -137,6 +137,17 @@ public class UICanvas : MonoBehaviour
             transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
             m_CanvasGroup.DOFade(1, 0.2f).SetEase(Ease.Flash).SetUpdate(UpdateType.Late, true);
             transform.DOScale(1, 0.2f).SetEase(Ease.Flash).SetUpdate(UpdateType.Late, true); ;
+        }
+    }
+
+    public void FadeIn(float _timeDuration)
+    {
+        if (m_CanvasGroup != null)
+        {
+            m_CanvasGroup.alpha = 0;
+            transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+            m_CanvasGroup.DOFade(1, _timeDuration).SetEase(Ease.Flash).SetUpdate(UpdateType.Late, true);
+            transform.DOScale(1, _timeDuration).SetEase(Ease.Flash).SetUpdate(UpdateType.Late, true); ;
         }
     }
 }
