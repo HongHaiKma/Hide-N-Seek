@@ -35,6 +35,7 @@ public static class ConfigKeys
     #region MISC_PLAYERPREF
 
     public static string noAds = "BuyNoAds";
+    public static string rateUs = "rateUs";
 
     #endregion
 

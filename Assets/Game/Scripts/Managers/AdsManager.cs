@@ -8,18 +8,18 @@ using Facebook.Unity;
 
 public class AdsManager : Singleton<AdsManager>
 {
-    private string m_APP_ID = "ca-app-pub-8721698442392956~1232205283";
+    private string m_APP_ID = "ca-app-pub-8721698442392956~5641814462";
 
     private BannerView m_BannerView;
-    private string m_BannerId = "ca-app-pub-8721698442392956/8871323474";
+    private string m_BannerId = "ca-app-pub-8721698442392956/1702569451";
     public bool m_BannerLoaded;
 
     private InterstitialAd interstitial;
-    private string m_InterId = "ca-app-pub-8721698442392956/5034707168";
+    private string m_InterId = "ca-app-pub-8721698442392956/3416952287";
     public bool m_WatchInter;
 
     private RewardedAd rewardedAd;
-    private string m_RewardId = "ca-app-pub-8721698442392956/2114343439";
+    private string m_RewardId = "ca-app-pub-8721698442392956/4408623845";
 
 
     public bool openRwdAds;

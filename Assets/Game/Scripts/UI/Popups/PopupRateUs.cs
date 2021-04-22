@@ -6,6 +6,22 @@ using UnityEngine.UI;
 public class PopupRateUs : UICanvas
 {
     public Button btn_Rate;
+    public Button btn_NotNow;
+    public Button btn_NoThanks;
+
+    public int star;
+
+    public Button btn_Star1;
+    public Button btn_Star2;
+    public Button btn_Star3;
+    public Button btn_Star4;
+    public Button btn_Star5;
+
+    public Image img_Star1;
+    public Image img_Star2;
+    public Image img_Star3;
+    public Image img_Star4;
+    public Image img_Star5;
 
     private void Awake()
     {
@@ -13,10 +29,101 @@ public class PopupRateUs : UICanvas
         Init();
 
         GUIManager.Instance.AddClickEvent(btn_Rate, ShowRate);
+        GUIManager.Instance.AddClickEvent(btn_NotNow, NotNow);
+        GUIManager.Instance.AddClickEvent(btn_NoThanks, NoThanks);
+
+        GUIManager.Instance.AddClickEvent(btn_Star1, ClickStar1);
+        GUIManager.Instance.AddClickEvent(btn_Star2, ClickStar2);
+        GUIManager.Instance.AddClickEvent(btn_Star3, ClickStar3);
+        GUIManager.Instance.AddClickEvent(btn_Star4, ClickStar4);
+        GUIManager.Instance.AddClickEvent(btn_Star5, ClickStar5);
+
+    }
+
+    private void OnEnable()
+    {
+        star = 0;
+        img_Star1.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_S_Star_Off];
+        img_Star2.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_M_Star_Off];
+        img_Star3.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_L_Star_Off];
+        img_Star4.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_M_Star_Off];
+        img_Star5.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_S_Star_Off];
     }
 
     public void ShowRate()
     {
-        Application.OpenURL("market://details?id=" + Application.identifier);
+        if (star > 4)
+        {
+            PlayerPrefs.SetInt(ConfigKeys.rateUs, 0);
+            OnClose();
+            Application.OpenURL("market://details?id=" + Application.identifier);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(ConfigKeys.rateUs, 0);
+            OnClose();
+        }
     }
+
+    public void NoThanks()
+    {
+        PlayerPrefs.SetInt(ConfigKeys.rateUs, 0);
+        OnClose();
+    }
+
+    public void NotNow()
+    {
+        OnClose();
+    }
+
+    public void ClickStar1()
+    {
+        img_Star1.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_S_Star_On];
+        img_Star2.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_M_Star_Off];
+        img_Star3.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_L_Star_Off];
+        img_Star4.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_M_Star_Off];
+        img_Star5.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_S_Star_Off];
+        star = 1;
+    }
+
+    public void ClickStar2()
+    {
+        img_Star1.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_S_Star_On];
+        img_Star2.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_M_Star_On];
+        img_Star3.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_L_Star_Off];
+        img_Star4.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_M_Star_Off];
+        img_Star5.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_S_Star_Off];
+        star = 2;
+    }
+
+    public void ClickStar3()
+    {
+        img_Star1.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_S_Star_On];
+        img_Star2.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_M_Star_On];
+        img_Star3.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_L_Star_On];
+        img_Star4.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_M_Star_Off];
+        img_Star5.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_S_Star_Off];
+        star = 3;
+    }
+
+    public void ClickStar4()
+    {
+        img_Star1.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_S_Star_On];
+        img_Star2.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_M_Star_On];
+        img_Star3.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_L_Star_On];
+        img_Star4.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_M_Star_On];
+        img_Star5.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_S_Star_Off];
+        star = 4;
+    }
+
+    public void ClickStar5()
+    {
+        img_Star1.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_S_Star_On];
+        img_Star2.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_M_Star_On];
+        img_Star3.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_L_Star_On];
+        img_Star4.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_M_Star_On];
+        img_Star5.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_Rate_S_Star_On];
+        star = 5;
+    }
+
 }

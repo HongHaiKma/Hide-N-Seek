@@ -31,6 +31,7 @@ public class PlayerProfile
     public void CreateNewPlayer()
     {
         PlayerPrefs.SetInt(ConfigKeys.noAds, 0);
+        PlayerPrefs.SetInt(ConfigKeys.rateUs, 1);
 
         string ic = "0";
         m_Gold = new BigNumber(ic);
