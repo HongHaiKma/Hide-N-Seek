@@ -44,6 +44,10 @@ public class PopupPause : UICanvas
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         // EventManager.CallEvent(GameEvent.LEVEL_END);
         EventManager.CallEvent(GameEvent.LEVEL_START);
+        GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
+        GameManager.Instance.GetPanelInGame().SetIngame();
+        GameManager.Instance.m_LevelStart = true;
+        CamController.Instance.m_StartFollow = true;
         GameManager.Instance.m_LevelStart = true;
 
         EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
@@ -60,7 +64,7 @@ public class PopupPause : UICanvas
         EventManager.CallEvent(GameEvent.LEVEL_END);
 
         EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
-
+        GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(false);
         SoundManager.Instance.m_BGM.Pause();
 
         // Time.timeScale = 1f;

@@ -344,7 +344,8 @@ public class AdsManager : Singleton<AdsManager>
 
     IEnumerator IEProcessRewardVideoClosed()
     {
-        yield return Yielders.EndOfFrame;
+        // yield return Yielders.EndOfFrame;
+        yield return null;
 
         switch (m_RewardType)
         {
@@ -367,7 +368,8 @@ public class AdsManager : Singleton<AdsManager>
 
     IEnumerator IEProcessRewardVideo()
     {
-        yield return Yielders.EndOfFrame;
+        // yield return Yielders.EndOfFrame;
+        yield return null;
 
         switch (m_RewardType)
         {
