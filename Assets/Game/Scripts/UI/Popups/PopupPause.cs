@@ -69,21 +69,53 @@ public class PopupPause : UICanvas
         GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(false);
         SoundManager.Instance.m_BGM.Pause();
 
-        InGameObjectsManager.Instance.LoadMap();
-        CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
-
-        // StartCoroutine(LoadMap());
-        // LoadMap();
-    }
-
-    async void LoadMap()
-    {
-        // yield return Yielders.Get(0.3f);
-
-        await Task.Delay(1);
-
         // InGameObjectsManager.Instance.LoadMap();
         // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
+
+        // StartCoroutine(LoadMap());
+        LoadMap();
+
+        // var tasks = new List<Task>();
+        // tasks.Add(Task.Run(() =>
+        // {
+        //     // Task1();
+        //     // Task2();
+        //     Helper.DebugLog("Task 1 complete");
+        //     Helper.DebugLog("Task 2 complete");
+        // }));
+
+        // Task t = Task.WhenAll(tasks.ToArray());
+        // try
+        // {
+        //     await t;
+        // }
+        // catch { }
+    }
+
+    async Task LoadMap()
+    {
+        // await Task.Delay(1);
+
+        // InGameObjectsManager.Instance.LoadMap();
+
+        // await Task.Delay(1);
+        // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
+        // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
+
+        var tasks = new List<Task>();
+        tasks.Add(Task.Run(() =>
+        {
+            InGameObjectsManager.Instance.LoadMap();
+            CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
+        }));
+
+        Task t = Task.WhenAll(tasks.ToArray());
+        try
+        {
+            await t;
+        }
+        catch { }
+
         GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
     }
 

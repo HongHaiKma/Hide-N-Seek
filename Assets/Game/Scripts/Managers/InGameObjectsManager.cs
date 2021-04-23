@@ -79,6 +79,8 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         RemoveEnemies();
         RemoveGoldInGames();
 
+        Helper.DebugLog("Destroy all Enemies!!!");
+
         // SimplePool.Release();
         // Resources.UnloadUnusedAssets();
         // System.GC.Collect();

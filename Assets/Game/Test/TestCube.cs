@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class TestCube : MonoBehaviour
 {
@@ -33,8 +34,47 @@ public class TestCube : MonoBehaviour
     //     Debug.Log(other.gameObject.name);
     // }
 
-    public void Test()
+    // public void Test()
+    // {
+    //     Debug.Log("1111111111111111111111111");
+    // }
+
+    private void Update()
     {
-        Debug.Log("1111111111111111111111111");
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Task3();
+        }
+    }
+
+    // async Task Task1()
+    // {
+    //     Helper.DebugLog("Task 1 complete");
+    // }
+
+    // async Task Task2()
+    // {
+    //     Helper.DebugLog("Task 2 complete");
+    // }
+
+    async void Task3()
+    {
+        var tasks = new List<Task>();
+        tasks.Add(Task.Run(() =>
+        {
+            // Task1();
+            // Task2();
+            Helper.DebugLog("Task 1 complete");
+            Helper.DebugLog("Task 2 complete");
+        }));
+
+        Task t = Task.WhenAll(tasks.ToArray());
+        try
+        {
+            await t;
+        }
+        catch { }
+
+        Helper.DebugLog("Task 3 complete");
     }
 }
