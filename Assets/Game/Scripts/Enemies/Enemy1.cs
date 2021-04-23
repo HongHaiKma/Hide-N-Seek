@@ -6,7 +6,7 @@ public class Enemy1 : Enemy
 {
     public override void OnIdleExecute()
     {
-        if (CanSeePlayer() && !IsThroughWall())
+        if (CanSeePlayer() && !IsThroughWall() && (Mathf.Abs(tf_Owner.position.y - m_Char.tf_Owner.position.y) < 0.5f))
         {
             ChangeState(E_CatchState.Instance);
             return;
@@ -30,7 +30,7 @@ public class Enemy1 : Enemy
 
     public override void OnPatrolExecute()
     {
-        if (CanSeePlayer() && !IsThroughWall())
+        if (CanSeePlayer() && !IsThroughWall() && (Mathf.Abs(tf_Owner.position.y - m_Char.tf_Owner.position.y) < 0.5f))
         {
             ChangeState(E_CatchState.Instance);
             return;

@@ -129,10 +129,20 @@ public class PopupWin : UICanvas
 
         img_RewardBar.fillAmount = result;
 
-        if (result == 1f)
+
+        int goldChar = ProfileManager.GetTotalGoldChar();
+        int goldCharOwned = ProfileManager.GetTotaOwnedlGoldChar();
+        if ((goldChar - goldCharOwned) > 0)
         {
-            InGameObjectsManager.Instance.RemoveEffectFlyer();
-            PopupCaller.OpenLevelRewardPopup();
+            if (result == 1f)
+            {
+                InGameObjectsManager.Instance.RemoveEffectFlyer();
+                PopupCaller.OpenLevelRewardPopup();
+            }
+        }
+        else
+        {
+            BlockPanel.Instance.Close();
         }
     }
 

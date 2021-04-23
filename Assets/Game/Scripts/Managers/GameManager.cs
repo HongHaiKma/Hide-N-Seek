@@ -28,7 +28,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
-        Application.targetFrameRate = 90;
+        Application.targetFrameRate = 60;
         m_LoseStreak = 0;
 
         NotificationManager.Instance.m_NotiDict.Add(CdType.NOTI_DAILY, m_DailyNotiContent);
@@ -42,6 +42,13 @@ public class GameManager : Singleton<GameManager>
         if (m_DailyNoti != null)
         {
             m_DailyNoti.OnUpdate();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
+            Helper.DebugLog("TotalGoldChar: " + ProfileManager.GetTotalGoldChar());
+            Helper.DebugLog("TotalGoldChar Owned: " + ProfileManager.GetTotaOwnedlGoldChar());
         }
     }
 
