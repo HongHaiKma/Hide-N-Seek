@@ -219,6 +219,48 @@ public class PlayerProfile
         return false;
     }
 
+    public int GetTotalGoldChar()
+    {
+        int total = 0;
+
+        Dictionary<int, CharacterDataConfig> configs = GameData.Instance.GetCharacterDataConfig();
+
+        for (int i = 1; i < configs.Count + 1; i++)
+        {
+            // CharacterProfileData data = ProfileManager.GetCharacterProfileData(configs[i].m_Id);
+
+            // if (data == null)
+            // {
+            if (configs[i].m_AdsCheck == 0)
+            {
+                total++;
+            }
+            // }
+        }
+
+        return total;
+    }
+
+    public int GetTotalOwnedGoldChar()
+    {
+        int total = 0;
+
+        Dictionary<int, CharacterDataConfig> configs = GameData.Instance.GetCharacterDataConfig();
+
+        for (int i = 1; i < configs.Count + 1; i++)
+        {
+            if (IsOwned(configs[i].m_Id))
+            {
+                if (configs[i].m_AdsCheck == 0)
+                {
+                    total++;
+                }
+            }
+        }
+
+        return total;
+    }
+
     public bool CheckSelectedChar(int _id)
     {
         if (_id == m_SelectedCharacter)

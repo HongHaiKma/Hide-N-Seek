@@ -12,4 +12,22 @@ public class PanelLoading : MonoBehaviour
     {
         txt_VersionCode.text = "v" + Application.version;
     }
+
+    public IEnumerator StartLoading()
+    {
+        txt_VersionCode.gameObject.SetActive(false);
+        gameObject.SetActive(true);
+
+        float loadTimeMax = 1f;
+        float loadTime = 0f;
+        if (loadTime < loadTimeMax)
+        {
+            loadTime += Time.deltaTime;
+            img_LoadingBar.fillAmount = loadTime;
+        }
+
+        yield return Yielders.Get(0.5f);
+
+        gameObject.SetActive(false);
+    }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class PopupPause : UICanvas
 {
@@ -35,14 +36,15 @@ public class PopupPause : UICanvas
     public void OnRetry()
     {
         OnClose();
-        InGameObjectsManager.Instance.LoadMap();
+
 
         int levelPlay = ProfileManager.GetLevel();
         AnalysticsManager.LogPlayLevel(levelPlay);
         AnalysticsManager.LogRetryLevel(levelPlay);
 
+        InGameObjectsManager.Instance.LoadMap();
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
-        // EventManager.CallEvent(GameEvent.LEVEL_END);
+
         EventManager.CallEvent(GameEvent.LEVEL_START);
         GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
         GameManager.Instance.GetPanelInGame().SetIngame();
@@ -58,17 +60,31 @@ public class PopupPause : UICanvas
 
     public void OnHome()
     {
+        // GUIManager.Instance.g_IngameLoading.SetActive(false);
+        // GUIManager.Instance.g_IngameLoading.SetActive(true);
         OnClose();
-        InGameObjectsManager.Instance.LoadMap();
-        CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         EventManager.CallEvent(GameEvent.LEVEL_END);
-
+        GameManager.Instance.m_LevelStart = false;
         EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
         GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(false);
         SoundManager.Instance.m_BGM.Pause();
 
-        // Time.timeScale = 1f;
-        // m_PanelInGame
+        InGameObjectsManager.Instance.LoadMap();
+        CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
+
+        // StartCoroutine(LoadMap());
+        // LoadMap();
+    }
+
+    async void LoadMap()
+    {
+        // yield return Yielders.Get(0.3f);
+
+        await Task.Delay(1);
+
+        // InGameObjectsManager.Instance.LoadMap();
+        // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
+        GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
     }
 
     public void OnResume()

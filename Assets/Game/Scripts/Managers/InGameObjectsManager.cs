@@ -74,6 +74,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         // System.GC.Collect();
         // yield return Yielders.Get(0.1f);
 
+        // StartCoroutine(GUIManager.Instance.m_PanelLoading.StartLoading());
 
         RemoveEnemies();
         RemoveGoldInGames();
@@ -127,6 +128,8 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
             m_PanelInGame.txt_Level.text = "BONUS";
             GameManager.Instance.m_MapType = MapType.BONUS;
         }
+
+        // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
     }
 
     // public GameObject OnLoadDone(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<GameObject> obj)

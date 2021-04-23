@@ -226,6 +226,16 @@ public class ProfileManager : MonoBehaviour
         MyProfile.UnlockCharacter(_id);
     }
 
+    public static int GetTotalGoldChar()
+    {
+        return MyProfile.GetTotalGoldChar();
+    }
+
+    public static int GetTotaOwnedlGoldChar()
+    {
+        return MyProfile.GetTotalOwnedGoldChar();
+    }
+
     #endregion
 
     public static int GetSelectedChar()

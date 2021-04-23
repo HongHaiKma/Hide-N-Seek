@@ -43,6 +43,7 @@ public class GUIManager : MonoBehaviour
     public GameObject g_SubCanvas;
     public PanelLoading m_PanelLoading;
     public GameObject g_PanelLoading;
+    public GameObject g_IngameLoading;
 
     private static GUIManager m_Instance;
     public static GUIManager Instance

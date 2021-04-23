@@ -82,32 +82,32 @@ public class Character : InGameObject
         m_StateMachine.ExecuteStateUpdate();
     }
 
-    void FixedUpdate()
-    {
-        // if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
-        // {
-        //     if (cc_Owner.isGrounded)
-        //     {
-        //         m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
-        //     }
-        //     else
-        //     {
-        //         m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), Physics.gravity.y / 10f, CF2Input.GetAxis("Mouse Y")).normalized;
-        //     }
-        // }
+    // void FixedUpdate()
+    // {
+    //     // if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
+    //     // {
+    //     //     if (cc_Owner.isGrounded)
+    //     //     {
+    //     //         m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), 0f, CF2Input.GetAxis("Mouse Y")).normalized;
+    //     //     }
+    //     //     else
+    //     //     {
+    //     //         m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), Physics.gravity.y / 10f, CF2Input.GetAxis("Mouse Y")).normalized;
+    //     //     }
+    //     // }
 
-        // if (IsRunning())
-        // {
-        //     // anim_Owner.CrossFade("Run", 2f);
-        //     anim_Owner.SetBool("IsRunning", true);
+    //     // if (IsRunning())
+    //     // {
+    //     //     // anim_Owner.CrossFade("Run", 2f);
+    //     //     anim_Owner.SetBool("IsRunning", true);
 
-        // }
-        // else
-        // {
-        //     // anim_Owner.CrossFade("Idle", 0f);
-        //     anim_Owner.SetBool("IsRunning", false);
-        // }
-    }
+    //     // }
+    //     // else
+    //     // {
+    //     //     // anim_Owner.CrossFade("Idle", 0f);
+    //     //     anim_Owner.SetBool("IsRunning", false);
+    //     // }
+    // }
 
     public float GetRotateAngle()
     {

@@ -59,6 +59,7 @@ public class PopupLose : UICanvas
 
     public void OnHome()
     {
+        // GUIManager.Instance.g_IngameLoading.SetActive(true);
         OnClose();
         InGameObjectsManager.Instance.LoadMap();
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;

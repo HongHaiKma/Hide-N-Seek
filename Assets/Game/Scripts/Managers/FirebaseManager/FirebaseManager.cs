@@ -24,7 +24,7 @@ public class FirebaseManager : Singleton<FirebaseManager>
     {
         // m_Instance = this;
         // DontDestroyOnLoad(gameObject);
-        // Init();
+        Init();
     }
     public void Init()
     {
