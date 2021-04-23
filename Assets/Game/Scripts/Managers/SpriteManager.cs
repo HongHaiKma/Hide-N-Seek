@@ -19,4 +19,10 @@ public enum MiscSpriteKeys
     MUSIC_OFF = 3,
     UI_CARD_BG = 4,
     UI_CARD_BG_LOCK = 5,
+    UI_Rate_S_Star_On = 6,
+    UI_Rate_S_Star_Off = 7,
+    UI_Rate_M_Star_On = 8,
+    UI_Rate_M_Star_Off = 9,
+    UI_Rate_L_Star_On = 10,
+    UI_Rate_L_Star_Off = 11,
 }

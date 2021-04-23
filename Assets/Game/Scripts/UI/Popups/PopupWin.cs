@@ -172,6 +172,16 @@ public class PopupWin : UICanvas
         if (oddLevel && level)
         {
             AdsManager.Instance.WatchInterstitial();
+            return;
+        }
+
+        int levelMap = (ProfileManager.GetLevel() - 1);
+        bool rateUs = (PlayerPrefs.GetInt(ConfigKeys.rateUs) == 1);
+
+        if ((levelMap % 4 == 0) && levelMap <= 16 && levelMap > 1 && rateUs)
+        {
+            PopupCaller.OpenRateUsPopup();
+            Helper.DebugLog("111111111111111111111111111111111111");
         }
     }
 
