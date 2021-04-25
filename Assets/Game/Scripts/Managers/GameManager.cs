@@ -208,7 +208,7 @@ public class GameManager : Singleton<GameManager>
     {
         GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingIn");
 
-        yield return Yielders.Get(0.3f);
+        yield return Yielders.Get(0.1f);
 
         AsyncOperation async = SceneManager.LoadSceneAsync(m_NextScene, LoadSceneMode.Single);
 
@@ -225,7 +225,7 @@ public class GameManager : Singleton<GameManager>
         async.allowSceneActivation = true;
         IsChanging = false;
 
-        yield return Yielders.Get(0.2f);
+        yield return Yielders.Get(0f);
         // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
 
         yield return Yielders.EndOfFrame;

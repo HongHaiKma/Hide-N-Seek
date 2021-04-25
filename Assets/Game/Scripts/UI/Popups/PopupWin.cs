@@ -172,8 +172,8 @@ public class PopupWin : UICanvas
     public void OnClaim()
     {
         OnClose();
-        InGameObjectsManager.Instance.LoadMap();
-        CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
+        // InGameObjectsManager.Instance.LoadMap();
+        // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         EventManager.CallEvent(GameEvent.LEVEL_END);
 
         bool oddLevel = (((ProfileManager.GetLevel() - 1) % 2) == 1 ? true : false);

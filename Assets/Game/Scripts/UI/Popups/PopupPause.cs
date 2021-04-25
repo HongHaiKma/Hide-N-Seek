@@ -83,33 +83,17 @@ public class PopupPause : UICanvas
         // LoadMapManager();
     }
 
-    IEnumerator IEOnRetry()
-    {
-        InGameObjectsManager.Instance.DestroyAllInGameObjects();
-        GameManager.Instance.m_NextScene = "PlayScene";
-        yield return StartCoroutine(GameManager.Instance.OnChangingScene());
-        yield return null;
-
-        EventManager.CallEvent(GameEvent.LEVEL_START);
-        GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
-        GameManager.Instance.GetPanelInGame().SetIngame();
-        GameManager.Instance.m_LevelStart = true;
-        CamController.Instance.m_StartFollow = true;
-        GameManager.Instance.m_LevelStart = true;
-
-        EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
-    }
-
     public void OnHome()
     {
         // GUIManager.Instance.g_IngameLoading.SetActive(false);
         // GUIManager.Instance.g_IngameLoading.SetActive(true);
-        OnClose();
-        EventManager.CallEvent(GameEvent.LEVEL_END);
-        GameManager.Instance.m_LevelStart = false;
-        EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
-        GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(false);
-        SoundManager.Instance.m_BGM.Pause();
+
+        // OnClose();
+        // EventManager.CallEvent(GameEvent.LEVEL_END);
+        // GameManager.Instance.m_LevelStart = false;
+        // EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
+        // GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(false);
+        // SoundManager.Instance.m_BGM.Pause();
 
         // InGameObjectsManager.Instance.LoadMap();
         // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
@@ -117,9 +101,19 @@ public class PopupPause : UICanvas
         // StartCoroutine(LoadMap());
         // LoadMap();
 
-        InGameObjectsManager.Instance.DestroyAllInGameObjects();
+        // InGameObjectsManager.Instance.DestroyAllInGameObjects();
 
-        GameManager.Instance.ChangeToPlayScene();
+        Time.timeScale = 1;
+        InGameObjectsManager.Instance.DestroyAllInGameObjects();
+        GameManager.Instance.ChangeToPlayScene(() =>
+        {
+            OnClose();
+            EventManager.CallEvent(GameEvent.LEVEL_END);
+            GameManager.Instance.m_LevelStart = false;
+            EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
+            GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(false);
+            SoundManager.Instance.m_BGM.Pause();
+        });
 
         // var tasks = new List<Task>();
         // tasks.Add(Task.Run(() =>
