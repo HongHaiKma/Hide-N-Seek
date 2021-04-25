@@ -50,12 +50,17 @@ public class FieldOfView : MonoBehaviour
         DrawFieldOfView();
     }
 
+    // void LateUpdate()
+    // {
+    //     DrawFieldOfView();
+    // }
+
     public void SetFieldOfView(float _value)
     {
         viewDrawingAngle = _value;
     }
 
-    void DrawFieldOfView()
+    public void DrawFieldOfView()
     {
         int stepCount = Mathf.RoundToInt(viewDrawingAngle * meshResolution);
         float stepAngleSize = viewDrawingAngle / stepCount;
@@ -84,7 +89,6 @@ public class FieldOfView : MonoBehaviour
 
             }
 
-
             viewPoints.Add(newViewCast.point);
             oldViewCast = newViewCast;
         }
@@ -97,6 +101,8 @@ public class FieldOfView : MonoBehaviour
         for (int i = 0; i < vertexCount - 1; i++)
         {
             vertices[i + 1] = transform.InverseTransformPoint(viewPoints[i]);
+
+            // System.GC.Collect();
 
             if (i < vertexCount - 2)
             {
@@ -195,10 +201,6 @@ public class FieldOfView : MonoBehaviour
         }
     }
 
-    public void SetMaterial(Material mat)
-    {
-        fovRenderer.sharedMaterial = mat;
-    }
     public void SetNormalColor()
     {
         normalMat.DOColor(normalColor, 0.25f);
@@ -207,10 +209,5 @@ public class FieldOfView : MonoBehaviour
     public void SetNormalColor(Color _value)
     {
         normalMat.DOColor(_value, 0.25f);
-    }
-
-    public void SetNormalColor(Color _value, float _duration)
-    {
-        normalMat.DOColor(_value, _duration);
     }
 }

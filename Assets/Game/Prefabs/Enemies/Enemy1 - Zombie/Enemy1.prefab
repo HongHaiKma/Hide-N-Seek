@@ -1351,6 +1351,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FOV
       objectReference: {fileID: 0}
+    - target: {fileID: 2001410388886259015, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3581724186239423631, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1396,6 +1400,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6464844633025956335, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464844633025956335, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
       propertyPath: normalMat
       value: 
       objectReference: {fileID: 2100000, guid: 0630370b7535020429314cb429d91eb9, type: 2}
@@ -1427,6 +1435,26 @@ PrefabInstance:
       propertyPath: defaultColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7426929032749143855, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: m_fConeLenght
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426929032749143855, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: m_fAngleOfView
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426929032749143855, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: m_vStartDistanceCone
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426929032749143855, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: m_MaskLayerToIgnore.m_Bits
+      value: 768
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426929032749143855, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: m_iConeVisibilityPrecision
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 8898253471851681335, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1444,7 +1472,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 7303839910934650758}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c3e4fcf6f1a38240a91dd20a79b6ce0, type: 3}
   m_Name: 

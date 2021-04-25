@@ -28,7 +28,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 90;
         m_LoseStreak = 0;
 
         NotificationManager.Instance.m_NotiDict.Add(CdType.NOTI_DAILY, m_DailyNotiContent);
@@ -226,6 +226,7 @@ public class GameManager : Singleton<GameManager>
         IsChanging = false;
 
         yield return Yielders.Get(0f);
+        yield return Yielders.Get(0.3f);
         // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
 
         yield return Yielders.EndOfFrame;
@@ -252,7 +253,7 @@ public class GameManager : Singleton<GameManager>
 
         _callback();
 
-        QualitySettings.vSyncCount = 0;
+        // QualitySettings.vSyncCount = 0;
 
         Helper.DebugLog("On Changing Scene completed!!!");
         Helper.DebugLog("Time scale = " + Time.timeScale);

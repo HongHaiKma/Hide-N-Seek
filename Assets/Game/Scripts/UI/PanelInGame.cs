@@ -185,7 +185,7 @@ public class PanelInGame : MonoBehaviour
             GUIManager.Instance.AddClickEvent(btn_BuyNoAds, OnBuyNoAds);
         }
 
-        QualitySettings.vSyncCount = 1;
+        // QualitySettings.vSyncCount = 1;
     }
 
     public void EnableJoystick()
@@ -246,7 +246,7 @@ public class PanelInGame : MonoBehaviour
         GameManager.Instance.m_LevelStart = true;
         // CamController.Instance.ZoomOutChar();
         SoundManager.Instance.m_BGM.Play();
-        QualitySettings.vSyncCount = 0;
+        // QualitySettings.vSyncCount = 0;
     }
 
     public void OnPause()
