@@ -177,18 +177,21 @@ public class GameManager : Singleton<GameManager>
         return m_PanelInGame;
     }
 
-    public void ChangeToPlayScene()
+    public void ChangeToPlayScene(UnityAction _callback = null)
     {
         // Debug.Log("PlayScene");
         ChangeScene("PlayScene", () =>
         {
-
-            // InGameObjectsManager.Instance.LoadMap();
+            if (_callback != null)
+            {
+                _callback();
+                Helper.DebugLog("Callback change scene called!!!!");
+            }
         });
         //SpineTextureManager.Instance.LoadBackgroundMaterialByName(1);
     }
 
-    public void ChangeScene(string name, UnityAction _changeSceneCallback = null)
+    public void ChangeScene(string name, UnityAction _callback = null)
     {
         if (IsChanging) return;
         IsChanging = true;
@@ -198,39 +201,19 @@ public class GameManager : Singleton<GameManager>
         // IngameEntityManager.Instance.ClearMap();
         // GUIManager.Instance.ClearAllOpenedPanelList();
         // GUIManager.Instance.ClearAllOpenedPopupList();
-        StartCoroutine(OnChangingScene());
+        StartCoroutine(OnChangingScene(_callback));
     }
 
-    IEnumerator OnChangingScene()
+    public IEnumerator OnChangingScene(UnityAction _callback = null)
     {
-        // Debug.Log("Start Change " + m_NextScene);
-        // SoundManager.Instance.PauseBGM();
-        // if (m_CurrentSceneName.Contains("MainMenu"))
-        // {
-        // }
-        // if (m_CurrentSceneName.Contains("Level"))
-        // {
-        // }
-        // EventManager.TriggerEvent("StopFire");
-        // Time.timeScale = 1;
-        // if (!m_NextScene.Contains("StartMenu"))
-        // {
-        //     PopupLoading pl = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_LOADING) as PopupLoading;
-        //     if (pl != null)
-        //     {
-        //         pl.Setup();
-        //         GUIManager.Instance.ShowUIPopup(pl);
-        //         yield return Yielders.Get(1);
-        //     }
-        // }
+        GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingIn");
+
+        yield return Yielders.Get(0.3f);
+
         AsyncOperation async = SceneManager.LoadSceneAsync(m_NextScene, LoadSceneMode.Single);
 
         async.allowSceneActivation = false;
         yield return Yielders.EndOfFrame;
-        // if (m_CurrentSceneName.Contains("Level"))
-        // {
-        //     yield return Yielders.Get(0.5f);
-        // }
         while (async.progress < 0.9f)
         {
             yield return Yielders.EndOfFrame;
@@ -242,16 +225,9 @@ public class GameManager : Singleton<GameManager>
         async.allowSceneActivation = true;
         IsChanging = false;
 
+        yield return Yielders.Get(0.2f);
+        // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
 
-        if (m_NextScene.Contains("PlayScene"))
-        {
-            // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
-        }
-        // InGameObjectsManager.Instance.LoadMap();
-        // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
-
-        yield return Yielders.Get(0.3f);
-        // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
         yield return Yielders.EndOfFrame;
 
         InGameObjectsManager.Instance.LoadMap();
@@ -259,11 +235,27 @@ public class GameManager : Singleton<GameManager>
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         FindPanelInGame();
         GUIManager.Instance.FindPanelLoadingAds();
-
-        yield return Yielders.Get(0.2f);
-        // yield return Yielders.EndOfFrame;
+        GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
         GUIManager.Instance.GetGOPanelLoading().SetActive(false);
+
+        // if (m_LevelStart)
+        // {
+        //     Helper.DebugLog("Level is startttttttttttttttt");
+        //     EventManager.CallEvent(GameEvent.LEVEL_START);
+        //     GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
+        //     GameManager.Instance.GetPanelInGame().SetIngame();
+        //     GameManager.Instance.m_LevelStart = true;
+        //     CamController.Instance.m_StartFollow = true;
+
+        //     EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
+        // }
+
+        _callback();
+
         QualitySettings.vSyncCount = 0;
+
+        Helper.DebugLog("On Changing Scene completed!!!");
+        Helper.DebugLog("Time scale = " + Time.timeScale);
     }
 
     public void SetSoundState(int value)

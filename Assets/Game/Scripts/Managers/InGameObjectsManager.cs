@@ -40,13 +40,13 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         EventManagerWithParam<int>.RemoveListener(GameEvent.EQUIP_CHAR, SpawnChar);
     }
 
-    public void DestroyMap()
+    public void DestroyAllInGameObjects()
     {
-        if (m_Map != null)
-        {
-            Destroy(m_Map.gameObject);
-            Destroy(m_Char.gameObject);
-        }
+        RemoveGoldInGames();
+        RemoveEnemies();
+        RemoveEffectFlyer();
+        DestroyMap();
+        DestroyChar();
     }
 
     public void FindPanelInGame()
@@ -76,8 +76,10 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
         // StartCoroutine(GUIManager.Instance.m_PanelLoading.StartLoading());
 
-        RemoveEnemies();
-        RemoveGoldInGames();
+        Helper.DebugLog("Load map ingame object manager!!!!");
+
+        // RemoveEnemies();
+        // RemoveGoldInGames();
 
         Helper.DebugLog("Destroy all Enemies!!!");
 
@@ -85,12 +87,13 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         // Resources.UnloadUnusedAssets();
         // System.GC.Collect();
 
-        if (m_Map != null)
-        {
-            Destroy(m_Char.gameObject);
-            m_Map.nav_Surface.gameObject.SetActive(false);
-            Destroy(m_Map.gameObject);
-        }
+        // if (m_Map != null)
+        // {
+        //     Destroy(m_Char.gameObject);
+        //     m_Map.nav_Surface.gameObject.SetActive(false);
+        //     Destroy(m_Map.gameObject);
+        //     Helper.DebugLog("Destroy mapppppppppppppp");
+        // }
         int level = ProfileManager.GetLevel();
         string name = "Maps/Map" + level.ToString();
         string name2 = "Map" + level.ToString();
@@ -194,6 +197,8 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         }
 
         m_Enemies.Clear();
+
+        Helper.DebugLog("RemoveEnemies");
     }
 
     public void RemoveEffectFlyer()
@@ -204,6 +209,23 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         }
 
         m_IEffectFlyer.Clear();
+    }
+
+    public void DestroyMap()
+    {
+        if (m_Map != null)
+        {
+            Destroy(m_Map);
+        }
+    }
+
+    public void DestroyChar()
+    {
+        if (m_Char != null)
+        {
+            Destroy(m_Char);
+            Helper.DebugLog("Remove Char");
+        }
     }
 
     public void RemoveGoldInGames()

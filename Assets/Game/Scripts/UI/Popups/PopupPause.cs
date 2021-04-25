@@ -42,8 +42,53 @@ public class PopupPause : UICanvas
         AnalysticsManager.LogPlayLevel(levelPlay);
         AnalysticsManager.LogRetryLevel(levelPlay);
 
-        InGameObjectsManager.Instance.LoadMap();
-        CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
+        // EventManager.CallEvent(GameEvent.LEVEL_START);
+        // GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
+        // GameManager.Instance.GetPanelInGame().SetIngame();
+        // GameManager.Instance.m_LevelStart = true;
+        // CamController.Instance.m_StartFollow = true;
+
+        // EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
+
+        Time.timeScale = 1;
+        InGameObjectsManager.Instance.DestroyAllInGameObjects();
+        GameManager.Instance.ChangeToPlayScene(() =>
+        {
+            GameManager.Instance.m_LevelStart = true;
+
+            EventManager.CallEvent(GameEvent.LEVEL_START);
+            GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
+            GameManager.Instance.GetPanelInGame().SetIngame();
+            GameManager.Instance.m_LevelStart = true;
+            CamController.Instance.m_StartFollow = true;
+
+            EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
+        });
+
+        // GameManager.Instance.m_LevelStart = true;
+
+        // EventManager.CallEvent(GameEvent.LEVEL_START);
+        // GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
+        // GameManager.Instance.GetPanelInGame().SetIngame();
+        // GameManager.Instance.m_LevelStart = true;
+        // CamController.Instance.m_StartFollow = true;
+
+        // EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
+
+        // StartCoroutine(IEOnRetry());
+
+        // InGameObjectsManager.Instance.DestroyAllInGameObjects();
+        // InGameObjectsManager.Instance.LoadMap();
+
+        // LoadMapManager();
+    }
+
+    IEnumerator IEOnRetry()
+    {
+        InGameObjectsManager.Instance.DestroyAllInGameObjects();
+        GameManager.Instance.m_NextScene = "PlayScene";
+        yield return StartCoroutine(GameManager.Instance.OnChangingScene());
+        yield return null;
 
         EventManager.CallEvent(GameEvent.LEVEL_START);
         GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
@@ -53,9 +98,6 @@ public class PopupPause : UICanvas
         GameManager.Instance.m_LevelStart = true;
 
         EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
-
-        // Time.timeScale = 1f;
-        // g_Joystick.SetActive(false);
     }
 
     public void OnHome()
@@ -73,7 +115,11 @@ public class PopupPause : UICanvas
         // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
 
         // StartCoroutine(LoadMap());
-        LoadMap();
+        // LoadMap();
+
+        InGameObjectsManager.Instance.DestroyAllInGameObjects();
+
+        GameManager.Instance.ChangeToPlayScene();
 
         // var tasks = new List<Task>();
         // tasks.Add(Task.Run(() =>
@@ -101,15 +147,16 @@ public class PopupPause : UICanvas
         // await Task.Delay(1);
         // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
-
+        // InGameObjectsManager.Instance.RemoveEnemies();
         var tasks = new List<Task>();
         tasks.Add(Task.Run(() =>
         {
             InGameObjectsManager.Instance.LoadMap();
             CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
+
         }));
 
-        Task t = Task.WhenAll(tasks.ToArray());
+        Task t = Task.WhenAll(tasks);
         try
         {
             await t;

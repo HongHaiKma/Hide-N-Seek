@@ -75,6 +75,7 @@ public class MapController : MonoBehaviour
 
     public void SpawnEnemies()
     {
+        Helper.DebugLog("Spawn enemies!!!!");
         for (int i = 1; i < m_SpawnPoints.Count; i++)
         {
             m_SpawnPoints[i].Spawn();
