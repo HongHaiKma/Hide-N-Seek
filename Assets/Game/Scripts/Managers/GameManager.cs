@@ -219,7 +219,6 @@ public class GameManager : Singleton<GameManager>
 
         if (_loading)
         {
-            Helper.DebugLog("_Loadingggggggggggggggggggggggggggggggggggggggggggggggggggg");
             while (_loadProgress <= 1)
             {
                 _loadProgress += 0.1f;
@@ -246,7 +245,7 @@ public class GameManager : Singleton<GameManager>
         IsChanging = false;
 
         // yield return Yielders.Get(0f);
-        yield return Yielders.Get(0.3f);
+        yield return Yielders.Get(0.1f);
         // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
 
         yield return Yielders.EndOfFrame;
