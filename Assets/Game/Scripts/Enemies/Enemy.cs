@@ -9,7 +9,8 @@ public class Enemy : InGameObject
     [Header("Components")]
     public NavMeshAgent nav_Agent;
     public StateMachine<Enemy> m_StateMachine;
-    public FieldOfView m_FOV;
+    // public FieldOfView m_FOV;
+    public AIConeDetection m_FOV;
 
     [Header("Characteristics")]
     public EnemyState m_EnemyState;
@@ -86,13 +87,6 @@ public class Enemy : InGameObject
         m_StateMachine.ExecuteStateUpdate();
 
         Vector3 dir = (m_Char.tf_RayStartPoint.position - tf_RayStartPoint.position).normalized;
-
-        // m_FOV.DrawFieldOfView();
-
-        // if (Input.GetKeyDown(KeyCode.C))
-        // {
-        //     tf_Owner.LookAt(m_Char.tf_Owner.position);
-        // }
     }
 
     private void LoadDataConfig()
@@ -321,7 +315,7 @@ public class Enemy : InGameObject
             m_CatchTime -= Time.deltaTime;
         }
         m_CatchTime = Mathf.Clamp(m_CatchTime, 0, m_CatchTimeMax);
-        // m_FOV.SetNormalColor(Color.Lerp(m_CatchColorRange, Color.red, m_CatchTime / m_CatchTimeMax));
+        m_FOV.SetNormalColor(Color.Lerp(m_CatchColorRange, Color.red, m_CatchTime / m_CatchTimeMax));
 
         if (m_CatchTime >= m_CatchTimeMax)
         {
@@ -367,7 +361,7 @@ public class Enemy : InGameObject
 
     public virtual void OnChaseExit()
     {
-        // m_FOV.SetNormalColor(m_CatchColorRange);
+        m_FOV.SetNormalColor(m_CatchColorRange);
     }
 
     #endregion

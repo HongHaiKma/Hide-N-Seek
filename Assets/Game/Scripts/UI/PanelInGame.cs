@@ -75,7 +75,7 @@ public class PanelInGame : MonoBehaviour
 
     public void StartListenToEvent()
     {
-        EventManager.AddListener(GameEvent.CHAR_SPOTTED, () => g_Joystick.SetActive(false));
+        // EventManager.AddListener(GameEvent.CHAR_SPOTTED, () => g_Joystick.SetActive(false));
 
         // EventManager.AddListener(GameEvent.CHAR_WIN, ShowGameWinUI);
         EventManager.AddListener(GameEvent.CHAR_WIN, SetUIWhenCharWinOrLose);
@@ -94,7 +94,7 @@ public class PanelInGame : MonoBehaviour
 
     public void StopListenToEvent()
     {
-        EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, () => g_Joystick.SetActive(false));
+        // EventManager.RemoveListener(GameEvent.CHAR_SPOTTED, () => g_Joystick.SetActive(false));
 
         // EventManager.RemoveListener(GameEvent.CHAR_WIN, ShowGameWinUI);
         EventManager.RemoveListener(GameEvent.CHAR_WIN, SetUIWhenCharWinOrLose);

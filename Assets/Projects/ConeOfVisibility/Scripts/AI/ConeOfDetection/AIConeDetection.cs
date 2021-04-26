@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 /*******************************************************
  * Class:           AIConeDetection
@@ -16,6 +17,7 @@ public class AIConeDetection : MonoBehaviour
     public float m_fAngleOfView = 90.0f;
     public float m_vStartDistanceCone = 2.0f;
     public Material m_matVisibilityCone = null;
+    public Color normalColor;
     public bool m_bHasStartDistance = true;
     public LayerMask m_MaskLayerToIgnore;
     private float m_fFixedCheckNextTime;
@@ -263,5 +265,15 @@ public class AIConeDetection : MonoBehaviour
             m_mConeMesh.Clear();
         }
 
+    }
+
+    public void SetNormalColor()
+    {
+        m_matVisibilityCone.DOColor(normalColor, 0.25f);
+    }
+
+    public void SetNormalColor(Color _value)
+    {
+        m_matVisibilityCone.DOColor(_value, 0.25f);
     }
 }

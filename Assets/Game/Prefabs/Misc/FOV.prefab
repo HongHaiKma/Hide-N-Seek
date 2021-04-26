@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3581724186239423631}
   - component: {fileID: 7426929032749143855}
-  - component: {fileID: 6464844633025956335}
   m_Layer: 0
   m_Name: FOV
   m_TagString: Untagged
@@ -45,45 +44,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bIs2D: 0
-  m_fConeLenght: 5
-  m_fAngleOfView: 90
-  m_vStartDistanceCone: 2
-  m_matVisibilityCone: {fileID: 2100000, guid: 1a169106dff7ab443961feb7b22e240e, type: 2}
+  m_fConeLenght: 3
+  m_fAngleOfView: 45
+  m_vStartDistanceCone: 0
+  m_matVisibilityCone: {fileID: 2100000, guid: 22300d87bfed5ec4982f9e643b69ab67, type: 2}
+  normalColor: {r: 1, g: 1, b: 1, a: 0}
   m_bHasStartDistance: 1
   m_MaskLayerToIgnore:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 769
   m_bShowCone: 1
-  m_iConeVisibilityPrecision: 3
---- !u!114 &6464844633025956335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001410388886259015}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c3e4fcf6f1a38240a91dd20a79b6ce0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRadius: 2.5
-  viewDrawingAngle: 76
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 0
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 129
-  visibleTargets: []
-  visibleFakeTargets: []
-  meshResolution: 2
-  edgeResolveIterations: 2
-  edgeDstThreshold: 2
-  viewMeshFilter: {fileID: 0}
-  lastVisibleCount: 0
-  fovRenderer: {fileID: 0}
-  normalMat: {fileID: 2100000, guid: 22300d87bfed5ec4982f9e643b69ab67, type: 2}
-  catchMat: {fileID: 2100000, guid: a00183fdb2a6a804cabbd1eeb9288b39, type: 2}
-  normalColor: {r: 1, g: 1, b: 1, a: 0.49019608}
-  defaultColor: {r: 0, g: 0, b: 0, a: 0}
+  m_iConeVisibilityPrecision: 60

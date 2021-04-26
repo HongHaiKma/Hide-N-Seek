@@ -172,27 +172,29 @@ public class PopupWin : UICanvas
     public void OnClaim()
     {
         OnClose();
-        // InGameObjectsManager.Instance.LoadMap();
-        // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
-        EventManager.CallEvent(GameEvent.LEVEL_END);
 
-        bool oddLevel = (((ProfileManager.GetLevel() - 1) % 2) == 1 ? true : false);
-        bool level = (ProfileManager.GetLevel() - 1) >= 3 ? true : false;
-
-        if (oddLevel && level)
+        InGameObjectsManager.Instance.DestroyAllInGameObjects();
+        GameManager.Instance.ChangeToPlayScene(() =>
         {
-            AdsManager.Instance.WatchInterstitial();
-            return;
-        }
+            EventManager.CallEvent(GameEvent.LEVEL_END);
 
-        int levelMap = (ProfileManager.GetLevel() - 1);
-        bool rateUs = (PlayerPrefs.GetInt(ConfigKeys.rateUs) == 1);
+            bool oddLevel = (((ProfileManager.GetLevel() - 1) % 2) == 1 ? true : false);
+            bool level = (ProfileManager.GetLevel() - 1) >= 3 ? true : false;
 
-        if ((levelMap % 4 == 0) && levelMap <= 16 && levelMap > 1 && rateUs)
-        {
-            PopupCaller.OpenRateUsPopup();
-            Helper.DebugLog("111111111111111111111111111111111111");
-        }
+            if (oddLevel && level)
+            {
+                AdsManager.Instance.WatchInterstitial();
+                return;
+            }
+
+            int levelMap = (ProfileManager.GetLevel() - 1);
+            bool rateUs = (PlayerPrefs.GetInt(ConfigKeys.rateUs) == 1);
+
+            if ((levelMap % 4 == 0) && levelMap <= 16 && levelMap > 1 && rateUs)
+            {
+                PopupCaller.OpenRateUsPopup();
+            }
+        });
     }
 
     public override void OnClose()

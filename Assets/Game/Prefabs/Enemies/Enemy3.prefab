@@ -86,7 +86,7 @@ MonoBehaviour:
   tf_Owner: {fileID: 845044550038497328}
   anim_Owner: {fileID: 4906601474495723842}
   nav_Agent: {fileID: 845044550038497358}
-  m_FOV: {fileID: 2098060493951877773}
+  m_FOV: {fileID: 2574849030913678413}
   m_EnemyState: 0
   m_MoveSpd: 0
   m_TurnSpd: 0
@@ -1712,6 +1712,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7426929032749143855, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: normalColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426929032749143855, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: normalColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426929032749143855, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: normalColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426929032749143855, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+      propertyPath: m_matVisibilityCone
+      value: 
+      objectReference: {fileID: 2100000, guid: 22300d87bfed5ec4982f9e643b69ab67, type: 2}
     - target: {fileID: 8898253471851681335, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1723,15 +1739,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3581724186239423631, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
   m_PrefabInstance: {fileID: 4947893679966784354}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2098060493951877773 stripped
+--- !u!114 &2574849030913678413 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6464844633025956335, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7426929032749143855, guid: 0ff077e0ba3ce034386f16c2f6043632, type: 3}
   m_PrefabInstance: {fileID: 4947893679966784354}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c3e4fcf6f1a38240a91dd20a79b6ce0, type: 3}
+  m_Script: {fileID: 11500000, guid: 194623c875977bf4593b4b474a82449d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &5490848289320936450

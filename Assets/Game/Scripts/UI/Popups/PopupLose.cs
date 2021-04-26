@@ -35,40 +35,46 @@ public class PopupLose : UICanvas
     public void OnRetry()
     {
         OnClose();
-        InGameObjectsManager.Instance.LoadMap();
 
         int levelPlay = ProfileManager.GetLevel();
         AnalysticsManager.LogPlayLevel(levelPlay);
         AnalysticsManager.LogRetryLevel(levelPlay);
 
-        CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
-        // EventManager.CallEvent(GameEvent.LEVEL_END);
-        EventManager.CallEvent(GameEvent.LEVEL_START);
-        GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
-        GameManager.Instance.GetPanelInGame().SetIngame();
-        GameManager.Instance.m_LevelStart = true;
-        CamController.Instance.m_StartFollow = true;
-        SoundManager.Instance.m_BGM.Play();
+        InGameObjectsManager.Instance.DestroyAllInGameObjects();
 
-        bool level = (ProfileManager.GetLevel() - 1) >= 3 ? true : false;
-        if (level)
+        GameManager.Instance.ChangeToPlayScene(() =>
         {
-            AdsManager.Instance.WatchInterstitial();
-        }
+            EventManager.CallEvent(GameEvent.LEVEL_START);
+            GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
+            GameManager.Instance.GetPanelInGame().SetIngame();
+            GameManager.Instance.m_LevelStart = true;
+            CamController.Instance.m_StartFollow = true;
+            SoundManager.Instance.m_BGM.Play();
+
+            bool level = (ProfileManager.GetLevel() - 1) >= 3 ? true : false;
+            if (level)
+            {
+                AdsManager.Instance.WatchInterstitial();
+            }
+        });
     }
 
     public void OnHome()
     {
         // GUIManager.Instance.g_IngameLoading.SetActive(true);
         OnClose();
-        InGameObjectsManager.Instance.LoadMap();
-        CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
-        EventManager.CallEvent(GameEvent.LEVEL_END);
 
-        bool level = (ProfileManager.GetLevel() - 1) >= 3 ? true : false;
-        if (level)
+        InGameObjectsManager.Instance.DestroyAllInGameObjects();
+
+        GameManager.Instance.ChangeToPlayScene(() =>
         {
-            AdsManager.Instance.WatchInterstitial();
-        }
+            EventManager.CallEvent(GameEvent.LEVEL_END);
+
+            bool level = (ProfileManager.GetLevel() - 1) >= 3 ? true : false;
+            if (level)
+            {
+                AdsManager.Instance.WatchInterstitial();
+            }
+        });
     }
 }
