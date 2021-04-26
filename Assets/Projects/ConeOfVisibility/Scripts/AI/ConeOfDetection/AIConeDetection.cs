@@ -16,7 +16,10 @@ public class AIConeDetection : MonoBehaviour
     public float m_fConeLenght = 5.0f;
     public float m_fAngleOfView = 90.0f;
     public float m_vStartDistanceCone = 2.0f;
+
     public Material m_matVisibilityCone = null;
+    private GameObject m_goVisibilityCone = null;
+
     public Color normalColor;
     public bool m_bHasStartDistance = true;
     public LayerMask m_MaskLayerToIgnore;
@@ -32,7 +35,7 @@ public class AIConeDetection : MonoBehaviour
     private Vector2[] m_vUV;
     private Vector3[] m_vNormals;
     private int[] m_iTriangles;
-    private GameObject m_goVisibilityCone = null;
+
     private int m_iVertMax = 120;
     private int m_iTrianglesMax = 120;
 
@@ -258,7 +261,6 @@ public class AIConeDetection : MonoBehaviour
             m_mConeMesh.triangles = m_iTriangles;
             m_mConeMesh.normals = m_vNormals;
             m_mConeMesh.RecalculateNormals();
-            ;
         }
         else
         {
@@ -269,11 +271,14 @@ public class AIConeDetection : MonoBehaviour
 
     public void SetNormalColor()
     {
-        m_matVisibilityCone.DOColor(normalColor, 0.25f);
+        // m_matVisibilityCone.DOColor(normalColor, 0.25f);
+        // m_FOVMat.material.DOColor(normalColor, 0.25f);
+        m_goVisibilityCone.GetComponent<Renderer>().material.DOColor(normalColor, 0.25f);
     }
-
     public void SetNormalColor(Color _value)
     {
-        m_matVisibilityCone.DOColor(_value, 0.25f);
+        // m_matVisibilityCone.DOColor(_value, 0.25f);
+        // m_FOVMat.material.DOColor(_value, 0.25f);
+        m_goVisibilityCone.GetComponent<Renderer>().material.DOColor(_value, 0.25f);
     }
 }
