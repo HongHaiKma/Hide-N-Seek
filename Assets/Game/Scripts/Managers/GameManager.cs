@@ -93,6 +93,11 @@ public class GameManager : Singleton<GameManager>
         StopListenToEvent();
     }
 
+    private void OnDestroy()
+    {
+        StopListenToEvent();
+    }
+
     public void StartListenToEvent()
     {
         EventManagerWithParam<bool>.AddListener(GameEvent.LEVEL_PAUSE, PauseLevel);
@@ -196,6 +201,7 @@ public class GameManager : Singleton<GameManager>
         if (IsChanging) return;
         IsChanging = true;
         m_NextScene = name;
+        GUIManager.Instance.ClearAllOpenedPopupList();
         // Time.timeScale = 1;
         // m_ChangeSceneCallback = _changeSceneCallback;
         // IngameEntityManager.Instance.ClearMap();
@@ -206,8 +212,8 @@ public class GameManager : Singleton<GameManager>
 
     public IEnumerator OnChangingScene(bool _loading, UnityAction _callback = null)
     {
-        // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingIn");
         GUIManager.Instance.m_PanelLoading.gameObject.SetActive(true);
+        // Destroy(MiniCharacterStudio.Instance.g_Char);
 
         yield return Yielders.Get(0.1f);
 
@@ -223,10 +229,8 @@ public class GameManager : Singleton<GameManager>
             {
                 _loadProgress += 0.1f;
                 GUIManager.Instance.m_PanelLoading.img_LoadingBar.fillAmount = _loadProgress;
-                // img_LoadingBar.fillAmount = _loadProgress;
                 int percent = (int)(_loadProgress * 100f);
                 if (percent > 100) percent = 100;
-                // m_TextLoadingPer.text = percent + "%";
                 yield return new WaitForSeconds(Time.deltaTime);
             }
         }
@@ -245,38 +249,22 @@ public class GameManager : Singleton<GameManager>
         IsChanging = false;
 
         // yield return Yielders.Get(0f);
-        yield return Yielders.Get(0.1f);
-        // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
+        // yield return Yielders.Get(0.1f);
+        yield return Yielders.Get(0.3f);
 
         yield return Yielders.EndOfFrame;
 
+
         InGameObjectsManager.Instance.LoadMap();
-        // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         FindPanelInGame();
         GUIManager.Instance.FindPanelLoadingAds();
-        // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
         GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
         GUIManager.Instance.GetGOPanelLoading().SetActive(false);
-
-        // if (m_LevelStart)
-        // {
-        //     Helper.DebugLog("Level is startttttttttttttttt");
-        //     EventManager.CallEvent(GameEvent.LEVEL_START);
-        //     GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
-        //     GameManager.Instance.GetPanelInGame().SetIngame();
-        //     GameManager.Instance.m_LevelStart = true;
-        //     CamController.Instance.m_StartFollow = true;
-
-        //     EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
-        // }
 
         _callback();
 
         // QualitySettings.vSyncCount = 0;
-
-        Helper.DebugLog("On Changing Scene completed!!!");
-        Helper.DebugLog("Time scale = " + Time.timeScale);
     }
 
     public void SetSoundState(int value)

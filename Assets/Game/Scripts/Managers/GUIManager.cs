@@ -106,6 +106,11 @@ public class GUIManager : MonoBehaviour
         LoadInitScene();
     }
 
+    public void ClearAllOpenedPopupList()
+    {
+        m_CurrentOpenedPopup.Clear();
+    }
+
     public void LoadInitScene()
     {
         StartCoroutine(LoadScreen());
@@ -115,6 +120,7 @@ public class GUIManager : MonoBehaviour
     {
         Debug.Log("Start Load");
         SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+
         // async = SceneManager.LoadSceneAsync("InitScene", LoadSceneMode.Single);
         async = SceneManager.LoadSceneAsync("InitScene", LoadSceneMode.Single);
         async.allowSceneActivation = false;
@@ -414,6 +420,9 @@ public class GUIManager : MonoBehaviour
             case UIID.POPUP_RATEUS:
                 prefabName = "PopupRateUs";
                 break;
+            case UIID.POPUP_TUTORIAL:
+                prefabName = "PopupTutorial";
+                break;
         }
         prefab = GetPopupPrefabByName(prefabName);
         return prefab;
@@ -468,4 +477,5 @@ public enum UIID
     POPUP_OUTFIT = 6,
     POPUP_LEVELREWARD = 7,
     POPUP_RATEUS = 8,
+    POPUP_TUTORIAL = 9,
 }

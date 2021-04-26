@@ -81,6 +81,11 @@ public class PopupWin : UICanvas
         StopListenToEvent();
     }
 
+    private void OnDestroy()
+    {
+        StopListenToEvent();
+    }
+
     public void StartListenToEvent()
     {
         EventManager.AddListener(GameEvent.ADS_GOLD_2_LOGIC, OnX3RewardLogic);
@@ -196,6 +201,12 @@ public class PopupWin : UICanvas
             if ((levelMap % 4 == 0) && levelMap <= 16 && levelMap > 1 && rateUs)
             {
                 PopupCaller.OpenRateUsPopup();
+                return;
+            }
+
+            if (levelMap > 2)
+            {
+
             }
         });
     }

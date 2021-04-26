@@ -28,6 +28,11 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         StopListenToEvent();
     }
 
+    private void OnDestroy()
+    {
+        StopListenToEvent();
+    }
+
     public void StartListenToEvent()
     {
         EventManagerWithParam<int>.AddListener(GameEvent.CHAR_CLAIM_KEYKEY, SpawnKey);

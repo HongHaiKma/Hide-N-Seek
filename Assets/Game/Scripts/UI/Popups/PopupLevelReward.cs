@@ -60,6 +60,11 @@ public class PopupLevelReward : UICanvas
         StopListenToEvent();
     }
 
+    private void OnDestroy()
+    {
+        StopListenToEvent();
+    }
+
     public void StartListenToEvent()
     {
         EventManager.AddListener(GameEvent.ADS_CHARACTER_2_LOGIC, OnWatchVideoRewardLogic);

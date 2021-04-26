@@ -52,6 +52,11 @@ public class Character : InGameObject
         StopListenToEvent();
     }
 
+    private void OnDestroy()
+    {
+        StopListenToEvent();
+    }
+
     public void StartListenToEvent()
     {
         EventManager.AddListener(GameEvent.CHAR_SPOTTED, Disable);
@@ -64,7 +69,7 @@ public class Character : InGameObject
 
     void Update()
     {
-        if (GameManager.Instance.m_LevelStart || GameManager.Instance.m_LevelPause)
+        if (GameManager.Instance.m_LevelStart && !GameManager.Instance.m_LevelPause)
         {
             if (cc_Owner.isGrounded)
             {

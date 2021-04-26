@@ -73,6 +73,11 @@ public class PanelInGame : MonoBehaviour
         StopListenToEvent();
     }
 
+    private void OnDestroy()
+    {
+        StopListenToEvent();
+    }
+
     public void StartListenToEvent()
     {
         // EventManager.AddListener(GameEvent.CHAR_SPOTTED, () => g_Joystick.SetActive(false));

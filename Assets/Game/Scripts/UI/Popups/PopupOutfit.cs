@@ -50,12 +50,18 @@ public class PopupOutfit : UICanvas
         StopListenToEvent();
     }
 
+    private void OnDestroy()
+    {
+        StopListenToEvent();
+    }
+
     public void StartListenToEvent()
     {
         EventManagerWithParam<int>.AddListener(GameEvent.LOAD_OUTFIT_CHARACTER, SetChar);
         EventManager.AddListener(GameEvent.ADS_CHARACTER_LOGIC, OnByBuyAdsLogic);
         EventManager.AddListener(GameEvent.ADS_GOLD_1_LOGIC, OnAdsGoldLogic);
         EventManager.AddListener(GameEvent.ADS_GOLD_1_ANIM, OnAdsGoldAnim);
+        Helper.DebugLog("0000000000000000000000000000000000000000000000000000000000000000000000");
     }
 
     public void StopListenToEvent()
@@ -64,6 +70,7 @@ public class PopupOutfit : UICanvas
         EventManager.RemoveListener(GameEvent.ADS_CHARACTER_LOGIC, OnByBuyAdsLogic);
         EventManager.RemoveListener(GameEvent.ADS_GOLD_1_LOGIC, OnAdsGoldLogic);
         EventManager.RemoveListener(GameEvent.ADS_GOLD_1_ANIM, OnAdsGoldAnim);
+        Helper.DebugLog("44444444444444444444444444444444444444444444444444444444444444444444444");
     }
 
     public void SetChar(int _id)

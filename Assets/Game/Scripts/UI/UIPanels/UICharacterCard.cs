@@ -29,9 +29,10 @@ public class UICharacterCard : MonoBehaviour, ICell
 
     public int txt_SelectChar;
 
-    private void Start()
+    private void Awake()
     {
         // img_Char.sprite = SpriteManager.Instance.m_CharCards[m_UIChar];
+        Helper.DebugLog("UICharacterCard Starttttttttttttttttttttttttttt");
         GUIManager.Instance.AddClickEvent(btn_LoadChar, OnLoadMiniCharacterStudio);
     }
 
@@ -42,7 +43,12 @@ public class UICharacterCard : MonoBehaviour, ICell
         StartListenToEvent();
     }
 
-    private void Disable()
+    private void OnDisable()
+    {
+        StopListenToEvent();
+    }
+
+    private void OnDestroy()
     {
         StopListenToEvent();
     }
@@ -52,6 +58,7 @@ public class UICharacterCard : MonoBehaviour, ICell
         EventManagerWithParam<int>.AddListener(GameEvent.EQUIP_CHAR, SetEquippedChar);
         EventManagerWithParam<int>.AddListener(GameEvent.CLAIM_CHAR, OnUpdateAdsNumber);
         EventManager.AddListener(GameEvent.UI_CARD_SET_SELECT_CHAR, OnSetSelectedCharacter);
+        Helper.DebugLog("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 
     public void StopListenToEvent()
@@ -59,6 +66,7 @@ public class UICharacterCard : MonoBehaviour, ICell
         EventManagerWithParam<int>.RemoveListener(GameEvent.EQUIP_CHAR, SetEquippedChar);
         EventManagerWithParam<int>.RemoveListener(GameEvent.CLAIM_CHAR, OnUpdateAdsNumber);
         EventManager.RemoveListener(GameEvent.UI_CARD_SET_SELECT_CHAR, OnSetSelectedCharacter);
+        Helper.DebugLog("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
     }
 
     //This is called from the SetCell method in DataSource
@@ -148,7 +156,17 @@ public class UICharacterCard : MonoBehaviour, ICell
     private void OnSetSelectedCharacter()
     {
         PopupOutfit popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_OUTFIT) as PopupOutfit;
+        if (popup == null)
+        {
+            Helper.DebugLog("OnSetSelectedCharacter is nullllllllllllllllllllllllllllllllllllllll");
+        }
+
+        if (g_SelectedOutline == null)
+        {
+            Helper.DebugLog("g_SelectedOutline is nullllllllllllllllllllllllllllllllllllllll");
+        }
         g_SelectedOutline.SetActive(m_UICharacterCardInfo.m_Id == popup.m_SelectedCharacter);
+        // g_SelectedOutline.SetActive(true);
     }
 
     public void OnUpdateAdsNumber(int _id)

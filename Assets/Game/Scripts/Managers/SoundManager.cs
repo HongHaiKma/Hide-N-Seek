@@ -56,6 +56,11 @@ public class SoundManager : Singleton<SoundManager>
         StopListenToEvent();
     }
 
+    private void OnDestroy()
+    {
+        StopListenToEvent();
+    }
+
     public void StartListenToEvent()
     {
         EventManager.AddListener(GameEvent.SOUND_CHANGE, OnSoundChange);

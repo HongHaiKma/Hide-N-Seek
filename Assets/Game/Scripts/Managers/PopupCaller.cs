@@ -14,6 +14,11 @@ public class PopupCaller : Singleton<PopupCaller>
         StopListenToEvent();
     }
 
+    private void OnDestroy()
+    {
+        StopListenToEvent();
+    }
+
     public void StartListenToEvent()
     {
         EventManager.AddListener(GameEvent.CHAR_WIN, OpenWinPopup);
@@ -87,5 +92,12 @@ public class PopupCaller : Singleton<PopupCaller>
         PopupRateUs popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_RATEUS) as PopupRateUs;
 
         GUIManager.Instance.ShowUIPopup(popup);
+    }
+
+    public static void OpenTutorialPopup(TutorialType _tut)
+    {
+        PopupTutorial popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_TUTORIAL) as PopupTutorial;
+        GUIManager.Instance.ShowUIPopup(popup);
+        popup.Setup(_tut);
     }
 }

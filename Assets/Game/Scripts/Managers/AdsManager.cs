@@ -100,6 +100,11 @@ public class AdsManager : Singleton<AdsManager>
         StopListenToEvent();
     }
 
+    private void OnDestroy()
+    {
+        StopListenToEvent();
+    }
+
     public void StartListenToEvent()
     {
         EventManager.AddListener(GameEvent.LEVEL_END, LoadBanner);

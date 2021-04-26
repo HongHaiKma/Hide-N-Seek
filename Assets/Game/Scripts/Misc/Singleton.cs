@@ -20,6 +20,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                     instance.gameObject.name = instance.GetType().Name;
                 }
             }
+
             return instance;
         }
     }

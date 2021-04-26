@@ -24,6 +24,11 @@ public class MapController : MonoBehaviour
         StopListenToEvent();
     }
 
+    private void OnDestroy()
+    {
+        StopListenToEvent();
+    }
+
     public void StartListenToEvent()
     {
         EventManager.AddListener(GameEvent.LEVEL_START, SpawnEnemies);

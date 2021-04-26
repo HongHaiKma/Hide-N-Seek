@@ -56,6 +56,11 @@ public class ProfileManager : MonoBehaviour
         StopListenToEvent();
     }
 
+    private void OnDestroy()
+    {
+        StopListenToEvent();
+    }
+
     public void StartListenToEvent()
     {
         EventManager.AddListener(GameEvent.CHAR_WIN, PassLevel);

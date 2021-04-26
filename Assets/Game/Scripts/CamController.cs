@@ -31,6 +31,11 @@ public class CamController : Singleton<CamController>
         StopListenToEvent();
     }
 
+    private void OnDestroy()
+    {
+        StopListenToEvent();
+    }
+
     public void StartListenToEvent()
     {
         // EventManager.AddListener(GameEvent.GAME_START, DetermineCharacter);

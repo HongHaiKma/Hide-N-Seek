@@ -2,16 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// [DefaultExecutionOrder(-5)]
 public class MiniCharacterStudio : Singleton<MiniCharacterStudio>
 {
+    // private static MiniCharacterStudio m_Instance;
+    // public static MiniCharacterStudio Instance
+    // {
+    //     get
+    //     {
+    //         return m_Instance;
+    //     }
+    // }
+
     public GameObject g_Char;
+
+    // private void Awake()
+    // {
+    //     if (m_Instance != null)
+    //     {
+    //         DestroyImmediate(gameObject);
+    //     }
+    //     else
+    //     {
+    //         m_Instance = this;
+    //         DontDestroyOnLoad(gameObject);
+    //     }
+    // }
 
     private void OnEnable()
     {
+        Helper.DebugLog("MiniCharacterStudio OnEnableeeeeeeeeeeeeeeeeeeee");
         StartListenToEvent();
     }
 
-    private void Disable()
+    private void OnDisable()
+    {
+        StopListenToEvent();
+    }
+
+    private void OnDestroy()
     {
         StopListenToEvent();
     }
@@ -38,6 +67,7 @@ public class MiniCharacterStudio : Singleton<MiniCharacterStudio>
 
         if (g_Char != null)
         {
+            Helper.DebugLog("MiniCharacterStudio destroyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
             Destroy(g_Char);
             g_Char = null;
         }
@@ -46,6 +76,8 @@ public class MiniCharacterStudio : Singleton<MiniCharacterStudio>
         g_Char.transform.SetParent(gameObject.transform);
         g_Char.transform.localPosition = a;
         g_Char.GetComponent<MiniCharacter>().m_Anim.SetTrigger("Idle");
+
+        Helper.DebugLog("SpawnMiniCharacterIdle");
     }
 
     public void SpawnMiniCharacter(string _anim)
