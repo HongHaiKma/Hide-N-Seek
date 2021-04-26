@@ -132,10 +132,9 @@ public class Helper
     #region DEBUG
     public static void DebugLog(string mess)
     {
-#if PLATFORM_ANDROID
+#if PLATFORM_EDITOR
         Debug.Log(mess);
 #endif
-
     }
 
     public static void DebugLog(float mess)
