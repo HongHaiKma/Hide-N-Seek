@@ -48,14 +48,17 @@ public class PopupWin : UICanvas
 
         if (GameManager.Instance.m_MapType == MapType.KEY)
         {
-            txt_Level.text = "LEVEL" + ProfileManager.GetLevel().ToString();
+            // txt_Level.text = "LEVEL" + ProfileManager.GetLevel().ToString();
+            txt_Level.text = "LEVEL " + (ProfileManager.GetLevel() - 1).ToString();
+            Helper.DebugLog("Normal level");
         }
         else if (GameManager.Instance.m_MapType == MapType.BONUS)
         {
             txt_Level.text = "BONUS LEVEL";
+            Helper.DebugLog("BONUS level");
         }
 
-        txt_Level.text = "Level " + (ProfileManager.GetLevel() - 1).ToString();
+        // txt_Level.text = "LEVEL " + (ProfileManager.GetLevel() - 1).ToString();
 
         txt_GoldLevel.text = "+" + GameManager.Instance.m_GoldLevel.ToString();
 
@@ -174,7 +177,7 @@ public class PopupWin : UICanvas
         OnClose();
 
         InGameObjectsManager.Instance.DestroyAllInGameObjects();
-        GameManager.Instance.ChangeToPlayScene(() =>
+        GameManager.Instance.ChangeToPlayScene(true, () =>
         {
             EventManager.CallEvent(GameEvent.LEVEL_END);
 

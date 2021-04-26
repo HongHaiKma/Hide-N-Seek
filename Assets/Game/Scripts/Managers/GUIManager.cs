@@ -189,7 +189,7 @@ public class GUIManager : MonoBehaviour
         if (!isLoadInitScene)
         {
             isLoadInitScene = true;
-            GameManager.Instance.ChangeToPlayScene();
+            GameManager.Instance.ChangeToPlayScene(false);
         }
     }
 

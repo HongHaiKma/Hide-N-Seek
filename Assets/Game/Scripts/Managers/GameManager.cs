@@ -177,10 +177,10 @@ public class GameManager : Singleton<GameManager>
         return m_PanelInGame;
     }
 
-    public void ChangeToPlayScene(UnityAction _callback = null)
+    public void ChangeToPlayScene(bool _loading, UnityAction _callback = null)
     {
         // Debug.Log("PlayScene");
-        ChangeScene("PlayScene", () =>
+        ChangeScene(_loading, "PlayScene", () =>
         {
             if (_callback != null)
             {
@@ -191,7 +191,7 @@ public class GameManager : Singleton<GameManager>
         //SpineTextureManager.Instance.LoadBackgroundMaterialByName(1);
     }
 
-    public void ChangeScene(string name, UnityAction _callback = null)
+    public void ChangeScene(bool _loading, string name, UnityAction _callback = null)
     {
         if (IsChanging) return;
         IsChanging = true;
@@ -201,19 +201,39 @@ public class GameManager : Singleton<GameManager>
         // IngameEntityManager.Instance.ClearMap();
         // GUIManager.Instance.ClearAllOpenedPanelList();
         // GUIManager.Instance.ClearAllOpenedPopupList();
-        StartCoroutine(OnChangingScene(_callback));
+        StartCoroutine(OnChangingScene(_loading, _callback));
     }
 
-    public IEnumerator OnChangingScene(UnityAction _callback = null)
+    public IEnumerator OnChangingScene(bool _loading, UnityAction _callback = null)
     {
-        GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingIn");
+        // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingIn");
+        GUIManager.Instance.m_PanelLoading.gameObject.SetActive(true);
 
         yield return Yielders.Get(0.1f);
 
         AsyncOperation async = SceneManager.LoadSceneAsync(m_NextScene, LoadSceneMode.Single);
 
         async.allowSceneActivation = false;
+
+        float _loadProgress = 0;
+
+        if (_loading)
+        {
+            Helper.DebugLog("_Loadingggggggggggggggggggggggggggggggggggggggggggggggggggg");
+            while (_loadProgress <= 1)
+            {
+                _loadProgress += 0.1f;
+                GUIManager.Instance.m_PanelLoading.img_LoadingBar.fillAmount = _loadProgress;
+                // img_LoadingBar.fillAmount = _loadProgress;
+                int percent = (int)(_loadProgress * 100f);
+                if (percent > 100) percent = 100;
+                // m_TextLoadingPer.text = percent + "%";
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+        }
+
         yield return Yielders.EndOfFrame;
+
         while (async.progress < 0.9f)
         {
             yield return Yielders.EndOfFrame;
@@ -225,7 +245,7 @@ public class GameManager : Singleton<GameManager>
         async.allowSceneActivation = true;
         IsChanging = false;
 
-        yield return Yielders.Get(0f);
+        // yield return Yielders.Get(0f);
         yield return Yielders.Get(0.3f);
         // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
 
@@ -236,7 +256,8 @@ public class GameManager : Singleton<GameManager>
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         FindPanelInGame();
         GUIManager.Instance.FindPanelLoadingAds();
-        GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
+        // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
+        GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
         GUIManager.Instance.GetGOPanelLoading().SetActive(false);
 
         // if (m_LevelStart)

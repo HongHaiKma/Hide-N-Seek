@@ -42,7 +42,7 @@ public class PopupLose : UICanvas
 
         InGameObjectsManager.Instance.DestroyAllInGameObjects();
 
-        GameManager.Instance.ChangeToPlayScene(() =>
+        GameManager.Instance.ChangeToPlayScene(true, () =>
         {
             EventManager.CallEvent(GameEvent.LEVEL_START);
             GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
@@ -66,15 +66,15 @@ public class PopupLose : UICanvas
 
         InGameObjectsManager.Instance.DestroyAllInGameObjects();
 
-        GameManager.Instance.ChangeToPlayScene(() =>
-        {
-            EventManager.CallEvent(GameEvent.LEVEL_END);
+        GameManager.Instance.ChangeToPlayScene(true, () =>
+         {
+             EventManager.CallEvent(GameEvent.LEVEL_END);
 
-            bool level = (ProfileManager.GetLevel() - 1) >= 3 ? true : false;
-            if (level)
-            {
-                AdsManager.Instance.WatchInterstitial();
-            }
-        });
+             bool level = (ProfileManager.GetLevel() - 1) >= 3 ? true : false;
+             if (level)
+             {
+                 AdsManager.Instance.WatchInterstitial();
+             }
+         });
     }
 }

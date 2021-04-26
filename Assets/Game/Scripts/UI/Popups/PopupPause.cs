@@ -52,7 +52,7 @@ public class PopupPause : UICanvas
 
         Time.timeScale = 1;
         InGameObjectsManager.Instance.DestroyAllInGameObjects();
-        GameManager.Instance.ChangeToPlayScene(() =>
+        GameManager.Instance.ChangeToPlayScene(true, () =>
         {
             GameManager.Instance.m_LevelStart = true;
 
@@ -105,15 +105,15 @@ public class PopupPause : UICanvas
 
         Time.timeScale = 1;
         InGameObjectsManager.Instance.DestroyAllInGameObjects();
-        GameManager.Instance.ChangeToPlayScene(() =>
-        {
-            OnClose();
-            EventManager.CallEvent(GameEvent.LEVEL_END);
-            GameManager.Instance.m_LevelStart = false;
-            EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
-            GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(false);
-            SoundManager.Instance.m_BGM.Pause();
-        });
+        GameManager.Instance.ChangeToPlayScene(true, () =>
+         {
+             OnClose();
+             EventManager.CallEvent(GameEvent.LEVEL_END);
+             GameManager.Instance.m_LevelStart = false;
+             EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
+             GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(false);
+             SoundManager.Instance.m_BGM.Pause();
+         });
 
         // var tasks = new List<Task>();
         // tasks.Add(Task.Run(() =>
