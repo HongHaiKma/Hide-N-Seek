@@ -22,7 +22,7 @@ public class UICharacterOutfit : MonoBehaviour, IRecyclableScrollRectDataSource
     //Dummy data List
     private List<UICharacterCardInfo> _contactList = new List<UICharacterCardInfo>();
 
-    // public PopupOutfit
+    public RectTransform rect_Content;
 
     //Recyclable scroll rect's data source must be assigned in Awake.
     private void Awake()

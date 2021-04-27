@@ -73,11 +73,18 @@ public class PopupCaller : Singleton<PopupCaller>
         GUIManager.Instance.ShowUIPopup(popup);
     }
 
-    public static void OpenOutfitPopup()
+    public static void OpenOutfitPopup(bool _isClose)
     {
         PopupOutfit popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_OUTFIT) as PopupOutfit;
 
-        GUIManager.Instance.ShowUIPopup(popup);
+        GUIManager.Instance.ShowUIPopup(popup, _isClose);
+    }
+
+    public static PopupOutfit GetOutfitPopup()
+    {
+        PopupOutfit popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_OUTFIT) as PopupOutfit;
+
+        return popup;
     }
 
     public static void OpenLevelRewardPopup()
@@ -94,10 +101,15 @@ public class PopupCaller : Singleton<PopupCaller>
         GUIManager.Instance.ShowUIPopup(popup);
     }
 
-    public static void OpenTutorialPopup(TutorialType _tut)
+    public static void OpenTutorialPopup(bool _isClose)
     {
         PopupTutorial popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_TUTORIAL) as PopupTutorial;
-        GUIManager.Instance.ShowUIPopup(popup);
-        popup.Setup(_tut);
+        GUIManager.Instance.ShowUIPopup(popup, _isClose);
+    }
+
+    public static PopupTutorial GetTutorialPopup()
+    {
+        PopupTutorial popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_TUTORIAL) as PopupTutorial;
+        return popup;
     }
 }

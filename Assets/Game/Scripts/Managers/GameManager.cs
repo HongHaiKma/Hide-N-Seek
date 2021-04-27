@@ -43,13 +43,6 @@ public class GameManager : Singleton<GameManager>
         {
             m_DailyNoti.OnUpdate();
         }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
-            Helper.DebugLog("TotalGoldChar: " + ProfileManager.GetTotalGoldChar());
-            Helper.DebugLog("TotalGoldChar Owned: " + ProfileManager.GetTotaOwnedlGoldChar());
-        }
     }
 
     private void OnApplicationFocus(bool focus)
@@ -261,6 +254,12 @@ public class GameManager : Singleton<GameManager>
         GUIManager.Instance.FindPanelLoadingAds();
         GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
         GUIManager.Instance.GetGOPanelLoading().SetActive(false);
+
+        if (ProfileManager.GetLevel() == 1)
+        {
+            // EventManager.CallEvent(GameEvent.LEVEL_START);
+            m_PanelInGame.OnPlay();
+        }
 
         _callback();
 

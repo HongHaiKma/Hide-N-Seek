@@ -33,7 +33,7 @@ public class PlayerProfile
         PlayerPrefs.SetInt(ConfigKeys.noAds, 0);
         PlayerPrefs.SetInt(ConfigKeys.rateUs, 1);
 
-        string ic = "0";
+        string ic = "600";
         m_Gold = new BigNumber(ic);
         m_Level = 1;
         UnlockCharacter(CharacterType.BLUEBOY);

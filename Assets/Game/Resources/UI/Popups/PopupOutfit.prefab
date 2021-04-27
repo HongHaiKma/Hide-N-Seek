@@ -946,8 +946,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ID: 6
-  IsOpenPrevious: 1
-  IsAutoRemove: 0
+  IsOpenPrevious: 0
+  IsAutoRemove: 1
   IsAvoidBackKey: 0
   btn_Close: {fileID: 6701795526959859245}
   m_SelectedCharacter: 0
@@ -961,6 +961,7 @@ MonoBehaviour:
   txt_BuyByGold: {fileID: 8510549389713655299}
   txt_AdsNumber: {fileID: 5316277317658921960}
   g_Warning: {fileID: 5358315340887754232}
+  m_UICharacterOutfit: {fileID: 8286558152191703821}
 --- !u!1 &3346165627882729651
 GameObject:
   m_ObjectHideFlags: 0
@@ -3096,8 +3097,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4810494081315150064, guid: bdfff430d8c634b4290f94fbc2e78778, type: 3}
+      propertyPath: rect_Content
+      value: 
+      objectReference: {fileID: 7791955120020253967}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdfff430d8c634b4290f94fbc2e78778, type: 3}
+--- !u!224 &7791955120020253967 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6638059253393231602, guid: bdfff430d8c634b4290f94fbc2e78778, type: 3}
+  m_PrefabInstance: {fileID: 3476086621565641725}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8286558152191703821 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4810494081315150064, guid: bdfff430d8c634b4290f94fbc2e78778, type: 3}
+  m_PrefabInstance: {fileID: 3476086621565641725}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b8e284ca7dac844831087aabb1f02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3256328222549128068 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2093407576643784825, guid: bdfff430d8c634b4290f94fbc2e78778, type: 3}

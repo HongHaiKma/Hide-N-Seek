@@ -98,6 +98,15 @@ public class UICharacterCard : MonoBehaviour, ICell
         SetCellStatus();
     }
 
+    public bool CheckTutorial()
+    {
+        if (TutorialManager.Instance.CheckTutorial(TutorialType.SHOP_BUYBYGOLD))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void SetCellStatus()
     {
         CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_UICharacterCardInfo.m_Id);
@@ -142,6 +151,15 @@ public class UICharacterCard : MonoBehaviour, ICell
             g_AdsClaim.SetActive(adsCheck);
             img_BG.sprite = SpriteManager.Instance.m_Mics[(int)MiscSpriteKeys.UI_CARD_BG_LOCK];
         }
+
+        if (m_UICharacterCardInfo.m_Id == 2)
+        {
+            if (CheckTutorial())
+            {
+                PopupCaller.OpenTutorialPopup(false);
+                PopupCaller.GetTutorialPopup().SetupTutShopByBuyGold_ClickCharUI(GetComponent<RectTransform>());
+            }
+        }
     }
 
     private void OnLoadMiniCharacterStudio()
@@ -151,20 +169,24 @@ public class UICharacterCard : MonoBehaviour, ICell
         EventManager.CallEvent(GameEvent.UI_CARD_SET_SELECT_CHAR);
         // PopupOutfit popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_OUTFIT) as PopupOutfit;
         // g_SelectedOutline.SetActive(m_UICharacterCardInfo.m_Id == popup.m_SelectedCharacter);
+
+        // if (CheckTutorial.TutorialType.)
+        // {
+
+        // }
+
+        if (m_UICharacterCardInfo.m_Id == 2)
+        {
+            if (CheckTutorial())
+            {
+                PopupCaller.GetTutorialPopup().SetupTutShopByBuyGold_UnClickCharUI(GetComponent<RectTransform>());
+            }
+        }
     }
 
     private void OnSetSelectedCharacter()
     {
         PopupOutfit popup = GUIManager.Instance.GetUICanvasByID(UIID.POPUP_OUTFIT) as PopupOutfit;
-        if (popup == null)
-        {
-            Helper.DebugLog("OnSetSelectedCharacter is nullllllllllllllllllllllllllllllllllllllll");
-        }
-
-        if (g_SelectedOutline == null)
-        {
-            Helper.DebugLog("g_SelectedOutline is nullllllllllllllllllllllllllllllllllllllll");
-        }
         g_SelectedOutline.SetActive(m_UICharacterCardInfo.m_Id == popup.m_SelectedCharacter);
         // g_SelectedOutline.SetActive(true);
     }

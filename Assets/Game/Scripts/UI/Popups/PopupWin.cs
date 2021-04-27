@@ -204,9 +204,11 @@ public class PopupWin : UICanvas
                 return;
             }
 
-            if (levelMap > 2)
+            if (TutorialManager.Instance.CheckTutorial(TutorialType.SHOP_BUYBYGOLD))
             {
-
+                PopupCaller.OpenTutorialPopup(false);
+                PopupTutorial popup = PopupCaller.GetTutorialPopup();
+                popup.SetupTutShopByBuyGold_ClickShopIcon();
             }
         });
     }

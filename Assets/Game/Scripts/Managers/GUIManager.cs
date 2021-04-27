@@ -147,24 +147,6 @@ public class GUIManager : MonoBehaviour
         FindMainCanvas();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && !IsHoldBackkey)
-        {
-            // if (GameManager.Instance.GetTutorialMode()) return;
-            UICanvas _UICanvas = GUIManager.Instance.GetCurrentPopup();
-            if (_UICanvas != null && !_UICanvas.IsAvoidBackKey)
-            {
-                _UICanvas.OnBack();
-            }
-        }
-
-        // if (Input.GetKeyDown(KeyCode.Z) && !IsHoldBackkey)
-        // {
-        //     PopupCaller.OpenRateUsPopup();
-        // }
-    }
-
     public void FindPanelLoadingAds()
     {
         m_PanelLoadingAds = FindObjectOfType<PanelLoadingAds>().GetComponent<PanelLoadingAds>();

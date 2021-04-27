@@ -41,6 +41,21 @@ public class PanelInGame : MonoBehaviour
     public GameObject g_GoldLevel;
     public Text txt_Level;
 
+    public Transform tf_Content;
+
+    [Header("Test")]
+
+    protected RectTransform m_RectTransform;
+    public RectTransform RectTransform
+    {
+        get { return m_RectTransform; }
+        set { m_RectTransform = value; }
+    }
+
+    protected CanvasGroup m_CanvasGroup;
+
+    private Vector3 m_CenterPos;
+
     private void Awake()
     {
         // Init();
@@ -59,6 +74,29 @@ public class PanelInGame : MonoBehaviour
         // {
         //     GUIManager.Instance.AddClickEvent(btn_BuyNoAds, OnBuyNoAds);
         // }
+    }
+
+    protected void Init(bool isActive = false)
+    {
+        m_RectTransform = GetComponent<RectTransform>();
+        m_CanvasGroup = GetComponent<CanvasGroup>();
+        if (m_CanvasGroup == null)
+        {
+            m_CanvasGroup = gameObject.AddComponent<CanvasGroup>();
+        }
+
+        SetLocalPosition(GetCenterPosition());
+    }
+
+    public void SetLocalPosition(Vector3 position)
+    {
+        if (m_RectTransform != null)
+            m_RectTransform.localPosition = position;
+    }
+
+    public Vector3 GetCenterPosition()
+    {
+        return m_CenterPos;
     }
 
     private void OnEnable()
@@ -264,7 +302,17 @@ public class PanelInGame : MonoBehaviour
     public void OnOpenOutfit()
     {
         g_SettingOption.SetActive(false);
-        PopupCaller.OpenOutfitPopup();
+        PopupCaller.OpenOutfitPopup(false);
+
+        CheckTutorial();
+    }
+
+    public void CheckTutorial()
+    {
+        if (TutorialManager.Instance.CheckTutorial(TutorialType.SHOP_BUYBYGOLD))
+        {
+            PopupCaller.GetTutorialPopup().SetupTutShopByBuyGold_UnClickShopIcon();
+        }
     }
 
     public void OnOpenSetting()

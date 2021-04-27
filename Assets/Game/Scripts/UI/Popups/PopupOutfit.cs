@@ -20,6 +20,8 @@ public class PopupOutfit : UICanvas
 
     public GameObject g_Warning;
 
+    public UICharacterOutfit m_UICharacterOutfit;
+
     private void Awake()
     {
         m_ID = UIID.POPUP_OUTFIT;
@@ -33,6 +35,11 @@ public class PopupOutfit : UICanvas
         SetChar(ProfileManager.GetSelectedCharacter());
     }
 
+    public void OpenTut()
+    {
+        PopupCaller.OpenTutorialPopup(false);
+    }
+
     private void OnEnable()
     {
         g_Warning.SetActive(false);
@@ -42,17 +49,33 @@ public class PopupOutfit : UICanvas
         SetChar(m_SelectedCharacter);
         MiniCharacterStudio.Instance.SpawnMiniCharacterIdle(m_SelectedCharacter);
 
+        // CheckTutorial();
+
         StartListenToEvent();
     }
 
     private void OnDisable()
     {
+        if (CheckTutorial())
+        {
+            TutorialManager.Instance.PassTutorial(TutorialType.SHOP_BUYBYGOLD);
+        }
+
         StopListenToEvent();
+
+        Helper.DebugLog("PopupOutfit OnDisable");
     }
 
     private void OnDestroy()
     {
+        if (CheckTutorial())
+        {
+            TutorialManager.Instance.PassTutorial(TutorialType.SHOP_BUYBYGOLD);
+        }
+
         StopListenToEvent();
+
+        Helper.DebugLog("PopupOutfit OnDestroy");
     }
 
     public void StartListenToEvent()
@@ -61,7 +84,6 @@ public class PopupOutfit : UICanvas
         EventManager.AddListener(GameEvent.ADS_CHARACTER_LOGIC, OnByBuyAdsLogic);
         EventManager.AddListener(GameEvent.ADS_GOLD_1_LOGIC, OnAdsGoldLogic);
         EventManager.AddListener(GameEvent.ADS_GOLD_1_ANIM, OnAdsGoldAnim);
-        Helper.DebugLog("0000000000000000000000000000000000000000000000000000000000000000000000");
     }
 
     public void StopListenToEvent()
@@ -70,7 +92,6 @@ public class PopupOutfit : UICanvas
         EventManager.RemoveListener(GameEvent.ADS_CHARACTER_LOGIC, OnByBuyAdsLogic);
         EventManager.RemoveListener(GameEvent.ADS_GOLD_1_LOGIC, OnAdsGoldLogic);
         EventManager.RemoveListener(GameEvent.ADS_GOLD_1_ANIM, OnAdsGoldAnim);
-        Helper.DebugLog("44444444444444444444444444444444444444444444444444444444444444444444444");
     }
 
     public void SetChar(int _id)
@@ -110,6 +131,13 @@ public class PopupOutfit : UICanvas
         if (ProfileManager.IsEnoughGold(config.m_Price))
         // if (ProfileManager.MyProfile.IsEnoughGold(config.m_Price))
         {
+            if (CheckTutorial())
+            {
+                TutorialManager.Instance.PassTutorial(TutorialType.SHOP_BUYBYGOLD);
+                PopupCaller.GetTutorialPopup().SetupTutShopByBuyGold_UnClickBuyByGoldUI(GetComponent<RectTransform>());
+                PopupCaller.GetTutorialPopup().OnClose();
+            }
+
             ProfileManager.ConsumeGold(config.m_Price);
             ProfileManager.UnlockNewCharacter(m_SelectedCharacter);
             ProfileManager.SetSelectedCharacter(m_SelectedCharacter);
@@ -128,6 +156,15 @@ public class PopupOutfit : UICanvas
         {
             StartCoroutine(IEWarning());
         }
+    }
+
+    public bool CheckTutorial()
+    {
+        if (TutorialManager.Instance.CheckTutorial(TutorialType.SHOP_BUYBYGOLD))
+        {
+            return true;
+        }
+        return false;
     }
 
     IEnumerator IEWarning()

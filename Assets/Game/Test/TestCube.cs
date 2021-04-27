@@ -41,10 +41,7 @@ public class TestCube : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Task3();
-        }
+
     }
 
     // async Task Task1()

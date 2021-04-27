@@ -117,19 +117,19 @@ public class GUIManager1 : MonoBehaviour
         FindMainCanvas();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && !IsHoldBackkey)
-        {
-            // if (GameManager.Instance.GetTutorialMode()) return;
-            UICanvas _UICanvas = GUIManager1.Instance.GetCurrentPopup();
-            if (_UICanvas != null && !_UICanvas.IsAvoidBackKey)
-            {
-                Helper.DebugLog("Back keyyyyyyyyyyyyyyyyyyyyyyyy");
-                _UICanvas.OnBack();
-            }
-        }
-    }
+    // private void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Escape) && !IsHoldBackkey)
+    //     {
+    //         // if (GameManager.Instance.GetTutorialMode()) return;
+    //         UICanvas _UICanvas = GUIManager1.Instance.GetCurrentPopup();
+    //         if (_UICanvas != null && !_UICanvas.IsAvoidBackKey)
+    //         {
+    //             Helper.DebugLog("Back keyyyyyyyyyyyyyyyyyyyyyyyy");
+    //             _UICanvas.OnBack();
+    //         }
+    //     }
+    // }
 
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
     {
