@@ -56,10 +56,10 @@ public class PopupOutfit : UICanvas
 
     private void OnDisable()
     {
-        if (CheckTutorial())
-        {
-            TutorialManager.Instance.PassTutorial(TutorialType.SHOP_BUYBYGOLD);
-        }
+        // if (CheckTutorial())
+        // {
+        //     TutorialManager.Instance.PassTutorial(TutorialType.SHOP_BUYBYGOLD);
+        // }
 
         StopListenToEvent();
 
@@ -68,7 +68,7 @@ public class PopupOutfit : UICanvas
 
     private void OnDestroy()
     {
-        if (CheckTutorial())
+        if (TutorialManager.Instance.CheckTutorial(TutorialType.SHOP_BUYBYGOLD))
         {
             TutorialManager.Instance.PassTutorial(TutorialType.SHOP_BUYBYGOLD);
         }
@@ -131,11 +131,11 @@ public class PopupOutfit : UICanvas
         if (ProfileManager.IsEnoughGold(config.m_Price))
         // if (ProfileManager.MyProfile.IsEnoughGold(config.m_Price))
         {
-            if (CheckTutorial())
+            if (TutorialManager.Instance.CheckTutorial(TutorialType.SHOP_BUYBYGOLD))
             {
                 TutorialManager.Instance.PassTutorial(TutorialType.SHOP_BUYBYGOLD);
                 PopupCaller.GetTutorialPopup().SetupTutShopByBuyGold_UnClickBuyByGoldUI(GetComponent<RectTransform>());
-                PopupCaller.GetTutorialPopup().OnClose();
+                // PopupCaller.GetTutorialPopup().OnClose();
             }
 
             ProfileManager.ConsumeGold(config.m_Price);

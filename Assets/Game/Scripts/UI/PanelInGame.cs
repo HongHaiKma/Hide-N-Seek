@@ -39,6 +39,7 @@ public class PanelInGame : MonoBehaviour
     public GameObject g_Pause;
     public GameObject ui_Keys;
     public GameObject g_GoldLevel;
+    public GameObject g_TutMove;
     public Text txt_Level;
 
     public Transform tf_Content;
@@ -58,6 +59,15 @@ public class PanelInGame : MonoBehaviour
 
     private void Awake()
     {
+        if (ProfileManager.GetLevel() == 1)
+        {
+            g_TutMove.SetActive(true);
+        }
+        else
+        {
+            g_TutMove.SetActive(false);
+        }
+
         // Init();
         GUIManager.Instance.AddClickEvent(btn_Play, OnPlay);
         GUIManager.Instance.AddClickEvent(btn_Pause, OnPause);
@@ -65,6 +75,7 @@ public class PanelInGame : MonoBehaviour
         GUIManager.Instance.AddClickEvent(btn_Setting, OnOpenSetting);
         GUIManager.Instance.AddClickEvent(btn_Sound, OnSetSound);
         GUIManager.Instance.AddClickEvent(btn_Music, OnSetMusic);
+        // GUIManager.Instance.AddClickEvent(btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
 
         // if (Helper.NoAds())
         // {
@@ -74,6 +85,35 @@ public class PanelInGame : MonoBehaviour
         // {
         //     GUIManager.Instance.AddClickEvent(btn_BuyNoAds, OnBuyNoAds);
         // }
+    }
+
+    private void Update()
+    {
+        if (ProfileManager.GetLevel() == 1)
+        {
+            if (g_TutMove.activeInHierarchy)
+            {
+                if (ControlFreak2.CF2Input.GetAxis("Mouse X") != 0 || ControlFreak2.CF2Input.GetAxis("Mouse Y") != 0)
+                {
+                    g_TutMove.SetActive(false);
+                }
+            }
+        }
+        // else
+        // {
+        //     if (!GameManager.Instance.m_LevelStart)
+        //     {
+        //         if (ControlFreak2.CF2Input.GetAxis("Mouse X") != 0 || ControlFreak2.CF2Input.GetAxis("Mouse Y") != 0)
+        //         {
+        //             OnPlay();
+        //         }
+        //     }
+        // }
+    }
+
+    public void Test()
+    {
+        Purchaser.Instance.BuyNoAds();
     }
 
     protected void Init(bool isActive = false)
@@ -311,6 +351,7 @@ public class PanelInGame : MonoBehaviour
     {
         if (TutorialManager.Instance.CheckTutorial(TutorialType.SHOP_BUYBYGOLD))
         {
+            Helper.DebugLog("Open outfit with tut");
             PopupCaller.GetTutorialPopup().SetupTutShopByBuyGold_UnClickShopIcon();
         }
     }

@@ -206,6 +206,7 @@ public class GameManager : Singleton<GameManager>
     public IEnumerator OnChangingScene(bool _loading, UnityAction _callback = null)
     {
         GUIManager.Instance.m_PanelLoading.gameObject.SetActive(true);
+        // PopupCaller.GetTutorialPopup().gameObject.SetActive(false);
         // Destroy(MiniCharacterStudio.Instance.g_Char);
 
         yield return Yielders.Get(0.1f);
@@ -243,7 +244,11 @@ public class GameManager : Singleton<GameManager>
 
         // yield return Yielders.Get(0f);
         // yield return Yielders.Get(0.1f);
+
+
         yield return Yielders.Get(0.3f);
+
+        // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
 
         yield return Yielders.EndOfFrame;
 
@@ -252,14 +257,17 @@ public class GameManager : Singleton<GameManager>
         CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         FindPanelInGame();
         GUIManager.Instance.FindPanelLoadingAds();
-        GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
+        // GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
         GUIManager.Instance.GetGOPanelLoading().SetActive(false);
+
+        GUIManager.Instance.AddClickEvent(m_PanelInGame.btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
 
         if (ProfileManager.GetLevel() == 1)
         {
-            // EventManager.CallEvent(GameEvent.LEVEL_START);
             m_PanelInGame.OnPlay();
         }
+
+        yield return Yielders.Get(0.02f);
 
         _callback();
 

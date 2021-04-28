@@ -38,6 +38,7 @@ public class PopupTutorial : UICanvas
 
     public void SetupTutShopByBuyGold_UnClickShopIcon()
     {
+        Helper.DebugLog("SetupTutShopByBuyGold_UnClickShopIcon");
         PanelInGame panelInGame = GameManager.Instance.GetPanelInGame();
         RectTransform rect = panelInGame.g_Shop.GetComponent<RectTransform>();
         panelInGame.g_Shop.GetComponent<RectTransform>().SetParent(panelInGame.tf_Content, true);
@@ -72,13 +73,19 @@ public class PopupTutorial : UICanvas
         RectTransform rect = PopupCaller.GetOutfitPopup().btn_BuyByGold.GetComponent<RectTransform>();
         rect.SetParent(_rect);
         rect_Hand.localPosition = new Vector3(173f, 107f, 0f);
-        Helper.DebugLog("Complete tut popup!!!!!!!!");
+        // OnClose();
+        gameObject.SetActive(false);
     }
 
     public void SetupTutShopByBuyAds()
     {
 
     }
+
+    // public override void FadeOut()
+    // {
+    //     gameObject.SetActive(false);
+    // }
 
     // public override void OnClose()
     // {

@@ -154,7 +154,8 @@ public class UICharacterCard : MonoBehaviour, ICell
 
         if (m_UICharacterCardInfo.m_Id == 2)
         {
-            if (CheckTutorial())
+            // if (CheckTutorial())
+            if (TutorialManager.Instance.CheckTutorial(TutorialType.SHOP_BUYBYGOLD))
             {
                 PopupCaller.OpenTutorialPopup(false);
                 PopupCaller.GetTutorialPopup().SetupTutShopByBuyGold_ClickCharUI(GetComponent<RectTransform>());
