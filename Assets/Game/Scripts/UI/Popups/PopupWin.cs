@@ -209,6 +209,7 @@ public class PopupWin : UICanvas
                 PopupCaller.OpenTutorialPopup(false);
                 PopupTutorial popup = PopupCaller.GetTutorialPopup();
                 popup.SetupTutShopByBuyGold_ClickShopIcon();
+                Helper.DebugLog("Check tutorial callback");
             }
         });
     }

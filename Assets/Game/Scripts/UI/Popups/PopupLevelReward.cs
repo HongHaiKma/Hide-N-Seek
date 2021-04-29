@@ -104,18 +104,6 @@ public class PopupLevelReward : UICanvas
         AnalysticsManager.LogUnlockCharacter(config.m_Id, config.m_Name);
 
         OnClose();
-
-        // CharacterProfileData data = ProfileManager.GetCharacterProfileData(m_CharId);
-        // CharacterDataConfig config = GameData.Instance.GetCharacterDataConfig(m_CharId);
-
-        // if (data == null)
-        // {
-        //     ProfileManager.UnlockNewCharacter(m_CharId);
-        //     data = new CharacterProfileData();
-        //     data = ProfileManager.GetCharacterProfileData(m_CharId);
-        // }
-
-        // data.ClaimByAds(1);
     }
 
     public void OnWatchVideoRewardAnim()

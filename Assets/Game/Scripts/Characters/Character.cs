@@ -79,6 +79,7 @@ public class Character : InGameObject
             {
                 m_MoveInput = new Vector3(CF2Input.GetAxis("Mouse X"), Physics.gravity.y / 10f, CF2Input.GetAxis("Mouse Y")).normalized;
             }
+            // CF2Input.
         }
 
         // anim_Owner.SetBool("IsRunning", IsRunning());

@@ -4,34 +4,6 @@ using UnityEngine;
 
 public class TutorialManager : Singleton<TutorialManager>
 {
-    private void Update()
-    {
-        // if (Input.GetKeyDown(KeyCode.Z))
-        // {
-        //     if (CheckTutorial(TutorialType.SHOP_BUYBYGOLD))
-        //     {
-        //         PopupCaller.OpenTutorialPopup(false);
-        //         PopupTutorial popup = PopupCaller.GetTutorialPopup();
-        //         popup.SetupTutShopByBuyGold_ClickShopIcon();
-        //     }
-        // }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            PopupCaller.OpenTutorialPopup(false);
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            PlayerPrefs.SetInt(TutorialType.SHOP_BUYBYGOLD.ToString(), 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            PopupCaller.GetTutorialPopup().OnClose();
-        }
-    }
-
     public void OpenTutorial(TutorialType _tutType)
     {
         // switch (_tutType)
@@ -64,6 +36,7 @@ public class TutorialManager : Singleton<TutorialManager>
         {
             if (ProfileManager.GetGold2() >= 500 && (ProfileManager.GetLevel()) >= 2)
             {
+                Helper.DebugLog("Gold and level");
                 return PlayerPrefs.GetInt(TutorialType.SHOP_BUYBYGOLD.ToString()) == 0;
             }
             else

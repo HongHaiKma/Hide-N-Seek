@@ -124,7 +124,7 @@ public class UICanvas : MonoBehaviour
             m_RectTransform.localPosition = position;
     }
 
-    public void FadeOut()
+    public virtual void FadeOut()
     {
         m_CanvasGroup.DOFade(0, 0.2f).SetEase(Ease.Flash).SetUpdate(UpdateType.Late, true); ;
         transform.DOScale(1.05f, 0.2f).SetEase(Ease.Flash).OnComplete(() => { gameObject.SetActive(false); }).SetUpdate(UpdateType.Late, true);

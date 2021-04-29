@@ -365,6 +365,8 @@ public class Purchaser : MonoBehaviour, IStoreListener
             PlayerPrefs.SetInt(ConfigKeys.noAds, 1);
             GameManager.Instance.GetPanelInGame().g_NoAds.SetActive(false);
             AdsManager.Instance.DestroyBanner();
+
+            Helper.DebugLog("Purchase success!!!!!");
         }
 
         //// Or ... a non-consumable product has been purchased by this user.
