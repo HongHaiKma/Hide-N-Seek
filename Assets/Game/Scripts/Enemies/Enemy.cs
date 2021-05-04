@@ -55,6 +55,7 @@ public class Enemy : InGameObject
         m_Char = InGameObjectsManager.Instance.m_Char;
 
         // SetNavStopDist(m_RangeCatch - 1f);
+        SetNavUpdatePosition(true);
         SetNavStopDist(0.6f);
         SetNavSpd(m_MoveSpd);
 
@@ -141,6 +142,12 @@ public class Enemy : InGameObject
     public void SetNavSpd(float _value)
     {
         nav_Agent.speed = _value;
+    }
+
+    public void SetNavUpdatePosition(bool _value)
+    {
+        nav_Agent.updatePosition = _value;
+        nav_Agent.updateRotation = _value;
     }
 
     public Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
@@ -379,7 +386,9 @@ public class Enemy : InGameObject
         tf_Owner.LookAt(m_Char.tf_Owner.position);
         tf_Owner.DOMove(m_Char.tf_Owner.position, 0.7f).OnComplete(() =>
         {
-            SetDestination(m_Char.tf_Owner.position);
+            // SetDestination(m_Char.tf_Owner.position);
+            nav_Agent.Warp(m_Char.tf_Owner.position);
+            SetNavUpdatePosition(false);
         });
 
         anim_Owner.SetTrigger(ConfigKeys.e_Catch);
@@ -398,7 +407,7 @@ public class Enemy : InGameObject
 
     public virtual void OnCatchExecute()
     {
-        SetDestination(m_Char.tf_Owner.position);
+        // SetDestination(m_Char.tf_Owner.position);
     }
 
     public virtual void OnCatchExit()

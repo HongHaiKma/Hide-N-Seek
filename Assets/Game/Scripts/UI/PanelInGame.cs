@@ -75,7 +75,7 @@ public class PanelInGame : MonoBehaviour
         GUIManager.Instance.AddClickEvent(btn_Setting, OnOpenSetting);
         GUIManager.Instance.AddClickEvent(btn_Sound, OnSetSound);
         GUIManager.Instance.AddClickEvent(btn_Music, OnSetMusic);
-        // GUIManager.Instance.AddClickEvent(btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
+        GUIManager.Instance.AddClickEvent(btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
 
         // if (Helper.NoAds())
         // {
@@ -212,7 +212,7 @@ public class PanelInGame : MonoBehaviour
         g_NoAds.SetActive(false);
         g_Play.SetActive(false);
         g_Play.SetActive(false);
-        g_Pause.SetActive(true);
+        g_Pause.SetActive(ProfileManager.GetLevel() > 1);
 
         // g_Joystick.SetActive(true);
         ui_Keys.SetActive(true);
