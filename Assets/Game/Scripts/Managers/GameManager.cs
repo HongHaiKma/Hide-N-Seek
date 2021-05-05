@@ -246,7 +246,7 @@ public class GameManager : Singleton<GameManager>
         // yield return Yielders.Get(0.1f);
 
 
-        yield return Yielders.Get(0.3f);
+        yield return Yielders.Get(0f);
 
         // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
 

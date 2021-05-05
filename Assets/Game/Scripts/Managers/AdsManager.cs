@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GoogleMobileAds.Api;
 using System;
-using GoogleMobileAdsMediationTestSuite.Api;
+// using GoogleMobileAdsMediationTestSuite.Api;
 using Facebook.Unity;
 
 public class AdsManager : Singleton<AdsManager>
@@ -427,10 +427,10 @@ public class AdsManager : Singleton<AdsManager>
         }
     }
 
-    public void ShowMediationTestSuite()
-    {
-        MediationTestSuite.Show();
-    }
+    // public void ShowMediationTestSuite()
+    // {
+    //     MediationTestSuite.Show();
+    // }
 }
 
 public enum RewardType

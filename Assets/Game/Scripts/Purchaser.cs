@@ -32,7 +32,7 @@ public class Purchaser : MonoBehaviour, IStoreListener
     // kProductIDSubscription - it has custom Apple and Google identifiers. We declare their store-
     // specific mapping to Unity Purchasing's AddProduct, below.
 
-    public const string kProductID_NoAds = "noadspack";
+    public const string kProductID_NoAds = "com.hidenseek.remove.ads";
 
     // //GEM PACK
     // public const string kProductID_400gem = "gempack1"; // 400 gem = 2$

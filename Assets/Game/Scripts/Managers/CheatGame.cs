@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using GoogleMobileAdsMediationTestSuite.Api;
+// using GoogleMobileAdsMediationTestSuite.Api;
 
 public class CheatGame : MonoBehaviour
 {
@@ -50,8 +50,8 @@ public class CheatGame : MonoBehaviour
         AdsManager.Instance.DestroyBanner();
     }
 
-    public void ShowMediationTestSuite()
-    {
-        MediationTestSuite.Show();
-    }
+    // public void ShowMediationTestSuite()
+    // {
+    //     MediationTestSuite.Show();
+    // }
 }
