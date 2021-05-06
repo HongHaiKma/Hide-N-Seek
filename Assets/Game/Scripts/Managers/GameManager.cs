@@ -253,19 +253,21 @@ public class GameManager : Singleton<GameManager>
         yield return Yielders.EndOfFrame;
 
 
-        InGameObjectsManager.Instance.LoadMap();
-        CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
-        FindPanelInGame();
-        GUIManager.Instance.FindPanelLoadingAds();
-        // GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
-        GUIManager.Instance.GetGOPanelLoading().SetActive(false);
+        // InGameObjectsManager.Instance.LoadMap();
+        StartCoroutine(InGameObjectsManager.Instance.LoadMap());
 
-        GUIManager.Instance.AddClickEvent(m_PanelInGame.btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
+        // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
+        // FindPanelInGame();
+        // GUIManager.Instance.FindPanelLoadingAds();
+        // // GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
+        // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
 
-        if (ProfileManager.GetLevel() == 1)
-        {
-            m_PanelInGame.OnPlay();
-        }
+        // // GUIManager.Instance.AddClickEvent(m_PanelInGame.btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
+
+        // if (ProfileManager.GetLevel() == 1)
+        // {
+        //     m_PanelInGame.OnPlay();
+        // }
 
         yield return Yielders.Get(0.02f);
 

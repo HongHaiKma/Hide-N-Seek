@@ -75,7 +75,7 @@ public class PanelInGame : MonoBehaviour
         GUIManager.Instance.AddClickEvent(btn_Setting, OnOpenSetting);
         GUIManager.Instance.AddClickEvent(btn_Sound, OnSetSound);
         GUIManager.Instance.AddClickEvent(btn_Music, OnSetMusic);
-        GUIManager.Instance.AddClickEvent(btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
+        // GUIManager.Instance.AddClickEvent(btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
 
         // if (Helper.NoAds())
         // {
@@ -321,6 +321,7 @@ public class PanelInGame : MonoBehaviour
 
     public void JumpToPlay()
     {
+        Helper.DebugLog("Click jump to play");
         int levelPlay = ProfileManager.GetLevel();
         AnalysticsManager.LogPlayLevel(levelPlay);
 

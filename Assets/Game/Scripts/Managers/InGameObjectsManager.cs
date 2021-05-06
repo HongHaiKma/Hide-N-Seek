@@ -9,6 +9,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class InGameObjectsManager : Singleton<InGameObjectsManager>
 {
     // public AssetReference m_Maps;
+    public AssetReference[] m_Maps;
     public Character m_Char;
     public List<Enemy> m_Enemies;
     public List<GoldInGame> m_GoldInGames;
@@ -64,7 +65,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     //     StartCoroutine(IELoadMap());
     // }
 
-    public void LoadMap()
+    public IEnumerator LoadMap()
     {
         // if (!AdsManager.Instance.m_BannerLoaded)
         // {
@@ -100,9 +101,17 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         //     Helper.DebugLog("Destroy mapppppppppppppp");
         // }
         int level = ProfileManager.GetLevel();
-        string name = "Maps/Map" + level.ToString();
-        string name2 = "Map" + level.ToString();
-        GameObject go = Resources.Load<GameObject>(name);
+        // string name = "Maps/Map" + level.ToString();
+        // string name2 = "Map" + level.ToString();
+        // GameObject go = Resources.Load<GameObject>(name);
+
+        // AsyncOperationHandle<GameObject> loadOp = Addressables.LoadAssetAsync<GameObject>(key);
+
+        var goo = m_Maps[level - 1].LoadAssetAsync<GameObject>();
+
+        yield return goo;
+
+        GameObject go = Instantiate(goo.Result);
 
         // GameObject go = new GameObject();
         // var go = SyncAddressables.Instantiate(name2);
@@ -117,8 +126,9 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         //     go = obj.Result as GameObject;
         // }
 
-        GameObject map = Instantiate(go, Vector3.zero, Quaternion.identity);
-        MapController mapControl = map.GetComponent<MapController>();
+        // GameObject map = Instantiate(go, Vector3.zero, Quaternion.identity);
+        // MapController mapControl = map.GetComponent<MapController>();
+        MapController mapControl = go.GetComponent<MapController>();
         // MapController mapControl = go.GetComponent<MapController>();
         m_Map = mapControl;
         m_Map.SetupMap();
@@ -137,6 +147,20 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         {
             m_PanelInGame.txt_Level.text = "BONUS";
             GameManager.Instance.m_MapType = MapType.BONUS;
+        }
+
+        CamController.Instance.m_Char = m_Char;
+        FindPanelInGame();
+        GUIManager.Instance.FindPanelLoadingAds();
+        // GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
+        GUIManager.Instance.GetGOPanelLoading().SetActive(false);
+
+        // GUIManager.Instance.AddClickEvent(m_PanelInGame.btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
+
+        if ((ProfileManager.GetLevel() - 1) == 0)
+        {
+            m_PanelInGame.OnPlay();
+            Helper.DebugLog("Load level 1");
         }
 
         // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
