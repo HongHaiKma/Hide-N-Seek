@@ -140,6 +140,7 @@ public class Purchaser : MonoBehaviour, IStoreListener
 
     public void BuyNoAds()
     {
+        Helper.DebugLog("Purchaser buy no ads");
         BuyProductID(kProductID_NoAds);
     }
 

@@ -77,6 +77,8 @@ public class PanelInGame : MonoBehaviour
         GUIManager.Instance.AddClickEvent(btn_Music, OnSetMusic);
         GUIManager.Instance.AddClickEvent(btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
 
+        // Helper.DebugLog("PanelInGame Awakeeeeeeeeeeeeeeeeee");
+
         // if (Helper.NoAds())
         // {
         //     GameManager.Instance.GetPanelInGame().g_NoAds.SetActive(false);
@@ -263,10 +265,10 @@ public class PanelInGame : MonoBehaviour
         {
             g_NoAds.SetActive(false);
         }
-        else
-        {
-            GUIManager.Instance.AddClickEvent(btn_BuyNoAds, OnBuyNoAds);
-        }
+        // else
+        // {
+        //     GUIManager.Instance.AddClickEvent(btn_BuyNoAds, OnBuyNoAds);
+        // }
 
         // QualitySettings.vSyncCount = 1;
     }

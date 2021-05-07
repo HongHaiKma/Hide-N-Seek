@@ -7,7 +7,7 @@ public class PopupRateUs : UICanvas
 {
     public Button btn_Rate;
     public Button btn_NotNow;
-    public Button btn_NoThanks;
+    // public Button btn_NoThanks;
 
     public int star;
 
@@ -30,7 +30,7 @@ public class PopupRateUs : UICanvas
 
         GUIManager.Instance.AddClickEvent(btn_Rate, ShowRate);
         GUIManager.Instance.AddClickEvent(btn_NotNow, NotNow);
-        GUIManager.Instance.AddClickEvent(btn_NoThanks, NoThanks);
+        // GUIManager.Instance.AddClickEvent(btn_NoThanks, NoThanks);
 
         GUIManager.Instance.AddClickEvent(btn_Star1, ClickStar1);
         GUIManager.Instance.AddClickEvent(btn_Star2, ClickStar2);
@@ -62,6 +62,7 @@ public class PopupRateUs : UICanvas
         {
             PlayerPrefs.SetInt(ConfigKeys.rateUs, 0);
             OnClose();
+            OpenMail();
         }
     }
 
@@ -126,4 +127,31 @@ public class PopupRateUs : UICanvas
         star = 5;
     }
 
+    public void OpenMail()
+    {
+        //         string email = "skysoftone2018@gmail.com";
+        // #if UNITY_EDITOR || UNITY_ANDROID
+        //         string subject = MyEscapeURL("Feedback Stickman Warriors-Version " + Application.version);
+        // #else
+        //         string subject = MyEscapeURL("IOS_Feedback Stickman Warriors-Version " + Application.version);
+        // #endif
+        //         string body = MyEscapeURL("Please tell us what we can improve in the game.");
+
+
+        //         Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + body);
+
+        string email = "skycentralgames@gmail.com";
+
+        string subject = MyEscapeURL("Feedback Hide and Seek 3D: Monster Escape v" + Application.version);
+
+        string body = MyEscapeURL("Please tell us what we can improve in the game.");
+
+
+        Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + body);
+    }
+
+    string MyEscapeURL(string url)
+    {
+        return WWW.EscapeURL(url).Replace("+", "%20");
+    }
 }

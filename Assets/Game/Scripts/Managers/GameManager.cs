@@ -260,7 +260,7 @@ public class GameManager : Singleton<GameManager>
         // GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
         GUIManager.Instance.GetGOPanelLoading().SetActive(false);
 
-        GUIManager.Instance.AddClickEvent(m_PanelInGame.btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
+        // GUIManager.Instance.AddClickEvent(m_PanelInGame.btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
 
         if (ProfileManager.GetLevel() == 1)
         {
