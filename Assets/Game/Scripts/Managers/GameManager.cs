@@ -17,7 +17,7 @@ public class GameManager : Singleton<GameManager>
 
     public BigNumber m_GoldLevel;
 
-    private PanelInGame m_PanelInGame;
+    public PanelInGame m_PanelInGame;
 
     public int m_LoseStreak;
 
@@ -271,6 +271,7 @@ public class GameManager : Singleton<GameManager>
 
         yield return Yielders.Get(0.02f);
 
+        FindPanelInGame();
         _callback();
 
         // QualitySettings.vSyncCount = 0;

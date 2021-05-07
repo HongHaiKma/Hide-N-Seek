@@ -87,29 +87,34 @@ public class PanelInGame : MonoBehaviour
         // }
     }
 
-    private void Update()
-    {
-        if (ProfileManager.GetLevel() == 1)
-        {
-            if (g_TutMove.activeInHierarchy)
-            {
-                if (ControlFreak2.CF2Input.GetAxis("Mouse X") != 0 || ControlFreak2.CF2Input.GetAxis("Mouse Y") != 0)
-                {
-                    g_TutMove.SetActive(false);
-                }
-            }
-        }
-        // else
-        // {
-        //     if (!GameManager.Instance.m_LevelStart)
-        //     {
-        //         if (ControlFreak2.CF2Input.GetAxis("Mouse X") != 0 || ControlFreak2.CF2Input.GetAxis("Mouse Y") != 0)
-        //         {
-        //             OnPlay();
-        //         }
-        //     }
-        // }
-    }
+    // private void Update()
+    // {
+    //     // if (ProfileManager.GetLevel() == 1)
+    //     // {
+    //     //     if (g_TutMove.activeInHierarchy)
+    //     //     {
+    //     //         if (ControlFreak2.CF2Input.GetAxis("Mouse X") != 0 || ControlFreak2.CF2Input.GetAxis("Mouse Y") != 0)
+    //     //         {
+    //     //             g_TutMove.SetActive(false);
+    //     //         }
+    //     //     }
+    //     // }
+    //     // else
+    //     // {
+    //     //     if (!GameManager.Instance.m_LevelStart)
+    //     //     {
+    //     //         if (ControlFreak2.CF2Input.GetAxis("Mouse X") != 0 || ControlFreak2.CF2Input.GetAxis("Mouse Y") != 0)
+    //     //         {
+    //     //             OnPlay();
+    //     //         }
+    //     //     }
+    //     // }
+
+    //     if (Input.GetKeyDown(KeyCode.V))
+    //     {
+    //         JumpToPlay();
+    //     }
+    // }
 
     public void Test()
     {

@@ -57,6 +57,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
     public void FindPanelInGame()
     {
+        Helper.DebugLog("FindPanelInGame");
         m_PanelInGame = FindObjectOfType<PanelInGame>().GetComponent<PanelInGame>();
     }
 
