@@ -271,7 +271,7 @@ public class GameManager : Singleton<GameManager>
 
         yield return Yielders.Get(0.02f);
 
-        FindPanelInGame();
+        // FindPanelInGame();
         _callback();
 
         // QualitySettings.vSyncCount = 0;

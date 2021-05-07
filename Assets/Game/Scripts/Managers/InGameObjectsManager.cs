@@ -152,7 +152,9 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
         CamController.Instance.m_Char = m_Char;
         FindPanelInGame();
+        GameManager.Instance.FindPanelInGame();
         GUIManager.Instance.FindPanelLoadingAds();
+
         // GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
         GUIManager.Instance.GetGOPanelLoading().SetActive(false);
 
