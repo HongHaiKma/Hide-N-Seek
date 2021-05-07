@@ -188,6 +188,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
             Destroy(m_Char.gameObject);
             m_Map.nav_Surface.gameObject.SetActive(false);
             Destroy(m_Map.gameObject);
+            Addressables.Release(m_Map.gameObject);
         }
         ProfileManager.SetLevel(_level);
         string name = "Maps/Map" + _level.ToString();
@@ -247,7 +248,9 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     {
         if (m_Map != null)
         {
+            Addressables.Release(m_Map.gameObject);
             Destroy(m_Map);
+            // Addressables.Release(m_Map.gameObject);
         }
     }
 
