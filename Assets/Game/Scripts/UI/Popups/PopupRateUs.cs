@@ -140,7 +140,7 @@ public class PopupRateUs : UICanvas
 
         //         Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + body);
 
-        string email = "skycentralgames@gmail.com";
+        string email = "nvphong2312x87@gmail.com";
 
         string subject = MyEscapeURL("Feedback Hide and Seek 3D: Monster Escape v" + Application.version);
 
