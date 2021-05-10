@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.AddressableAssets;
 
 [DefaultExecutionOrder(-94)]
 public class GameManager : Singleton<GameManager>
@@ -28,6 +29,8 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
+        Addressables.InitializeAsync();
+
         Application.targetFrameRate = 90;
         m_LoseStreak = 0;
 

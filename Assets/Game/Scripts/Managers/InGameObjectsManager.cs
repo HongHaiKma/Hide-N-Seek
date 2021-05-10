@@ -19,6 +19,11 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
     private AsyncOperationHandle<GameObject> m_MapAsync;
 
+    // private void Awake()
+    // {
+    //     Addressables.InitializeAsync();
+    // }
+
     private void OnEnable()
     {
         // LoadMap();
