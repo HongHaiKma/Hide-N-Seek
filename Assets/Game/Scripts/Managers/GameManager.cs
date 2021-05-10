@@ -172,6 +172,10 @@ public class GameManager : Singleton<GameManager>
 
     public PanelInGame GetPanelInGame()
     {
+        if (m_PanelInGame == null)
+        {
+            FindPanelInGame();
+        }
         return m_PanelInGame;
     }
 

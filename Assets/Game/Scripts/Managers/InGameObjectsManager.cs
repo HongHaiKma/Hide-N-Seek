@@ -17,6 +17,8 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     public MapController m_Map;
     public PanelInGame m_PanelInGame;
 
+    private AsyncOperationHandle<GameObject> m_MapAsync;
+
     private void OnEnable()
     {
         // LoadMap();
@@ -31,6 +33,8 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
     private void OnDestroy()
     {
+        Helper.DebugLog("On destroyyyyyyyyyyyyyyyyyy");
+        DestroyMap();
         StopListenToEvent();
     }
 
@@ -109,6 +113,9 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         // AsyncOperationHandle<GameObject> loadOp = Addressables.LoadAssetAsync<GameObject>(key);
 
         var goo = m_Maps[level - 1].LoadAssetAsync<GameObject>();
+        // var goo = Addressables.InstantiateAsync<GameObject>(m_Maps[level - 1]);
+
+        m_MapAsync = goo;
 
         yield return goo;
 
@@ -248,8 +255,8 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     {
         if (m_Map != null)
         {
-            Addressables.Release(m_Map.gameObject);
-            Destroy(m_Map);
+            Destroy(m_Map.gameObject);
+            Addressables.Release(m_MapAsync);
             // Addressables.Release(m_Map.gameObject);
         }
     }
@@ -258,7 +265,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     {
         if (m_Char != null)
         {
-            Destroy(m_Char);
+            Destroy(m_Char.gameObject);
             Helper.DebugLog("Remove Char");
         }
     }
