@@ -122,7 +122,8 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
         m_MapAsync = goo;
 
-        yield return goo;
+        // yield return goo;
+        yield return Yielders.Get(1f);
 
         GameObject go = Instantiate(goo.Result);
 
