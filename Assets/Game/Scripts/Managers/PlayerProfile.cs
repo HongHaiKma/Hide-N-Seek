@@ -109,7 +109,9 @@ public class PlayerProfile
     {
         AnalysticsManager.LogWinLevel(m_Level);
 
-        if (m_Level < 50)
+        int level = InGameObjectsManager.Instance.m_Maps.Length;
+
+        if (m_Level < level)
         {
             m_Level++;
         }

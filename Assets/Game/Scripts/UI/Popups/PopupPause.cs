@@ -132,34 +132,6 @@ public class PopupPause : UICanvas
         // catch { }
     }
 
-    async Task LoadMap()
-    {
-        // await Task.Delay(1);
-
-        // InGameObjectsManager.Instance.LoadMap();
-
-        // await Task.Delay(1);
-        // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
-        // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
-        // InGameObjectsManager.Instance.RemoveEnemies();
-        var tasks = new List<Task>();
-        tasks.Add(Task.Run(() =>
-        {
-            InGameObjectsManager.Instance.LoadMap();
-            CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
-
-        }));
-
-        Task t = Task.WhenAll(tasks);
-        try
-        {
-            await t;
-        }
-        catch { }
-
-        GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
-    }
-
     public void OnResume()
     {
         OnClose();

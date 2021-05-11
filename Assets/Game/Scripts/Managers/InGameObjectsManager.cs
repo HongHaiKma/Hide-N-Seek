@@ -149,43 +149,72 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
             m_Map = mapControl;
             m_Map.SetupMap();
 
+            if (m_PanelInGame == null)
+            {
+                FindPanelInGame();
+            }
 
+            if (m_Map.m_MapType == MapType.KEY)
+            {
+                m_PanelInGame.txt_Level.text = "LEVEL" + level;
+                GameManager.Instance.m_MapType = MapType.KEY;
+            }
+            else if (m_Map.m_MapType == MapType.BONUS)
+            {
+                m_PanelInGame.txt_Level.text = "BONUS";
+                GameManager.Instance.m_MapType = MapType.BONUS;
+            }
+
+            CamController.Instance.m_Char = m_Char;
+            FindPanelInGame();
+            GameManager.Instance.FindPanelInGame();
+            GUIManager.Instance.FindPanelLoadingAds();
+
+            // GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
+            GUIManager.Instance.GetGOPanelLoading().SetActive(false);
+
+            // GUIManager.Instance.AddClickEvent(m_PanelInGame.btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
+
+            if ((ProfileManager.GetLevel() - 1) == 0)
+            {
+                m_PanelInGame.OnPlay();
+                Helper.DebugLog("Load level 1");
+            }
         };
 
         await goo.Task;
 
-        if (m_PanelInGame == null)
-        {
-            FindPanelInGame();
-        }
+        // if (m_PanelInGame == null)
+        // {
+        //     FindPanelInGame();
+        // }
 
-        if (m_Map.m_MapType == MapType.KEY)
-        {
-            m_PanelInGame.txt_Level.text = "LEVEL" + level;
-            GameManager.Instance.m_MapType = MapType.KEY;
-        }
-        else if (m_Map.m_MapType == MapType.BONUS)
-        {
-            m_PanelInGame.txt_Level.text = "BONUS";
-            GameManager.Instance.m_MapType = MapType.BONUS;
-        }
+        // if (m_Map.m_MapType == MapType.KEY)
+        // {
+        //     m_PanelInGame.txt_Level.text = "LEVEL" + level;
+        //     GameManager.Instance.m_MapType = MapType.KEY;
+        // }
+        // else if (m_Map.m_MapType == MapType.BONUS)
+        // {
+        //     m_PanelInGame.txt_Level.text = "BONUS";
+        //     GameManager.Instance.m_MapType = MapType.BONUS;
+        // }
 
-        CamController.Instance.m_Char = m_Char;
-        FindPanelInGame();
-        GameManager.Instance.FindPanelInGame();
-        GUIManager.Instance.FindPanelLoadingAds();
+        // CamController.Instance.m_Char = m_Char;
+        // FindPanelInGame();
+        // GameManager.Instance.FindPanelInGame();
+        // GUIManager.Instance.FindPanelLoadingAds();
 
-        // GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
-        GUIManager.Instance.GetGOPanelLoading().SetActive(false);
+        // // GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
+        // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
 
-        // GUIManager.Instance.AddClickEvent(m_PanelInGame.btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
+        // // GUIManager.Instance.AddClickEvent(m_PanelInGame.btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
 
-        if ((ProfileManager.GetLevel() - 1) == 0)
-        {
-            m_PanelInGame.OnPlay();
-            Helper.DebugLog("Load level 1");
-        }
-        // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
+        // if ((ProfileManager.GetLevel() - 1) == 0)
+        // {
+        //     m_PanelInGame.OnPlay();
+        //     Helper.DebugLog("Load level 1");
+        // }
     }
 
     // public GameObject OnLoadDone(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<GameObject> obj)
@@ -195,40 +224,22 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
     public void LoadMapCheat(int _level)
     {
-        RemoveEnemies();
-        RemoveGoldInGames();
-
-        // SimplePool.Release();
-        // Resources.UnloadUnusedAssets();
-        // System.GC.Collect();
-
-        if (m_Map != null)
-        {
-            Destroy(m_Char.gameObject);
-            m_Map.nav_Surface.gameObject.SetActive(false);
-            Destroy(m_Map.gameObject);
-            Addressables.Release(m_Map.gameObject);
-        }
         ProfileManager.SetLevel(_level);
-        string name = "Maps/Map" + _level.ToString();
-        GameObject go = Resources.Load<GameObject>(name);
-        GameObject map = Instantiate(go, Vector3.zero, Quaternion.identity);
-        MapController mapControl = map.GetComponent<MapController>();
-        mapControl.nav_Surface.BuildNavMesh();
-        // mapControl.nav_Surface.UpdateNavMesh(mapControl.nav_Surface.navMeshData);
-        m_Map = mapControl;
-        m_Map.SetupMap();
 
-        // if (m_Map.m_MapType == MapType.KEY)
-        // {
-        //     GameManager.Instance.GetPanelInGame().txt_Level.text = "LEVEL" + ProfileManager.GetLevel2();
-        //     // Helper.DebugLog("Maptype: " + GameManager.Instance.m_MapType);
-        // }
-        // else if (m_Map.m_MapType == MapType.BONUS)
-        // {
-        //     GameManager.Instance.GetPanelInGame().txt_Level.text = "BONUS";
-        //     // Helper.DebugLog("Maptype: " + GameManager.Instance.m_MapType);
-        // }
+        Time.timeScale = 1;
+        InGameObjectsManager.Instance.DestroyAllInGameObjects();
+        GameManager.Instance.ChangeToPlayScene(true, () =>
+        {
+            GameManager.Instance.m_LevelStart = true;
+
+            EventManager.CallEvent(GameEvent.LEVEL_START);
+            GameManager.Instance.GetPanelInGame().g_Joystick.SetActive(true);
+            GameManager.Instance.GetPanelInGame().SetIngame();
+            GameManager.Instance.m_LevelStart = true;
+            CamController.Instance.m_StartFollow = true;
+
+            EventManagerWithParam<bool>.CallEvent(GameEvent.LEVEL_PAUSE, false);
+        });
     }
 
     public void SpawnChar(int _id)
@@ -268,7 +279,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         if (m_Map != null)
         {
             Destroy(m_Map.gameObject);
-            Addressables.Release(m_MapAsync);
+            Addressables.ReleaseInstance(m_MapAsync);
             // Addressables.Release(m_Map.gameObject);
         }
     }

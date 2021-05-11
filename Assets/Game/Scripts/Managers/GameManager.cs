@@ -29,7 +29,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
-        Addressables.InitializeAsync();
+        // Addressables.InitializeAsync();
 
         Application.targetFrameRate = 90;
         m_LoseStreak = 0;
@@ -253,7 +253,7 @@ public class GameManager : Singleton<GameManager>
         // yield return Yielders.Get(0.1f);
 
 
-        yield return Yielders.Get(0.3f);
+        // yield return Yielders.Get(0f);
 
         // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
 
