@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -75,7 +76,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     //     StartCoroutine(IELoadMap());
     // }
 
-    public async void LoadMap()
+    public async void LoadMap(UnityAction _callback = null)
     {
         // if (!AdsManager.Instance.m_BannerLoaded)
         // {
@@ -215,6 +216,11 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         //     m_PanelInGame.OnPlay();
         //     Helper.DebugLog("Load level 1");
         // }
+
+        if (_callback != null)
+        {
+            _callback();
+        }
     }
 
     // public GameObject OnLoadDone(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<GameObject> obj)
