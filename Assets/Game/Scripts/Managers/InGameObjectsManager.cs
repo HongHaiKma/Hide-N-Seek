@@ -75,7 +75,7 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
     //     StartCoroutine(IELoadMap());
     // }
 
-    public IEnumerator LoadMap()
+    public async void LoadMap()
     {
         // if (!AdsManager.Instance.m_BannerLoaded)
         // {
@@ -117,35 +117,42 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
         // AsyncOperationHandle<GameObject> loadOp = Addressables.LoadAssetAsync<GameObject>(key);
 
-        var goo = m_Maps[level - 1].LoadAssetAsync<GameObject>();
-        // var goo = Addressables.InstantiateAsync<GameObject>(m_Maps[level - 1]);
+        // var goo = m_Maps[level - 1].LoadAssetAsync<GameObject>();
+        var goo = m_Maps[level - 1].InstantiateAsync();
 
-        m_MapAsync = goo;
+        goo.Completed += (handle) =>
+        {
+            m_MapAsync = goo;
 
-        // yield return goo;
-        yield return Yielders.Get(1f);
+            // yield return goo;
+            // yield return Yielders.Get(1f);
 
-        GameObject go = Instantiate(goo.Result);
+            // GameObject go = Instantiate(goo.Result);
 
-        // GameObject go = new GameObject();
-        // var go = SyncAddressables.Instantiate(name2);
-        // Addressables.LoadAssetAsync<GameObject>(name2).Completed += OnLoadDone;
+            // GameObject go = new GameObject();
+            // var go = SyncAddressables.Instantiate(name2);
+            // Addressables.LoadAssetAsync<GameObject>(name2).Completed += OnLoadDone;
 
-        // AsyncOperationHandle<GameObject> textureHandle = Addressables.LoadAssetAsync<GameObject>(name2);
+            // AsyncOperationHandle<GameObject> textureHandle = Addressables.LoadAssetAsync<GameObject>(name2);
 
-        // var obj = Addressables.InstantiateAsync("Map2");
-        // if (obj.IsDone)
-        // {
-        //     Helper.DebugLog("Addresables is doneeeeeeeeeeeeee");
-        //     go = obj.Result as GameObject;
-        // }
+            // var obj = Addressables.InstantiateAsync("Map2");
+            // if (obj.IsDone)
+            // {
+            //     Helper.DebugLog("Addresables is doneeeeeeeeeeeeee");
+            //     go = obj.Result as GameObject;
+            // }
 
-        // GameObject map = Instantiate(go, Vector3.zero, Quaternion.identity);
-        // MapController mapControl = map.GetComponent<MapController>();
-        MapController mapControl = go.GetComponent<MapController>();
-        // MapController mapControl = go.GetComponent<MapController>();
-        m_Map = mapControl;
-        m_Map.SetupMap();
+            // GameObject map = Instantiate(go, Vector3.zero, Quaternion.identity);
+            // MapController mapControl = map.GetComponent<MapController>();
+            MapController mapControl = goo.Result.GetComponent<MapController>();
+            // MapController mapControl = go.GetComponent<MapController>();
+            m_Map = mapControl;
+            m_Map.SetupMap();
+
+
+        };
+
+        await goo.Task;
 
         if (m_PanelInGame == null)
         {
@@ -178,7 +185,6 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
             m_PanelInGame.OnPlay();
             Helper.DebugLog("Load level 1");
         }
-
         // GUIManager.Instance.g_IngameLoading.GetComponent<Animator>().SetTrigger("LoadingOut");
     }
 

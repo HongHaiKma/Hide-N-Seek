@@ -42,6 +42,7 @@ public class GoldInGame : InGameObject
                 {
                     PrefabManager.Instance.DespawnPool(gameObject);
                     InGameObjectsManager.Instance.m_GoldInGames.Remove(this);
+                    Helper.DebugLog("Despawn gold in game!!!");
                 });
             }
         }

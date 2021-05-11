@@ -261,7 +261,11 @@ public class GameManager : Singleton<GameManager>
 
 
         // InGameObjectsManager.Instance.LoadMap();
-        StartCoroutine(InGameObjectsManager.Instance.LoadMap());
+
+
+        // StartCoroutine(InGameObjectsManager.Instance.LoadMap());
+
+        InGameObjectsManager.Instance.LoadMap();
 
         // CamController.Instance.m_Char = InGameObjectsManager.Instance.m_Char;
         // FindPanelInGame();
