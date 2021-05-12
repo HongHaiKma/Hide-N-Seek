@@ -93,12 +93,11 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
         // StartCoroutine(GUIManager.Instance.m_PanelLoading.StartLoading());
 
-        Helper.DebugLog("Load map ingame object manager!!!!");
 
         // RemoveEnemies();
         // RemoveGoldInGames();
 
-        Helper.DebugLog("Destroy all Enemies!!!");
+
 
         // SimplePool.Release();
         // Resources.UnloadUnusedAssets();
