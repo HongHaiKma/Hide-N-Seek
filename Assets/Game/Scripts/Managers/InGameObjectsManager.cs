@@ -9,8 +9,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 [DefaultExecutionOrder(-90)]
 public class InGameObjectsManager : Singleton<InGameObjectsManager>
 {
-    // public AssetReference m_Maps;
-    public AssetReference[] m_Maps;
     public Character m_Char;
     public List<Enemy> m_Enemies;
     public List<GoldInGame> m_GoldInGames;
@@ -78,74 +76,17 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
 
     public async void LoadMap(UnityAction _callback = null)
     {
-        // if (!AdsManager.Instance.m_BannerLoaded)
-        // {
-        //     AdsManager.Instance.LoadBanner();
-        // }
-
-        // if (!AdsManager.Instance.interstitial.IsLoaded())
-        // {
-        //     AdsManager.Instance.RequestInter();
-        // }
-        // Resources.UnloadUnusedAssets();
-        // System.GC.Collect();
-        // yield return Yielders.Get(0.1f);
-
-        // StartCoroutine(GUIManager.Instance.m_PanelLoading.StartLoading());
-
-
-        // RemoveEnemies();
-        // RemoveGoldInGames();
-
-
-
-        // SimplePool.Release();
-        // Resources.UnloadUnusedAssets();
-        // System.GC.Collect();
-
-        // if (m_Map != null)
-        // {
-        //     Destroy(m_Char.gameObject);
-        //     m_Map.nav_Surface.gameObject.SetActive(false);
-        //     Destroy(m_Map.gameObject);
-        //     Helper.DebugLog("Destroy mapppppppppppppp");
-        // }
         int level = ProfileManager.GetLevel();
-        // string name = "Maps/Map" + level.ToString();
-        // string name2 = "Map" + level.ToString();
-        // GameObject go = Resources.Load<GameObject>(name);
-
-        // AsyncOperationHandle<GameObject> loadOp = Addressables.LoadAssetAsync<GameObject>(key);
-
-        // var goo = m_Maps[level - 1].LoadAssetAsync<GameObject>();
-        var goo = m_Maps[level - 1].InstantiateAsync();
+        string levelStr = "Map" + ProfileManager.GetLevel2();
+        // var goo = m_Maps[level - 1].InstantiateAsync();
+        var goo = Addressables.InstantiateAsync(levelStr);
 
         goo.Completed += (handle) =>
         {
             m_MapAsync = goo;
 
-            // yield return goo;
-            // yield return Yielders.Get(1f);
-
-            // GameObject go = Instantiate(goo.Result);
-
-            // GameObject go = new GameObject();
-            // var go = SyncAddressables.Instantiate(name2);
-            // Addressables.LoadAssetAsync<GameObject>(name2).Completed += OnLoadDone;
-
-            // AsyncOperationHandle<GameObject> textureHandle = Addressables.LoadAssetAsync<GameObject>(name2);
-
-            // var obj = Addressables.InstantiateAsync("Map2");
-            // if (obj.IsDone)
-            // {
-            //     Helper.DebugLog("Addresables is doneeeeeeeeeeeeee");
-            //     go = obj.Result as GameObject;
-            // }
-
-            // GameObject map = Instantiate(go, Vector3.zero, Quaternion.identity);
-            // MapController mapControl = map.GetComponent<MapController>();
             MapController mapControl = goo.Result.GetComponent<MapController>();
-            // MapController mapControl = go.GetComponent<MapController>();
+
             m_Map = mapControl;
             m_Map.SetupMap();
 
@@ -170,10 +111,8 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
             GameManager.Instance.FindPanelInGame();
             GUIManager.Instance.FindPanelLoadingAds();
 
-            // GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
             GUIManager.Instance.GetGOPanelLoading().SetActive(false);
 
-            // GUIManager.Instance.AddClickEvent(m_PanelInGame.btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
 
             if ((ProfileManager.GetLevel() - 1) == 0)
             {
@@ -183,38 +122,6 @@ public class InGameObjectsManager : Singleton<InGameObjectsManager>
         };
 
         await goo.Task;
-
-        // if (m_PanelInGame == null)
-        // {
-        //     FindPanelInGame();
-        // }
-
-        // if (m_Map.m_MapType == MapType.KEY)
-        // {
-        //     m_PanelInGame.txt_Level.text = "LEVEL" + level;
-        //     GameManager.Instance.m_MapType = MapType.KEY;
-        // }
-        // else if (m_Map.m_MapType == MapType.BONUS)
-        // {
-        //     m_PanelInGame.txt_Level.text = "BONUS";
-        //     GameManager.Instance.m_MapType = MapType.BONUS;
-        // }
-
-        // CamController.Instance.m_Char = m_Char;
-        // FindPanelInGame();
-        // GameManager.Instance.FindPanelInGame();
-        // GUIManager.Instance.FindPanelLoadingAds();
-
-        // // GUIManager.Instance.m_PanelLoading.gameObject.SetActive(false);
-        // GUIManager.Instance.GetGOPanelLoading().SetActive(false);
-
-        // // GUIManager.Instance.AddClickEvent(m_PanelInGame.btn_BuyNoAds, Purchaser.Instance.BuyNoAds);
-
-        // if ((ProfileManager.GetLevel() - 1) == 0)
-        // {
-        //     m_PanelInGame.OnPlay();
-        //     Helper.DebugLog("Load level 1");
-        // }
 
         if (_callback != null)
         {
