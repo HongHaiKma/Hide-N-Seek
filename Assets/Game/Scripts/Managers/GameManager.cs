@@ -31,7 +31,7 @@ public class GameManager : Singleton<GameManager>
     {
         // Addressables.InitializeAsync();
 
-        Application.targetFrameRate = 90;
+        // Application.targetFrameRate = 90;
         m_LoseStreak = 0;
 
         NotificationManager.Instance.m_NotiDict.Add(CdType.NOTI_DAILY, m_DailyNotiContent);
