@@ -182,18 +182,18 @@ public class Enemy : InGameObject
         return false;
     }
 
-    IEnumerator TurnToFace(Vector3 lookTarget)
-    {
-        Vector3 dirToLookTarget = (lookTarget - tf_Owner.position).normalized;
-        float targetAngle = 90 - Mathf.Atan2(dirToLookTarget.z, dirToLookTarget.x) * Mathf.Rad2Deg;
+    // IEnumerator TurnToFace(Vector3 lookTarget)
+    // {
+    //     Vector3 dirToLookTarget = (lookTarget - tf_Owner.position).normalized;
+    //     float targetAngle = 90 - Mathf.Atan2(dirToLookTarget.z, dirToLookTarget.x) * Mathf.Rad2Deg;
 
-        while (Mathf.Abs(Mathf.DeltaAngle(tf_Owner.eulerAngles.y, targetAngle)) > 0.05f)
-        {
-            float angle = Mathf.MoveTowardsAngle(tf_Owner.eulerAngles.y, targetAngle, m_TurnSpd * Time.deltaTime);
-            tf_Owner.eulerAngles = Vector3.up * angle;
-            yield return null;
-        }
-    }
+    //     while (Mathf.Abs(Mathf.DeltaAngle(tf_Owner.eulerAngles.y, targetAngle)) > 0.05f)
+    //     {
+    //         float angle = Mathf.MoveTowardsAngle(tf_Owner.eulerAngles.y, targetAngle, m_TurnSpd * Time.deltaTime);
+    //         tf_Owner.eulerAngles = Vector3.up * angle;
+    //         yield return null;
+    //     }
+    // }
 
     #region State
 
