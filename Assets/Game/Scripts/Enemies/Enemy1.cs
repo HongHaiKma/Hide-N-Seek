@@ -31,7 +31,7 @@ public class Enemy1 : Enemy
 
         if (m_IdleTime > m_IdleTimeMax)
         {
-            if (ProfileManager.GetLevel() > 3)
+            if (ProfileManager.GetLevel() > 4)
             {
                 ChangeState(E_PatrolState.Instance);
             }
