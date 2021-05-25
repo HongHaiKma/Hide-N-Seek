@@ -95,7 +95,7 @@ public class Enemy : InGameObject
         Vector3 dir = (m_Char.tf_RayStartPoint.position - tf_RayStartPoint.position).normalized;
     }
 
-    private void LoadDataConfig()
+    public virtual void LoadDataConfig()
     {
         m_IdleTime = 0f;
         m_IdleTimeMax = 2f;
@@ -251,8 +251,18 @@ public class Enemy : InGameObject
         m_EnemyState = EnemyState.PATROL;
         anim_Owner.SetTrigger(ConfigKeys.e_Run);
 
-        Vector3 newPos = RandomNavSphere(tf_Owner.position, m_PatrolRadius, -1);
-        SetDestination(newPos);
+        int level = ProfileManager.GetLevel();
+
+        if (level <= 3)
+        {
+            Vector3 newPos = tf_Owner.position;
+            SetDestination(newPos);
+        }
+        else
+        {
+            Vector3 newPos = RandomNavSphere(tf_Owner.position, m_PatrolRadius, -1);
+            SetDestination(newPos);
+        }
     }
 
     public virtual void OnPatrolExecute()

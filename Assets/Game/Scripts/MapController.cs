@@ -67,6 +67,7 @@ public class MapController : MonoBehaviour
         {
             m_Keys[i].SetActive(false);
         }
+
         m_Door.SetActive(false);
 
         KeyKey.m_KeyNo = 0;

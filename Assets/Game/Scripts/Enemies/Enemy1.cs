@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Enemy1 : Enemy
 {
+    public override void LoadDataConfig()
+    {
+        base.LoadDataConfig();
+        m_IdleTimeMax = 3f;
+    }
+
     public override void OnIdleExecute()
     {
         if (CanSeePlayer() && !IsThroughWall() && (Mathf.Abs(tf_Owner.position.y - m_Char.tf_Owner.position.y) < 0.5f))
@@ -24,7 +31,15 @@ public class Enemy1 : Enemy
 
         if (m_IdleTime > m_IdleTimeMax)
         {
-            ChangeState(E_PatrolState.Instance);
+            if (ProfileManager.GetLevel() > 3)
+            {
+                ChangeState(E_PatrolState.Instance);
+            }
+            else
+            {
+                m_IdleTime = 0f;
+                tf_Owner.DORotate(new Vector3(tf_Owner.position.x, Random.Range(-360, 360), tf_Owner.position.z), 1.5f);
+            }
         }
     }
 
@@ -42,6 +57,10 @@ public class Enemy1 : Enemy
         {
             // nav_Agent.isStopped = true;
             ChangeState(E_IdleState.Instance);
+        }
+        else
+        {
+
         }
     }
 
